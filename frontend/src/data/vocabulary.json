@@ -1,0 +1,12 @@
+[
+  { "id": 1,  "category": "Family",   "english": "Brother",  "german": "Der Bruder" },
+  { "id": 2,  "category": "Family",   "english": "Sister",   "german": "Die Schwester" },
+  { "id": 3,  "category": "Business", "english": "Company",  "german": "Das Unternehmen" },
+  { "id": 4,  "category": "Business", "english": "Meeting",  "german": "Das Meeting" },
+  { "id": 5,  "category": "Food",     "english": "Apple",    "german": "Der Apfel" },
+  { "id": 6,  "category": "Food",     "english": "Bread",    "german": "Das Brot" },
+  { "id": 7,  "category": "Travel",   "english": "Train",    "german": "Der Zug" },
+  { "id": 8,  "category": "Travel",   "english": "Airport",  "german": "Der Flughafen" },
+  { "id": 9,  "category": "Home",     "english": "Chair",    "german": "Der Stuhl" },
+  { "id": 10, "category": "Home",     "english": "Window",   "german": "Das Fenster" }
+]
