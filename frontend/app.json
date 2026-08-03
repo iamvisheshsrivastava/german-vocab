@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "frontend",
+    "name": "German Vocab",
     "slug": "frontend",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#000000"
+        "backgroundColor": "#12233d"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.emergent.offlinedeutsch.nvr157"
@@ -33,7 +33,7 @@
           "image": "./assets/images/splash-image.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#000000"
+          "backgroundColor": "#12233d"
         }
       ]
     ],

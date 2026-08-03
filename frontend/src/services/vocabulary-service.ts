@@ -13,7 +13,7 @@ export function getCategories(words: VocabWord[]): string[] {
 }
 
 // Fisher-Yates shuffle (non-mutating).
-function shuffle<T>(input: T[]): T[] {
+export function shuffle<T>(input: T[]): T[] {
   const arr = [...input];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
