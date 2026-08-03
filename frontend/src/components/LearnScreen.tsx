@@ -5,11 +5,13 @@ import {
   Animated,
   Dimensions,
   FlatList,
+  Keyboard,
   Modal,
   PanResponder,
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
@@ -28,6 +30,7 @@ import {
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const SWIPE_THRESHOLD = 60;
 const SWIPE_OUT_DURATION = 180;
+const MAX_SEARCH_RESULTS = 30;
 
 export function LearnScreen() {
   const allWords = useMemo(() => loadVocabulary(), []);
@@ -43,6 +46,13 @@ export function LearnScreen() {
   const [reviewedLoaded, setReviewedLoaded] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
+  const searchInputRef = useRef<TextInput>(null);
+  // While the search field is focused (keyboard open), hide the flashcard UI
+  // instead of squeezing it into the remaining space — that caused the card's
+  // fixed aspect ratio to overflow and visually break on Android.
+  const searchActive = searchFocused || searchQuery.trim().length > 0;
 
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -166,6 +176,46 @@ export function LearnScreen() {
     Speech.speak(currentWord.german, { language: "de-DE", pitch: 1, rate: 0.9 });
   };
 
+  // Matches against both English and German (searches the whole vocabulary,
+  // not just the currently selected category).
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return allWords
+      .filter(
+        (w) =>
+          w.english.toLowerCase().includes(q) ||
+          w.german.toLowerCase().includes(q),
+      )
+      .slice(0, MAX_SEARCH_RESULTS);
+  }, [allWords, searchQuery]);
+
+  const handleDismissSearch = () => {
+    setSearchQuery("");
+    setSearchFocused(false);
+    searchInputRef.current?.blur();
+    Keyboard.dismiss();
+  };
+
+  const handleSelectSearchResult = (word: VocabWord) => {
+    handleDismissSearch();
+    Speech.stop();
+    setCategory(ALL_CATEGORY);
+    const newList = selectWords(allWords, ALL_CATEGORY);
+    const idx = newList.findIndex((w) => w.id === word.id);
+    setFilteredWords(newList);
+    setCurrentIndex(idx >= 0 ? idx : 0);
+    setRevealed(true);
+    translateX.setValue(0);
+    if (!reviewedIds.has(word.id)) {
+      setReviewedIds((prev) => {
+        const next = new Set(prev);
+        next.add(word.id);
+        return next;
+      });
+    }
+  };
+
   // Progress reflects the selected category's words; "All" reflects every word.
   const categoryWords = useMemo(
     () =>
@@ -202,109 +252,191 @@ export function LearnScreen() {
           </View>
         </View>
 
-        {/* Category dropdown */}
-        <Pressable
-          style={styles.dropdown}
-          onPress={() => setPickerOpen(true)}
-          testID="category-dropdown"
+        {/* Word search */}
+        <View
+          style={[styles.searchWrap, searchActive && styles.searchWrapActive]}
         >
-          <Text style={styles.dropdownLabel}>Category</Text>
-          <View style={styles.dropdownValueRow}>
-            <Text
-              style={styles.dropdownValue}
-              testID="category-value"
-              numberOfLines={1}
-            >
-              {category}
-            </Text>
-            <Ionicons name="chevron-down" size={18} color="#111" />
-          </View>
-        </Pressable>
-
-        {/* Card area */}
-        <View style={styles.cardArea}>
-          {currentWord ? (
-            <Animated.View
-              style={[styles.cardWrap, { transform: [{ translateX }] }]}
-              {...panResponder.panHandlers}
-              testID="vocab-card-wrap"
-            >
+          <View style={styles.searchInputRow}>
+            <Ionicons name="search" size={18} color="#8a8a8a" />
+            <TextInput
+              ref={searchInputRef}
+              style={styles.searchInput}
+              placeholder="Search English or German..."
+              placeholderTextColor="#b5b5bd"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+              autoCorrect={false}
+              testID="search-input"
+            />
+            {searchActive ? (
               <Pressable
-                onPress={handleCardTap}
-                style={styles.card}
-                testID="vocab-card"
+                onPress={handleDismissSearch}
+                hitSlop={8}
+                testID="search-clear-button"
               >
-                <Text style={styles.categoryTag} testID="card-category">
-                  {currentWord.category}
-                </Text>
-                <Text
-                  style={styles.cardEnglish}
-                  testID="card-english"
-                  numberOfLines={2}
-                  adjustsFontSizeToFit
-                >
-                  {currentWord.english}
-                </Text>
-                {revealed ? (
-                  <Text
-                    style={styles.cardGerman}
-                    testID="card-german"
-                    numberOfLines={2}
-                    adjustsFontSizeToFit
-                  >
-                    {currentWord.german}
-                  </Text>
-                ) : (
-                  <Text style={styles.tapHint} testID="card-hint">
-                    Tap to reveal
-                  </Text>
-                )}
-                {reviewedIds.has(currentWord.id) ? (
-                  <View style={styles.reviewedBadge} testID="reviewed-badge">
-                    <Ionicons name="checkmark" size={12} color="#1a7f37" />
-                    <Text style={styles.reviewedBadgeText}>Reviewed</Text>
-                  </View>
-                ) : null}
-                <Pressable
-                  style={styles.micButton}
-                  onPress={handleSpeak}
-                  hitSlop={10}
-                  testID="speak-button"
-                >
-                  <Ionicons name="volume-high" size={20} color="#fff" />
-                </Pressable>
+                <Ionicons name="close-circle" size={18} color="#b5b5bd" />
               </Pressable>
-            </Animated.View>
-          ) : (
-            <View style={styles.emptyState} testID="empty-state">
-              <Text style={styles.emptyText}>No words in this category.</Text>
-            </View>
-          )}
-        </View>
-
-        {/* Swipe hint + counter */}
-        <View style={styles.footerRow}>
-          <View style={styles.swipeHint}>
-            <Ionicons name="chevron-back" size={14} color="#8a8a8a" />
-            <Text style={styles.swipeHintText}>swipe</Text>
-            <Ionicons name="chevron-forward" size={14} color="#8a8a8a" />
+            ) : null}
           </View>
-          {filteredWords.length > 0 ? (
-            <Text style={styles.counterText} testID="card-counter">
-              {currentIndex + 1} / {filteredWords.length}
-            </Text>
+          {searchActive ? (
+            <View style={styles.searchResultsBox} testID="search-results">
+              {searchQuery.trim().length === 0 ? (
+                <Pressable
+                  style={styles.searchEmptyPressable}
+                  onPress={handleDismissSearch}
+                >
+                  <Text style={styles.searchEmptyText}>
+                    Start typing to search all 1000 words.
+                  </Text>
+                </Pressable>
+              ) : searchResults.length === 0 ? (
+                <Text style={styles.searchEmptyText}>No matching words.</Text>
+              ) : (
+                <FlatList
+                  data={searchResults}
+                  keyExtractor={(w) => String(w.id)}
+                  keyboardShouldPersistTaps="handled"
+                  style={styles.searchResultsList}
+                  renderItem={({ item }) => (
+                    <Pressable
+                      style={styles.searchResultRow}
+                      onPress={() => handleSelectSearchResult(item)}
+                      testID={`search-result-${item.id}`}
+                    >
+                      <Text
+                        style={styles.searchResultGerman}
+                        numberOfLines={1}
+                      >
+                        {item.german}
+                      </Text>
+                      <Text
+                        style={styles.searchResultEnglish}
+                        numberOfLines={1}
+                      >
+                        {item.english}
+                      </Text>
+                    </Pressable>
+                  )}
+                />
+              )}
+            </View>
           ) : null}
         </View>
 
-        {/* Reset */}
-        <Pressable
-          style={styles.resetButton}
-          onPress={() => setResetConfirmOpen(true)}
-          testID="reset-button"
-        >
-          <Ionicons name="refresh" size={16} color="#b42318" />
-          <Text style={styles.resetText}>Reset Progress</Text>
-        </Pressable>
+        {searchActive ? null : (
+          <>
+            {/* Category dropdown */}
+            <Pressable
+              style={styles.dropdown}
+              onPress={() => setPickerOpen(true)}
+              testID="category-dropdown"
+            >
+              <Text style={styles.dropdownLabel}>Category</Text>
+              <View style={styles.dropdownValueRow}>
+                <Text
+                  style={styles.dropdownValue}
+                  testID="category-value"
+                  numberOfLines={1}
+                >
+                  {category}
+                </Text>
+                <Ionicons name="chevron-down" size={18} color="#111" />
+              </View>
+            </Pressable>
+
+            {/* Card area */}
+            <View style={styles.cardArea}>
+              {currentWord ? (
+                <Animated.View
+                  style={[styles.cardWrap, { transform: [{ translateX }] }]}
+                  {...panResponder.panHandlers}
+                  testID="vocab-card-wrap"
+                >
+                  <Pressable
+                    onPress={handleCardTap}
+                    style={styles.card}
+                    testID="vocab-card"
+                  >
+                    <Text style={styles.categoryTag} testID="card-category">
+                      {currentWord.category}
+                    </Text>
+                    <Text
+                      style={styles.cardEnglish}
+                      testID="card-english"
+                      numberOfLines={2}
+                      adjustsFontSizeToFit
+                    >
+                      {currentWord.english}
+                    </Text>
+                    {revealed ? (
+                      <Text
+                        style={styles.cardGerman}
+                        testID="card-german"
+                        numberOfLines={2}
+                        adjustsFontSizeToFit
+                      >
+                        {currentWord.german}
+                      </Text>
+                    ) : (
+                      <Text style={styles.tapHint} testID="card-hint">
+                        Tap to reveal
+                      </Text>
+                    )}
+                    {reviewedIds.has(currentWord.id) ? (
+                      <View
+                        style={styles.reviewedBadge}
+                        testID="reviewed-badge"
+                      >
+                        <Ionicons name="checkmark" size={12} color="#1a7f37" />
+                        <Text style={styles.reviewedBadgeText}>Reviewed</Text>
+                      </View>
+                    ) : null}
+                    <Pressable
+                      style={styles.micButton}
+                      onPress={handleSpeak}
+                      hitSlop={10}
+                      testID="speak-button"
+                    >
+                      <Ionicons name="volume-high" size={20} color="#fff" />
+                    </Pressable>
+                  </Pressable>
+                </Animated.View>
+              ) : (
+                <View style={styles.emptyState} testID="empty-state">
+                  <Text style={styles.emptyText}>
+                    No words in this category.
+                  </Text>
+                </View>
+              )}
+            </View>
+
+            {/* Swipe hint + counter */}
+            <View style={styles.footerRow}>
+              <View style={styles.swipeHint}>
+                <Ionicons name="chevron-back" size={14} color="#8a8a8a" />
+                <Text style={styles.swipeHintText}>swipe</Text>
+                <Ionicons name="chevron-forward" size={14} color="#8a8a8a" />
+              </View>
+              {filteredWords.length > 0 ? (
+                <Text style={styles.counterText} testID="card-counter">
+                  {currentIndex + 1} / {filteredWords.length}
+                </Text>
+              ) : null}
+            </View>
+
+            {/* Reset */}
+            <Pressable
+              style={styles.resetButton}
+              onPress={() => setResetConfirmOpen(true)}
+              testID="reset-button"
+            >
+              <Ionicons name="refresh" size={16} color="#b42318" />
+              <Text style={styles.resetText}>Reset Progress</Text>
+            </Pressable>
+          </>
+        )}
       </View>
 
       {/* Category picker modal */}
@@ -423,6 +555,74 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#111",
     borderRadius: 3,
+  },
+  searchWrap: {
+    marginBottom: 16,
+  },
+  searchInputRow: {
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    borderWidth: 1,
+    borderColor: "#ececef",
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 15,
+    color: "#111",
+    paddingVertical: 4,
+  },
+  searchWrapActive: {
+    flex: 1,
+    marginBottom: 0,
+  },
+  searchResultsBox: {
+    flex: 1,
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "#ececef",
+    marginTop: 8,
+    marginBottom: 16,
+    overflow: "hidden",
+  },
+  searchResultsList: {
+    flex: 1,
+  },
+  searchEmptyPressable: {
+    flex: 1,
+  },
+  searchEmptyText: {
+    padding: 16,
+    fontSize: 14,
+    color: "#8a8a8a",
+    textAlign: "center",
+  },
+  searchResultRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f2",
+    gap: 12,
+  },
+  searchResultGerman: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#2b6cb0",
+    flexShrink: 1,
+  },
+  searchResultEnglish: {
+    fontSize: 14,
+    color: "#5a5a5a",
+    flexShrink: 1,
+    textAlign: "right",
   },
   dropdown: {
     backgroundColor: "#fff",
