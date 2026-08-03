@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emergent.offlinedeutsch.nvr157"
+      "bundleIdentifier": "com.visheshsrivastava.germanvocab"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,8 @@
         "backgroundColor": "#12233d"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.emergent.offlinedeutsch.nvr157"
+      "package": "com.visheshsrivastava.germanvocab",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",

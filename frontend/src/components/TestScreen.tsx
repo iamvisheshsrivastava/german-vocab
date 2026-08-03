@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo, useState } from "react";
+import * as Speech from "expo-speech";
+import { useEffect, useMemo, useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -31,6 +32,18 @@ export function TestScreen() {
   const [score, setScore] = useState({ correct: 0, answered: 0 });
 
   const currentQuestion: QuizQuestion | undefined = questions[currentIndex];
+
+  // Stop any in-progress speech when the screen unmounts.
+  useEffect(() => {
+    return () => {
+      Speech.stop();
+    };
+  }, []);
+
+  const handleSpeakOption = (option: string) => {
+    Speech.stop();
+    Speech.speak(option, { language: "de-DE", pitch: 1, rate: 0.9 });
+  };
 
   const startQuiz = (count: number) => {
     const clamped = Math.max(1, Math.min(count, allWords.length));
@@ -66,6 +79,7 @@ export function TestScreen() {
   };
 
   const handleNext = () => {
+    Speech.stop();
     if (currentIndex + 1 < questions.length) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
@@ -76,6 +90,7 @@ export function TestScreen() {
   };
 
   const handleRestart = () => {
+    Speech.stop();
     setPhase("setup");
     setQuestions([]);
     setCurrentIndex(0);
@@ -250,12 +265,26 @@ export function TestScreen() {
                 >
                   {option}
                 </Text>
-                {showCorrect ? (
-                  <Ionicons name="checkmark-circle" size={20} color="#fff" />
-                ) : null}
-                {showWrong ? (
-                  <Ionicons name="close-circle" size={20} color="#fff" />
-                ) : null}
+                <View style={styles.optionRightIcons}>
+                  <Pressable
+                    style={styles.optionSpeakButton}
+                    onPress={() => handleSpeakOption(option)}
+                    hitSlop={10}
+                    testID={`quiz-option-speak-${option}`}
+                  >
+                    <Ionicons
+                      name="volume-high"
+                      size={18}
+                      color={showCorrect || showWrong ? "#fff" : "#8a8a8a"}
+                    />
+                  </Pressable>
+                  {showCorrect ? (
+                    <Ionicons name="checkmark-circle" size={20} color="#fff" />
+                  ) : null}
+                  {showWrong ? (
+                    <Ionicons name="close-circle" size={20} color="#fff" />
+                  ) : null}
+                </View>
               </Pressable>
             );
           })}
@@ -472,8 +501,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: "#111",
+    flexShrink: 1,
   },
   optionTextActive: {
     color: "#fff",
+  },
+  optionRightIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  optionSpeakButton: {
+    padding: 4,
   },
 });
