@@ -2,7 +2,7 @@
   "expo": {
     "name": "German Vocab",
     "slug": "frontend",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "frontend",
@@ -19,7 +19,7 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.visheshsrivastava.germanvocab",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "bundler": "metro",

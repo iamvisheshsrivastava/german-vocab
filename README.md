@@ -4,11 +4,13 @@ An offline-first mobile app for learning German vocabulary — swipeable flashca
 
 ## Features
 
-- **Flashcards (Learn tab)** — swipe through 1000 English↔German word pairs across 10 categories (Basics & Grammar, Numbers & Time, Food & Drink, Nature & Animals, and more). Tap a card to reveal the translation.
-- **Pronunciation** — tap the speaker button on a card to hear the German word spoken aloud, using the device's built-in text-to-speech (no API key, works offline).
+- **Flashcards (Learn tab)** — swipe through 2000 English↔German word pairs across 10 categories (Basics & Grammar, Numbers & Time, Food & Drink, Nature & Animals, and more). Tap a card to reveal the translation.
+- **View toggle** — switch between "To review" (hides words you've already marked as reviewed, so you always land on something new) and "All" (browse the full deck regardless of progress).
+- **Pronunciation** — tap the speaker button on a flashcard, or on any of the 4 answer options in the quiz, to hear the German word spoken aloud using the device's built-in text-to-speech (no API key, works offline).
 - **Progress tracking** — reviewed words are saved locally and persist between sessions. Progress shown is scoped to whichever category is selected ("All" shows overall progress).
 - **Reset Progress** — clears all reviewed marks and returns to the first card.
-- **Test tab** — a multiple-choice quiz. Choose how many questions (10/20/30/100 or a custom number), answer English→German questions with 4 options (1 correct + 3 random wrong answers, re-shuffled every question), see your live score, and restart anytime.
+- **Test tab** — a multiple-choice quiz, optionally scoped to a single category. Choose how many questions (10/20/30/100/200 or a custom number), answer English→German questions with 4 options (1 correct + 3 random wrong answers, re-shuffled every question), hear any option pronounced, see your live score, and restart anytime.
+- **Dark mode** — follows the device's system light/dark setting automatically.
 
 ## Project structure
 
@@ -17,10 +19,10 @@ frontend/           Expo (React Native) app — the actual product
   app/               expo-router entry point
   src/
     components/      LearnScreen (flashcards) and TestScreen (quiz)
-    data/            vocabulary.json — 1000 word entries (id, category, english, german)
+    data/            vocabulary.json — 2000 word entries (id, category, english, german)
     services/        vocabulary, progress persistence, and quiz-generation logic
+    theme/           light/dark color tokens
     models/          shared TypeScript types
-backend/            Minimal FastAPI + MongoDB scaffold (not used by the app's core features)
 release_apk/        Locally built release APKs (gitignored — not committed)
 ```
 
@@ -33,6 +35,15 @@ yarn start
 ```
 
 Scan the QR code with the **Expo Go** app on your phone (same Wi-Fi network), or press `a` in the terminal to open an Android emulator.
+
+## Running tests
+
+```bash
+cd frontend
+yarn test
+```
+
+Jest (via `jest-expo`) covers the vocabulary data invariants (unique/contiguous ids, no duplicate entries, balanced categories), the word-selection/shuffle logic, quiz-question generation, and progress persistence.
 
 ## Building a release APK locally
 
@@ -51,9 +62,13 @@ The APK is produced at `frontend/android/app/build/outputs/apk/release/app-relea
 
 The release build is signed with the Android **debug keystore** (Expo's default), so it installs fine for testing/sideloading but is **not** ready for Play Store submission — that requires generating a dedicated release keystore.
 
+## Play Store status
+
+The app is currently in **closed testing** on Google Play, which requires at least 12 opted-in testers before it can move to production. If you'd like to help test it, email your Google Account address to **contact@visheshsrivastava.com** and it'll be added to the tester list — you'll then be able to opt in and install the app directly from the Play Store.
+
 ## Tech stack
 
 - [Expo](https://expo.dev) / React Native, [expo-router](https://docs.expo.dev/router/introduction/) for navigation
 - `expo-speech` for on-device text-to-speech
 - `@react-native-async-storage/async-storage` for local progress persistence
-- FastAPI + MongoDB backend scaffold (present but not wired into the app's features)
+- `jest` / `jest-expo` for automated tests

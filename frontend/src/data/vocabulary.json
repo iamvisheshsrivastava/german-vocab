@@ -5998,5 +5998,6005 @@
     "category": "Basics & Grammar",
     "english": "distance",
     "german": "Die Entfernung"
+  },
+  {
+    "id": 1001,
+    "category": "Basics & Grammar",
+    "english": "thank you very much",
+    "german": "Vielen Dank"
+  },
+  {
+    "id": 1002,
+    "category": "Basics & Grammar",
+    "english": "always",
+    "german": "Immer"
+  },
+  {
+    "id": 1003,
+    "category": "Basics & Grammar",
+    "english": "never",
+    "german": "Nie"
+  },
+  {
+    "id": 1004,
+    "category": "Basics & Grammar",
+    "english": "sometimes",
+    "german": "Manchmal"
+  },
+  {
+    "id": 1005,
+    "category": "Basics & Grammar",
+    "english": "often",
+    "german": "Oft"
+  },
+  {
+    "id": 1006,
+    "category": "Basics & Grammar",
+    "english": "again",
+    "german": "Wieder"
+  },
+  {
+    "id": 1007,
+    "category": "Basics & Grammar",
+    "english": "also",
+    "german": "Auch"
+  },
+  {
+    "id": 1008,
+    "category": "Basics & Grammar",
+    "english": "only",
+    "german": "Nur"
+  },
+  {
+    "id": 1009,
+    "category": "Basics & Grammar",
+    "english": "very",
+    "german": "Sehr"
+  },
+  {
+    "id": 1010,
+    "category": "Basics & Grammar",
+    "english": "too",
+    "german": "Zu"
+  },
+  {
+    "id": 1011,
+    "category": "Basics & Grammar",
+    "english": "more",
+    "german": "Mehr"
+  },
+  {
+    "id": 1012,
+    "category": "Basics & Grammar",
+    "english": "less",
+    "german": "Weniger"
+  },
+  {
+    "id": 1013,
+    "category": "Basics & Grammar",
+    "english": "all",
+    "german": "Alle"
+  },
+  {
+    "id": 1014,
+    "category": "Basics & Grammar",
+    "english": "nothing",
+    "german": "Nichts"
+  },
+  {
+    "id": 1015,
+    "category": "Basics & Grammar",
+    "english": "nobody",
+    "german": "Niemand"
+  },
+  {
+    "id": 1016,
+    "category": "Basics & Grammar",
+    "english": "your",
+    "german": "Dein"
+  },
+  {
+    "id": 1017,
+    "category": "Basics & Grammar",
+    "english": "this",
+    "german": "Dieser"
+  },
+  {
+    "id": 1018,
+    "category": "Basics & Grammar",
+    "english": "that",
+    "german": "Jener"
+  },
+  {
+    "id": 1019,
+    "category": "Basics & Grammar",
+    "english": "the noun",
+    "german": "Das Nomen"
+  },
+  {
+    "id": 1020,
+    "category": "Basics & Grammar",
+    "english": "the verb",
+    "german": "Das Verb"
+  },
+  {
+    "id": 1021,
+    "category": "Basics & Grammar",
+    "english": "the adjective",
+    "german": "Das Adjektiv"
+  },
+  {
+    "id": 1022,
+    "category": "Basics & Grammar",
+    "english": "the pronoun",
+    "german": "Das Pronomen"
+  },
+  {
+    "id": 1023,
+    "category": "Basics & Grammar",
+    "english": "the sentence",
+    "german": "Der Satz"
+  },
+  {
+    "id": 1024,
+    "category": "Basics & Grammar",
+    "english": "the question",
+    "german": "Die Frage"
+  },
+  {
+    "id": 1025,
+    "category": "Basics & Grammar",
+    "english": "the answer",
+    "german": "Die Antwort"
+  },
+  {
+    "id": 1026,
+    "category": "Basics & Grammar",
+    "english": "the word",
+    "german": "Das Wort"
+  },
+  {
+    "id": 1027,
+    "category": "Basics & Grammar",
+    "english": "the letter",
+    "german": "Der Buchstabe"
+  },
+  {
+    "id": 1028,
+    "category": "Basics & Grammar",
+    "english": "the article",
+    "german": "Der Artikel"
+  },
+  {
+    "id": 1029,
+    "category": "Basics & Grammar",
+    "english": "congratulations",
+    "german": "Herzlichen Glückwunsch"
+  },
+  {
+    "id": 1030,
+    "category": "Basics & Grammar",
+    "english": "good luck",
+    "german": "Viel Glück"
+  },
+  {
+    "id": 1031,
+    "category": "Basics & Grammar",
+    "english": "take care",
+    "german": "Pass auf dich auf"
+  },
+  {
+    "id": 1032,
+    "category": "Basics & Grammar",
+    "english": "of course",
+    "german": "Natürlich"
+  },
+  {
+    "id": 1033,
+    "category": "Basics & Grammar",
+    "english": "exactly",
+    "german": "Genau"
+  },
+  {
+    "id": 1034,
+    "category": "Basics & Grammar",
+    "english": "really",
+    "german": "Wirklich"
+  },
+  {
+    "id": 1035,
+    "category": "Basics & Grammar",
+    "english": "actually",
+    "german": "Eigentlich"
+  },
+  {
+    "id": 1036,
+    "category": "Basics & Grammar",
+    "english": "probably",
+    "german": "Wahrscheinlich"
+  },
+  {
+    "id": 1037,
+    "category": "Basics & Grammar",
+    "english": "certainly",
+    "german": "Sicherlich"
+  },
+  {
+    "id": 1038,
+    "category": "Basics & Grammar",
+    "english": "perhaps",
+    "german": "Vielleicht schon"
+  },
+  {
+    "id": 1039,
+    "category": "Basics & Grammar",
+    "english": "with pleasure",
+    "german": "Gerne"
+  },
+  {
+    "id": 1040,
+    "category": "Basics & Grammar",
+    "english": "no problem",
+    "german": "Kein Problem"
+  },
+  {
+    "id": 1041,
+    "category": "Basics & Grammar",
+    "english": "I'm sorry",
+    "german": "Es tut mir leid"
+  },
+  {
+    "id": 1042,
+    "category": "Basics & Grammar",
+    "english": "understood",
+    "german": "Verstanden"
+  },
+  {
+    "id": 1043,
+    "category": "Basics & Grammar",
+    "english": "agreed",
+    "german": "Einverstanden"
+  },
+  {
+    "id": 1044,
+    "category": "Basics & Grammar",
+    "english": "attention",
+    "german": "Achtung"
+  },
+  {
+    "id": 1045,
+    "category": "Basics & Grammar",
+    "english": "caution",
+    "german": "Vorsicht"
+  },
+  {
+    "id": 1046,
+    "category": "Basics & Grammar",
+    "english": "the meaning",
+    "german": "Die Bedeutung"
+  },
+  {
+    "id": 1047,
+    "category": "Basics & Grammar",
+    "english": "the example",
+    "german": "Das Beispiel"
+  },
+  {
+    "id": 1048,
+    "category": "Basics & Grammar",
+    "english": "the grammar",
+    "german": "Die Grammatik"
+  },
+  {
+    "id": 1049,
+    "category": "Basics & Grammar",
+    "english": "the plural",
+    "german": "Der Plural"
+  },
+  {
+    "id": 1050,
+    "category": "Basics & Grammar",
+    "english": "the singular",
+    "german": "Der Singular"
+  },
+  {
+    "id": 1051,
+    "category": "Basics & Grammar",
+    "english": "the tense",
+    "german": "Die Zeitform"
+  },
+  {
+    "id": 1052,
+    "category": "Basics & Grammar",
+    "english": "the exception",
+    "german": "Die Ausnahme"
+  },
+  {
+    "id": 1053,
+    "category": "Basics & Grammar",
+    "english": "the rule",
+    "german": "Die Regel"
+  },
+  {
+    "id": 1054,
+    "category": "Basics & Grammar",
+    "english": "simple",
+    "german": "Einfach"
+  },
+  {
+    "id": 1055,
+    "category": "Basics & Grammar",
+    "english": "the preposition",
+    "german": "Die Präposition"
+  },
+  {
+    "id": 1056,
+    "category": "Basics & Grammar",
+    "english": "the conjunction",
+    "german": "Die Konjunktion"
+  },
+  {
+    "id": 1057,
+    "category": "Basics & Grammar",
+    "english": "the subject (grammar)",
+    "german": "Das Subjekt"
+  },
+  {
+    "id": 1058,
+    "category": "Basics & Grammar",
+    "english": "the object (grammar)",
+    "german": "Das Objekt"
+  },
+  {
+    "id": 1059,
+    "category": "Basics & Grammar",
+    "english": "the syllable",
+    "german": "Die Silbe"
+  },
+  {
+    "id": 1060,
+    "category": "Basics & Grammar",
+    "english": "the punctuation",
+    "german": "Die Zeichensetzung"
+  },
+  {
+    "id": 1061,
+    "category": "Basics & Grammar",
+    "english": "the paragraph",
+    "german": "Der Absatz"
+  },
+  {
+    "id": 1062,
+    "category": "Basics & Grammar",
+    "english": "the synonym",
+    "german": "Das Synonym"
+  },
+  {
+    "id": 1063,
+    "category": "Basics & Grammar",
+    "english": "the antonym",
+    "german": "Das Gegenteil"
+  },
+  {
+    "id": 1064,
+    "category": "Basics & Grammar",
+    "english": "the accent (pronunciation)",
+    "german": "Der Akzent"
+  },
+  {
+    "id": 1065,
+    "category": "Basics & Grammar",
+    "english": "the dialect",
+    "german": "Der Dialekt"
+  },
+  {
+    "id": 1066,
+    "category": "Basics & Grammar",
+    "english": "the translation",
+    "german": "Die Übersetzung"
+  },
+  {
+    "id": 1067,
+    "category": "Basics & Grammar",
+    "english": "the phrase",
+    "german": "Die Redewendung"
+  },
+  {
+    "id": 1068,
+    "category": "Basics & Grammar",
+    "english": "the proverb",
+    "german": "Das Sprichwort"
+  },
+  {
+    "id": 1069,
+    "category": "Basics & Grammar",
+    "english": "the abbreviation",
+    "german": "Die Abkürzung"
+  },
+  {
+    "id": 1070,
+    "category": "Basics & Grammar",
+    "english": "nevertheless",
+    "german": "Trotzdem"
+  },
+  {
+    "id": 1071,
+    "category": "Basics & Grammar",
+    "english": "therefore",
+    "german": "Deshalb"
+  },
+  {
+    "id": 1072,
+    "category": "Basics & Grammar",
+    "english": "however",
+    "german": "Jedoch"
+  },
+  {
+    "id": 1073,
+    "category": "Basics & Grammar",
+    "english": "moreover",
+    "german": "Außerdem"
+  },
+  {
+    "id": 1074,
+    "category": "Basics & Grammar",
+    "english": "otherwise",
+    "german": "Sonst"
+  },
+  {
+    "id": 1075,
+    "category": "Basics & Grammar",
+    "english": "instead",
+    "german": "Stattdessen"
+  },
+  {
+    "id": 1076,
+    "category": "Basics & Grammar",
+    "english": "besides",
+    "german": "Außerdem auch"
+  },
+  {
+    "id": 1077,
+    "category": "Basics & Grammar",
+    "english": "indeed",
+    "german": "Tatsächlich"
+  },
+  {
+    "id": 1078,
+    "category": "Basics & Grammar",
+    "english": "anyway",
+    "german": "Sowieso"
+  },
+  {
+    "id": 1079,
+    "category": "Basics & Grammar",
+    "english": "basically",
+    "german": "Grundsätzlich"
+  },
+  {
+    "id": 1080,
+    "category": "Basics & Grammar",
+    "english": "obviously",
+    "german": "Offensichtlich"
+  },
+  {
+    "id": 1081,
+    "category": "Basics & Grammar",
+    "english": "apparently",
+    "german": "Anscheinend"
+  },
+  {
+    "id": 1082,
+    "category": "Basics & Grammar",
+    "english": "clearly",
+    "german": "Eindeutig"
+  },
+  {
+    "id": 1083,
+    "category": "Basics & Grammar",
+    "english": "roughly",
+    "german": "Ungefähr"
+  },
+  {
+    "id": 1084,
+    "category": "Basics & Grammar",
+    "english": "precisely",
+    "german": "Genau genommen"
+  },
+  {
+    "id": 1085,
+    "category": "Basics & Grammar",
+    "english": "altogether",
+    "german": "Insgesamt"
+  },
+  {
+    "id": 1086,
+    "category": "Basics & Grammar",
+    "english": "beforehand",
+    "german": "Im Voraus"
+  },
+  {
+    "id": 1087,
+    "category": "Basics & Grammar",
+    "english": "nonetheless",
+    "german": "Nichtsdestotrotz"
+  },
+  {
+    "id": 1088,
+    "category": "Basics & Grammar",
+    "english": "regardless",
+    "german": "Ungeachtet"
+  },
+  {
+    "id": 1089,
+    "category": "Basics & Grammar",
+    "english": "whereas",
+    "german": "Während hingegen"
+  },
+  {
+    "id": 1090,
+    "category": "Body & Health",
+    "english": "the eyebrow",
+    "german": "Die Augenbraue"
+  },
+  {
+    "id": 1091,
+    "category": "Body & Health",
+    "english": "the eyelash",
+    "german": "Die Wimper"
+  },
+  {
+    "id": 1092,
+    "category": "Body & Health",
+    "english": "the cheek",
+    "german": "Die Wange"
+  },
+  {
+    "id": 1093,
+    "category": "Body & Health",
+    "english": "the chin",
+    "german": "Das Kinn"
+  },
+  {
+    "id": 1094,
+    "category": "Body & Health",
+    "english": "the forehead",
+    "german": "Die Stirn"
+  },
+  {
+    "id": 1095,
+    "category": "Body & Health",
+    "english": "the throat",
+    "german": "Der Hals"
+  },
+  {
+    "id": 1096,
+    "category": "Body & Health",
+    "english": "the elbow",
+    "german": "Der Ellbogen"
+  },
+  {
+    "id": 1097,
+    "category": "Body & Health",
+    "english": "the wrist",
+    "german": "Das Handgelenk"
+  },
+  {
+    "id": 1098,
+    "category": "Body & Health",
+    "english": "the thumb",
+    "german": "Der Daumen"
+  },
+  {
+    "id": 1099,
+    "category": "Body & Health",
+    "english": "the fingernail",
+    "german": "Der Fingernagel"
+  },
+  {
+    "id": 1100,
+    "category": "Body & Health",
+    "english": "the ankle",
+    "german": "Der Knöchel"
+  },
+  {
+    "id": 1101,
+    "category": "Body & Health",
+    "english": "the heel",
+    "german": "Die Ferse"
+  },
+  {
+    "id": 1102,
+    "category": "Body & Health",
+    "english": "the spine",
+    "german": "Die Wirbelsäule"
+  },
+  {
+    "id": 1103,
+    "category": "Body & Health",
+    "english": "the rib",
+    "german": "Die Rippe"
+  },
+  {
+    "id": 1104,
+    "category": "Body & Health",
+    "english": "the lung",
+    "german": "Die Lunge"
+  },
+  {
+    "id": 1105,
+    "category": "Body & Health",
+    "english": "the liver",
+    "german": "Die Leber"
+  },
+  {
+    "id": 1106,
+    "category": "Body & Health",
+    "english": "the kidney",
+    "german": "Die Niere"
+  },
+  {
+    "id": 1107,
+    "category": "Body & Health",
+    "english": "the muscle",
+    "german": "Der Muskel"
+  },
+  {
+    "id": 1108,
+    "category": "Body & Health",
+    "english": "the vein",
+    "german": "Die Vene"
+  },
+  {
+    "id": 1109,
+    "category": "Body & Health",
+    "english": "the skin",
+    "german": "Die Haut"
+  },
+  {
+    "id": 1110,
+    "category": "Body & Health",
+    "english": "the bone",
+    "german": "Der Knochen"
+  },
+  {
+    "id": 1111,
+    "category": "Body & Health",
+    "english": "the pulse",
+    "german": "Der Puls"
+  },
+  {
+    "id": 1112,
+    "category": "Body & Health",
+    "english": "the blood pressure",
+    "german": "Der Blutdruck"
+  },
+  {
+    "id": 1113,
+    "category": "Body & Health",
+    "english": "the fever",
+    "german": "Das Fieber"
+  },
+  {
+    "id": 1114,
+    "category": "Body & Health",
+    "english": "the cough",
+    "german": "Der Husten"
+  },
+  {
+    "id": 1115,
+    "category": "Body & Health",
+    "english": "the cold (illness)",
+    "german": "Die Erkältung"
+  },
+  {
+    "id": 1116,
+    "category": "Body & Health",
+    "english": "the flu",
+    "german": "Die Grippe"
+  },
+  {
+    "id": 1117,
+    "category": "Body & Health",
+    "english": "the headache",
+    "german": "Die Kopfschmerzen"
+  },
+  {
+    "id": 1118,
+    "category": "Body & Health",
+    "english": "the stomachache",
+    "german": "Die Bauchschmerzen"
+  },
+  {
+    "id": 1119,
+    "category": "Body & Health",
+    "english": "the toothache",
+    "german": "Die Zahnschmerzen"
+  },
+  {
+    "id": 1120,
+    "category": "Body & Health",
+    "english": "the allergy",
+    "german": "Die Allergie"
+  },
+  {
+    "id": 1121,
+    "category": "Body & Health",
+    "english": "the injury",
+    "german": "Die Verletzung"
+  },
+  {
+    "id": 1122,
+    "category": "Body & Health",
+    "english": "the wound",
+    "german": "Die Wunde"
+  },
+  {
+    "id": 1123,
+    "category": "Body & Health",
+    "english": "the bandage",
+    "german": "Der Verband"
+  },
+  {
+    "id": 1124,
+    "category": "Body & Health",
+    "english": "the pill",
+    "german": "Die Tablette"
+  },
+  {
+    "id": 1125,
+    "category": "Body & Health",
+    "english": "the medicine",
+    "german": "Das Medikament"
+  },
+  {
+    "id": 1126,
+    "category": "Body & Health",
+    "english": "the syringe",
+    "german": "Die Spritze"
+  },
+  {
+    "id": 1127,
+    "category": "Body & Health",
+    "english": "the vaccination",
+    "german": "Die Impfung"
+  },
+  {
+    "id": 1128,
+    "category": "Body & Health",
+    "english": "the surgery",
+    "german": "Die Operation"
+  },
+  {
+    "id": 1129,
+    "category": "Body & Health",
+    "english": "the diagnosis",
+    "german": "Die Diagnose"
+  },
+  {
+    "id": 1130,
+    "category": "Body & Health",
+    "english": "the symptom",
+    "german": "Das Symptom"
+  },
+  {
+    "id": 1131,
+    "category": "Body & Health",
+    "english": "the therapy",
+    "german": "Die Therapie"
+  },
+  {
+    "id": 1132,
+    "category": "Body & Health",
+    "english": "the pharmacy",
+    "german": "Die Apotheke"
+  },
+  {
+    "id": 1133,
+    "category": "Body & Health",
+    "english": "the ambulance",
+    "german": "Der Krankenwagen"
+  },
+  {
+    "id": 1134,
+    "category": "Body & Health",
+    "english": "the nurse",
+    "german": "Die Krankenschwester"
+  },
+  {
+    "id": 1135,
+    "category": "Body & Health",
+    "english": "the surgeon",
+    "german": "Der Chirurg"
+  },
+  {
+    "id": 1136,
+    "category": "Body & Health",
+    "english": "the dentist",
+    "german": "Der Zahnarzt"
+  },
+  {
+    "id": 1137,
+    "category": "Body & Health",
+    "english": "the wheelchair",
+    "german": "Der Rollstuhl"
+  },
+  {
+    "id": 1138,
+    "category": "Body & Health",
+    "english": "the crutch",
+    "german": "Die Krücke"
+  },
+  {
+    "id": 1139,
+    "category": "Body & Health",
+    "english": "exhausted",
+    "german": "Erschöpft"
+  },
+  {
+    "id": 1140,
+    "category": "Body & Health",
+    "english": "dizzy",
+    "german": "Schwindelig"
+  },
+  {
+    "id": 1141,
+    "category": "Body & Health",
+    "english": "nauseous",
+    "german": "Übel"
+  },
+  {
+    "id": 1142,
+    "category": "Body & Health",
+    "english": "painful",
+    "german": "Schmerzhaft"
+  },
+  {
+    "id": 1143,
+    "category": "Body & Health",
+    "english": "to breathe",
+    "german": "Atmen"
+  },
+  {
+    "id": 1144,
+    "category": "Body & Health",
+    "english": "to sneeze",
+    "german": "Niesen"
+  },
+  {
+    "id": 1145,
+    "category": "Body & Health",
+    "english": "to sweat",
+    "german": "Schwitzen"
+  },
+  {
+    "id": 1146,
+    "category": "Body & Health",
+    "english": "to heal",
+    "german": "Heilen"
+  },
+  {
+    "id": 1147,
+    "category": "Body & Health",
+    "english": "to recover",
+    "german": "Sich erholen"
+  },
+  {
+    "id": 1148,
+    "category": "Body & Health",
+    "english": "to faint",
+    "german": "Ohnmächtig werden"
+  },
+  {
+    "id": 1149,
+    "category": "Body & Health",
+    "english": "to bleed",
+    "german": "Bluten"
+  },
+  {
+    "id": 1150,
+    "category": "Body & Health",
+    "english": "the appointment",
+    "german": "Der Termin"
+  },
+  {
+    "id": 1151,
+    "category": "Body & Health",
+    "english": "the checkup",
+    "german": "Die Untersuchung"
+  },
+  {
+    "id": 1152,
+    "category": "Body & Health",
+    "english": "the immune system",
+    "german": "Das Immunsystem"
+  },
+  {
+    "id": 1153,
+    "category": "Body & Health",
+    "english": "the metabolism",
+    "german": "Der Stoffwechsel"
+  },
+  {
+    "id": 1154,
+    "category": "Body & Health",
+    "english": "the nutrition",
+    "german": "Die Ernährung"
+  },
+  {
+    "id": 1155,
+    "category": "Food & Drink",
+    "english": "the pineapple",
+    "german": "Die Ananas"
+  },
+  {
+    "id": 1156,
+    "category": "Food & Drink",
+    "english": "the mango",
+    "german": "Die Mango"
+  },
+  {
+    "id": 1157,
+    "category": "Food & Drink",
+    "english": "the peach",
+    "german": "Der Pfirsich"
+  },
+  {
+    "id": 1158,
+    "category": "Food & Drink",
+    "english": "the plum",
+    "german": "Die Pflaume"
+  },
+  {
+    "id": 1159,
+    "category": "Food & Drink",
+    "english": "the cherry",
+    "german": "Die Kirsche"
+  },
+  {
+    "id": 1160,
+    "category": "Food & Drink",
+    "english": "the raspberry",
+    "german": "Die Himbeere"
+  },
+  {
+    "id": 1161,
+    "category": "Food & Drink",
+    "english": "the blueberry",
+    "german": "Die Heidelbeere"
+  },
+  {
+    "id": 1162,
+    "category": "Food & Drink",
+    "english": "the watermelon",
+    "german": "Die Wassermelone"
+  },
+  {
+    "id": 1163,
+    "category": "Food & Drink",
+    "english": "the apricot",
+    "german": "Die Aprikose"
+  },
+  {
+    "id": 1164,
+    "category": "Food & Drink",
+    "english": "the grapefruit",
+    "german": "Die Grapefruit"
+  },
+  {
+    "id": 1165,
+    "category": "Food & Drink",
+    "english": "the coconut",
+    "german": "Die Kokosnuss"
+  },
+  {
+    "id": 1166,
+    "category": "Food & Drink",
+    "english": "the almond",
+    "german": "Die Mandel"
+  },
+  {
+    "id": 1167,
+    "category": "Food & Drink",
+    "english": "the walnut",
+    "german": "Die Walnuss"
+  },
+  {
+    "id": 1168,
+    "category": "Food & Drink",
+    "english": "the peanut",
+    "german": "Die Erdnuss"
+  },
+  {
+    "id": 1169,
+    "category": "Food & Drink",
+    "english": "the cucumber",
+    "german": "Die Gurke"
+  },
+  {
+    "id": 1170,
+    "category": "Food & Drink",
+    "english": "the pepper (vegetable)",
+    "german": "Die Paprika"
+  },
+  {
+    "id": 1171,
+    "category": "Food & Drink",
+    "english": "the zucchini",
+    "german": "Die Zucchini"
+  },
+  {
+    "id": 1172,
+    "category": "Food & Drink",
+    "english": "the eggplant",
+    "german": "Die Aubergine"
+  },
+  {
+    "id": 1173,
+    "category": "Food & Drink",
+    "english": "the spinach",
+    "german": "Der Spinat"
+  },
+  {
+    "id": 1174,
+    "category": "Food & Drink",
+    "english": "the mushroom",
+    "german": "Der Pilz"
+  },
+  {
+    "id": 1175,
+    "category": "Food & Drink",
+    "english": "the garlic",
+    "german": "Der Knoblauch"
+  },
+  {
+    "id": 1176,
+    "category": "Food & Drink",
+    "english": "the ginger",
+    "german": "Der Ingwer"
+  },
+  {
+    "id": 1177,
+    "category": "Food & Drink",
+    "english": "the lettuce",
+    "german": "Der Salat"
+  },
+  {
+    "id": 1178,
+    "category": "Food & Drink",
+    "english": "the broccoli",
+    "german": "Der Brokkoli"
+  },
+  {
+    "id": 1179,
+    "category": "Food & Drink",
+    "english": "the cauliflower",
+    "german": "Der Blumenkohl"
+  },
+  {
+    "id": 1180,
+    "category": "Food & Drink",
+    "english": "the corn",
+    "german": "Der Mais"
+  },
+  {
+    "id": 1181,
+    "category": "Food & Drink",
+    "english": "the beans",
+    "german": "Die Bohnen"
+  },
+  {
+    "id": 1182,
+    "category": "Food & Drink",
+    "english": "the lentils",
+    "german": "Die Linsen"
+  },
+  {
+    "id": 1183,
+    "category": "Food & Drink",
+    "english": "the rice",
+    "german": "Der Reis"
+  },
+  {
+    "id": 1184,
+    "category": "Food & Drink",
+    "english": "the noodles",
+    "german": "Die Nudeln"
+  },
+  {
+    "id": 1185,
+    "category": "Food & Drink",
+    "english": "the dumpling",
+    "german": "Der Knödel"
+  },
+  {
+    "id": 1186,
+    "category": "Food & Drink",
+    "english": "the pretzel",
+    "german": "Die Brezel"
+  },
+  {
+    "id": 1187,
+    "category": "Food & Drink",
+    "english": "the sausage",
+    "german": "Die Wurst"
+  },
+  {
+    "id": 1188,
+    "category": "Food & Drink",
+    "english": "the ham",
+    "german": "Der Schinken"
+  },
+  {
+    "id": 1189,
+    "category": "Food & Drink",
+    "english": "the bacon",
+    "german": "Der Speck"
+  },
+  {
+    "id": 1190,
+    "category": "Food & Drink",
+    "english": "the steak",
+    "german": "Das Steak"
+  },
+  {
+    "id": 1191,
+    "category": "Food & Drink",
+    "english": "the lamb",
+    "german": "Das Lammfleisch"
+  },
+  {
+    "id": 1192,
+    "category": "Food & Drink",
+    "english": "the salmon",
+    "german": "Der Lachs"
+  },
+  {
+    "id": 1193,
+    "category": "Food & Drink",
+    "english": "the shrimp",
+    "german": "Die Garnele"
+  },
+  {
+    "id": 1194,
+    "category": "Food & Drink",
+    "english": "the tuna",
+    "german": "Der Thunfisch"
+  },
+  {
+    "id": 1195,
+    "category": "Food & Drink",
+    "english": "the yogurt",
+    "german": "Der Joghurt"
+  },
+  {
+    "id": 1196,
+    "category": "Food & Drink",
+    "english": "the cream",
+    "german": "Die Sahne"
+  },
+  {
+    "id": 1197,
+    "category": "Food & Drink",
+    "english": "the honey",
+    "german": "Der Honig"
+  },
+  {
+    "id": 1198,
+    "category": "Food & Drink",
+    "english": "the jam",
+    "german": "Die Marmelade"
+  },
+  {
+    "id": 1199,
+    "category": "Food & Drink",
+    "english": "the syrup",
+    "german": "Der Sirup"
+  },
+  {
+    "id": 1200,
+    "category": "Food & Drink",
+    "english": "the vinegar",
+    "german": "Der Essig"
+  },
+  {
+    "id": 1201,
+    "category": "Food & Drink",
+    "english": "the oil",
+    "german": "Das Öl"
+  },
+  {
+    "id": 1202,
+    "category": "Food & Drink",
+    "english": "the flour",
+    "german": "Das Mehl"
+  },
+  {
+    "id": 1203,
+    "category": "Food & Drink",
+    "english": "the yeast",
+    "german": "Die Hefe"
+  },
+  {
+    "id": 1204,
+    "category": "Food & Drink",
+    "english": "the dough",
+    "german": "Der Teig"
+  },
+  {
+    "id": 1205,
+    "category": "Food & Drink",
+    "english": "the pastry",
+    "german": "Das Gebäck"
+  },
+  {
+    "id": 1206,
+    "category": "Food & Drink",
+    "english": "the pancake",
+    "german": "Der Pfannkuchen"
+  },
+  {
+    "id": 1207,
+    "category": "Food & Drink",
+    "english": "the waffle",
+    "german": "Die Waffel"
+  },
+  {
+    "id": 1208,
+    "category": "Food & Drink",
+    "english": "the pie",
+    "german": "Die Torte"
+  },
+  {
+    "id": 1209,
+    "category": "Food & Drink",
+    "english": "the pudding",
+    "german": "Der Pudding"
+  },
+  {
+    "id": 1210,
+    "category": "Food & Drink",
+    "english": "the ice cream",
+    "german": "Das Eis"
+  },
+  {
+    "id": 1211,
+    "category": "Food & Drink",
+    "english": "the chocolate",
+    "german": "Die Schokolade"
+  },
+  {
+    "id": 1212,
+    "category": "Food & Drink",
+    "english": "the candy",
+    "german": "Das Bonbon"
+  },
+  {
+    "id": 1213,
+    "category": "Food & Drink",
+    "english": "the biscuit",
+    "german": "Der Keks"
+  },
+  {
+    "id": 1214,
+    "category": "Food & Drink",
+    "english": "the lemonade",
+    "german": "Die Limonade"
+  },
+  {
+    "id": 1215,
+    "category": "Food & Drink",
+    "english": "the smoothie",
+    "german": "Der Smoothie"
+  },
+  {
+    "id": 1216,
+    "category": "Food & Drink",
+    "english": "the cocktail",
+    "german": "Der Cocktail"
+  },
+  {
+    "id": 1217,
+    "category": "Food & Drink",
+    "english": "the champagne",
+    "german": "Der Champagner"
+  },
+  {
+    "id": 1218,
+    "category": "Food & Drink",
+    "english": "the whiskey",
+    "german": "Der Whisky"
+  },
+  {
+    "id": 1219,
+    "category": "Food & Drink",
+    "english": "the rum",
+    "german": "Der Rum"
+  },
+  {
+    "id": 1220,
+    "category": "Food & Drink",
+    "english": "the vodka",
+    "german": "Der Wodka"
+  },
+  {
+    "id": 1221,
+    "category": "Food & Drink",
+    "english": "the broth",
+    "german": "Die Brühe"
+  },
+  {
+    "id": 1222,
+    "category": "Food & Drink",
+    "english": "the stew",
+    "german": "Der Eintopf"
+  },
+  {
+    "id": 1223,
+    "category": "Food & Drink",
+    "english": "the sauce",
+    "german": "Die Soße"
+  },
+  {
+    "id": 1224,
+    "category": "Food & Drink",
+    "english": "the spice",
+    "german": "Das Gewürz"
+  },
+  {
+    "id": 1225,
+    "category": "Food & Drink",
+    "english": "the herb",
+    "german": "Das Kraut"
+  },
+  {
+    "id": 1226,
+    "category": "Food & Drink",
+    "english": "the cinnamon",
+    "german": "Der Zimt"
+  },
+  {
+    "id": 1227,
+    "category": "Food & Drink",
+    "english": "the vanilla",
+    "german": "Die Vanille"
+  },
+  {
+    "id": 1228,
+    "category": "Food & Drink",
+    "english": "the mustard",
+    "german": "Der Senf"
+  },
+  {
+    "id": 1229,
+    "category": "Food & Drink",
+    "english": "the ketchup",
+    "german": "Der Ketchup"
+  },
+  {
+    "id": 1230,
+    "category": "Food & Drink",
+    "english": "the mayonnaise",
+    "german": "Die Mayonnaise"
+  },
+  {
+    "id": 1231,
+    "category": "Food & Drink",
+    "english": "the appetizer",
+    "german": "Die Vorspeise"
+  },
+  {
+    "id": 1232,
+    "category": "Food & Drink",
+    "english": "the main course",
+    "german": "Das Hauptgericht"
+  },
+  {
+    "id": 1233,
+    "category": "Food & Drink",
+    "english": "the dessert",
+    "german": "Der Nachtisch"
+  },
+  {
+    "id": 1234,
+    "category": "Food & Drink",
+    "english": "the recipe",
+    "german": "Das Rezept"
+  },
+  {
+    "id": 1235,
+    "category": "Food & Drink",
+    "english": "the ingredient",
+    "german": "Die Zutat"
+  },
+  {
+    "id": 1236,
+    "category": "Food & Drink",
+    "english": "the portion",
+    "german": "Die Portion"
+  },
+  {
+    "id": 1237,
+    "category": "Food & Drink",
+    "english": "the leftovers",
+    "german": "Die Reste"
+  },
+  {
+    "id": 1238,
+    "category": "Food & Drink",
+    "english": "to fry",
+    "german": "Braten"
+  },
+  {
+    "id": 1239,
+    "category": "Food & Drink",
+    "english": "to boil",
+    "german": "Kochen"
+  },
+  {
+    "id": 1240,
+    "category": "Food & Drink",
+    "english": "to bake",
+    "german": "Backen"
+  },
+  {
+    "id": 1241,
+    "category": "Food & Drink",
+    "english": "to grill",
+    "german": "Grillen"
+  },
+  {
+    "id": 1242,
+    "category": "Food & Drink",
+    "english": "to chop",
+    "german": "Hacken"
+  },
+  {
+    "id": 1243,
+    "category": "Food & Drink",
+    "english": "to peel",
+    "german": "Schälen"
+  },
+  {
+    "id": 1244,
+    "category": "Food & Drink",
+    "english": "to mix",
+    "german": "Mischen"
+  },
+  {
+    "id": 1245,
+    "category": "Food & Drink",
+    "english": "to season",
+    "german": "Würzen"
+  },
+  {
+    "id": 1246,
+    "category": "Food & Drink",
+    "english": "fresh (food)",
+    "german": "Frisch"
+  },
+  {
+    "id": 1247,
+    "category": "Food & Drink",
+    "english": "ripe",
+    "german": "Reif"
+  },
+  {
+    "id": 1248,
+    "category": "Food & Drink",
+    "english": "full (satisfied)",
+    "german": "Satt"
+  },
+  {
+    "id": 1249,
+    "category": "Food & Drink",
+    "english": "the menu card",
+    "german": "Die Speisekarte"
+  },
+  {
+    "id": 1250,
+    "category": "Food & Drink",
+    "english": "the buffet",
+    "german": "Das Büffet"
+  },
+  {
+    "id": 1251,
+    "category": "Food & Drink",
+    "english": "the tablecloth (dining)",
+    "german": "Die Tischwäsche"
+  },
+  {
+    "id": 1252,
+    "category": "Food & Drink",
+    "english": "the napkin",
+    "german": "Die Serviette"
+  },
+  {
+    "id": 1253,
+    "category": "Food & Drink",
+    "english": "the tray",
+    "german": "Das Tablett"
+  },
+  {
+    "id": 1254,
+    "category": "Food & Drink",
+    "english": "the corkscrew",
+    "german": "Der Korkenzieher"
+  },
+  {
+    "id": 1255,
+    "category": "Food & Drink",
+    "english": "the takeout",
+    "german": "Das Essen zum Mitnehmen"
+  },
+  {
+    "id": 1256,
+    "category": "Food & Drink",
+    "english": "the barbecue",
+    "german": "Der Grillabend"
+  },
+  {
+    "id": 1257,
+    "category": "Home & Clothing",
+    "english": "the basement",
+    "german": "Der Keller"
+  },
+  {
+    "id": 1258,
+    "category": "Home & Clothing",
+    "english": "the attic",
+    "german": "Der Dachboden"
+  },
+  {
+    "id": 1259,
+    "category": "Home & Clothing",
+    "english": "the balcony",
+    "german": "Der Balkon"
+  },
+  {
+    "id": 1260,
+    "category": "Home & Clothing",
+    "english": "the terrace",
+    "german": "Die Terrasse"
+  },
+  {
+    "id": 1261,
+    "category": "Home & Clothing",
+    "english": "the garage",
+    "german": "Die Garage"
+  },
+  {
+    "id": 1262,
+    "category": "Home & Clothing",
+    "english": "the fence",
+    "german": "Der Zaun"
+  },
+  {
+    "id": 1263,
+    "category": "Home & Clothing",
+    "english": "the staircase",
+    "german": "Die Treppe"
+  },
+  {
+    "id": 1264,
+    "category": "Home & Clothing",
+    "english": "the hallway",
+    "german": "Der Flur"
+  },
+  {
+    "id": 1265,
+    "category": "Home & Clothing",
+    "english": "the ceiling",
+    "german": "Die Decke"
+  },
+  {
+    "id": 1266,
+    "category": "Home & Clothing",
+    "english": "the floor",
+    "german": "Der Boden"
+  },
+  {
+    "id": 1267,
+    "category": "Home & Clothing",
+    "english": "the wall",
+    "german": "Die Wand"
+  },
+  {
+    "id": 1268,
+    "category": "Home & Clothing",
+    "english": "the doorbell",
+    "german": "Die Klingel"
+  },
+  {
+    "id": 1269,
+    "category": "Home & Clothing",
+    "english": "the lock",
+    "german": "Das Schloss"
+  },
+  {
+    "id": 1270,
+    "category": "Home & Clothing",
+    "english": "the key",
+    "german": "Der Schlüssel"
+  },
+  {
+    "id": 1271,
+    "category": "Home & Clothing",
+    "english": "the curtain",
+    "german": "Der Vorhang"
+  },
+  {
+    "id": 1272,
+    "category": "Home & Clothing",
+    "english": "the carpet",
+    "german": "Der Teppich"
+  },
+  {
+    "id": 1273,
+    "category": "Home & Clothing",
+    "english": "the mirror",
+    "german": "Der Spiegel"
+  },
+  {
+    "id": 1274,
+    "category": "Home & Clothing",
+    "english": "the shelf",
+    "german": "Das Regal"
+  },
+  {
+    "id": 1275,
+    "category": "Home & Clothing",
+    "english": "the drawer",
+    "german": "Die Schublade"
+  },
+  {
+    "id": 1276,
+    "category": "Home & Clothing",
+    "english": "the closet",
+    "german": "Der Kleiderschrank"
+  },
+  {
+    "id": 1277,
+    "category": "Home & Clothing",
+    "english": "the couch",
+    "german": "Das Sofa"
+  },
+  {
+    "id": 1278,
+    "category": "Home & Clothing",
+    "english": "the armchair",
+    "german": "Der Sessel"
+  },
+  {
+    "id": 1279,
+    "category": "Home & Clothing",
+    "english": "the cushion",
+    "german": "Das Kissen"
+  },
+  {
+    "id": 1280,
+    "category": "Home & Clothing",
+    "english": "the blanket",
+    "german": "Die Decke (Bett)"
+  },
+  {
+    "id": 1281,
+    "category": "Home & Clothing",
+    "english": "the pillow",
+    "german": "Das Kopfkissen"
+  },
+  {
+    "id": 1282,
+    "category": "Home & Clothing",
+    "english": "the mattress",
+    "german": "Die Matratze"
+  },
+  {
+    "id": 1283,
+    "category": "Home & Clothing",
+    "english": "the wardrobe",
+    "german": "Der Schrank"
+  },
+  {
+    "id": 1284,
+    "category": "Home & Clothing",
+    "english": "the vacuum cleaner",
+    "german": "Der Staubsauger"
+  },
+  {
+    "id": 1285,
+    "category": "Home & Clothing",
+    "english": "the broom",
+    "german": "Der Besen"
+  },
+  {
+    "id": 1286,
+    "category": "Home & Clothing",
+    "english": "the mop",
+    "german": "Der Wischmopp"
+  },
+  {
+    "id": 1287,
+    "category": "Home & Clothing",
+    "english": "the bucket",
+    "german": "Der Eimer"
+  },
+  {
+    "id": 1288,
+    "category": "Home & Clothing",
+    "english": "the trash can",
+    "german": "Der Mülleimer"
+  },
+  {
+    "id": 1289,
+    "category": "Home & Clothing",
+    "english": "the washing machine",
+    "german": "Die Waschmaschine"
+  },
+  {
+    "id": 1290,
+    "category": "Home & Clothing",
+    "english": "the dryer",
+    "german": "Der Trockner"
+  },
+  {
+    "id": 1291,
+    "category": "Home & Clothing",
+    "english": "the iron (appliance)",
+    "german": "Das Bügeleisen"
+  },
+  {
+    "id": 1292,
+    "category": "Home & Clothing",
+    "english": "the dishwasher",
+    "german": "Die Spülmaschine"
+  },
+  {
+    "id": 1293,
+    "category": "Home & Clothing",
+    "english": "the oven",
+    "german": "Der Backofen"
+  },
+  {
+    "id": 1294,
+    "category": "Home & Clothing",
+    "english": "the stove",
+    "german": "Der Herd"
+  },
+  {
+    "id": 1295,
+    "category": "Home & Clothing",
+    "english": "the microwave",
+    "german": "Die Mikrowelle"
+  },
+  {
+    "id": 1296,
+    "category": "Home & Clothing",
+    "english": "the kettle",
+    "german": "Der Wasserkocher"
+  },
+  {
+    "id": 1297,
+    "category": "Home & Clothing",
+    "english": "the toaster",
+    "german": "Der Toaster"
+  },
+  {
+    "id": 1298,
+    "category": "Home & Clothing",
+    "english": "the blender",
+    "german": "Der Mixer"
+  },
+  {
+    "id": 1299,
+    "category": "Home & Clothing",
+    "english": "the sink",
+    "german": "Das Spülbecken"
+  },
+  {
+    "id": 1300,
+    "category": "Home & Clothing",
+    "english": "the faucet",
+    "german": "Der Wasserhahn"
+  },
+  {
+    "id": 1301,
+    "category": "Home & Clothing",
+    "english": "the bathtub",
+    "german": "Die Badewanne"
+  },
+  {
+    "id": 1302,
+    "category": "Home & Clothing",
+    "english": "the shower",
+    "german": "Die Dusche"
+  },
+  {
+    "id": 1303,
+    "category": "Home & Clothing",
+    "english": "the towel",
+    "german": "Das Handtuch"
+  },
+  {
+    "id": 1304,
+    "category": "Home & Clothing",
+    "english": "the soap",
+    "german": "Die Seife"
+  },
+  {
+    "id": 1305,
+    "category": "Home & Clothing",
+    "english": "the toothbrush",
+    "german": "Die Zahnbürste"
+  },
+  {
+    "id": 1306,
+    "category": "Home & Clothing",
+    "english": "the toothpaste",
+    "german": "Die Zahnpasta"
+  },
+  {
+    "id": 1307,
+    "category": "Home & Clothing",
+    "english": "the comb",
+    "german": "Der Kamm"
+  },
+  {
+    "id": 1308,
+    "category": "Home & Clothing",
+    "english": "the razor",
+    "german": "Der Rasierer"
+  },
+  {
+    "id": 1309,
+    "category": "Home & Clothing",
+    "english": "the plate",
+    "german": "Der Teller"
+  },
+  {
+    "id": 1310,
+    "category": "Home & Clothing",
+    "english": "the bowl",
+    "german": "Die Schüssel"
+  },
+  {
+    "id": 1311,
+    "category": "Home & Clothing",
+    "english": "the cup",
+    "german": "Die Tasse"
+  },
+  {
+    "id": 1312,
+    "category": "Home & Clothing",
+    "english": "the glass",
+    "german": "Das Glas"
+  },
+  {
+    "id": 1313,
+    "category": "Home & Clothing",
+    "english": "the fork",
+    "german": "Die Gabel"
+  },
+  {
+    "id": 1314,
+    "category": "Home & Clothing",
+    "english": "the spoon",
+    "german": "Der Löffel"
+  },
+  {
+    "id": 1315,
+    "category": "Home & Clothing",
+    "english": "the knife",
+    "german": "Das Messer"
+  },
+  {
+    "id": 1316,
+    "category": "Home & Clothing",
+    "english": "the pot",
+    "german": "Der Topf"
+  },
+  {
+    "id": 1317,
+    "category": "Home & Clothing",
+    "english": "the pan",
+    "german": "Die Pfanne"
+  },
+  {
+    "id": 1318,
+    "category": "Home & Clothing",
+    "english": "the tablecloth",
+    "german": "Die Tischdecke"
+  },
+  {
+    "id": 1319,
+    "category": "Home & Clothing",
+    "english": "the candle",
+    "german": "Die Kerze"
+  },
+  {
+    "id": 1320,
+    "category": "Home & Clothing",
+    "english": "the vase",
+    "german": "Die Vase"
+  },
+  {
+    "id": 1321,
+    "category": "Home & Clothing",
+    "english": "the picture frame",
+    "german": "Der Bilderrahmen"
+  },
+  {
+    "id": 1322,
+    "category": "Home & Clothing",
+    "english": "the clock",
+    "german": "Die Uhr"
+  },
+  {
+    "id": 1323,
+    "category": "Home & Clothing",
+    "english": "the lamp",
+    "german": "Die Lampe"
+  },
+  {
+    "id": 1324,
+    "category": "Home & Clothing",
+    "english": "the socket",
+    "german": "Die Steckdose"
+  },
+  {
+    "id": 1325,
+    "category": "Home & Clothing",
+    "english": "the switch",
+    "german": "Der Schalter"
+  },
+  {
+    "id": 1326,
+    "category": "Home & Clothing",
+    "english": "the scarf",
+    "german": "Der Schal"
+  },
+  {
+    "id": 1327,
+    "category": "Home & Clothing",
+    "english": "the glove",
+    "german": "Der Handschuh"
+  },
+  {
+    "id": 1328,
+    "category": "Home & Clothing",
+    "english": "the hat",
+    "german": "Der Hut"
+  },
+  {
+    "id": 1329,
+    "category": "Home & Clothing",
+    "english": "the cap",
+    "german": "Die Mütze"
+  },
+  {
+    "id": 1330,
+    "category": "Home & Clothing",
+    "english": "the belt",
+    "german": "Der Gürtel"
+  },
+  {
+    "id": 1331,
+    "category": "Home & Clothing",
+    "english": "the tie",
+    "german": "Die Krawatte"
+  },
+  {
+    "id": 1332,
+    "category": "Home & Clothing",
+    "english": "the sock",
+    "german": "Die Socke"
+  },
+  {
+    "id": 1333,
+    "category": "Home & Clothing",
+    "english": "the underwear",
+    "german": "Die Unterwäsche"
+  },
+  {
+    "id": 1334,
+    "category": "Home & Clothing",
+    "english": "the pajamas",
+    "german": "Der Schlafanzug"
+  },
+  {
+    "id": 1335,
+    "category": "Home & Clothing",
+    "english": "the suit",
+    "german": "Der Anzug"
+  },
+  {
+    "id": 1336,
+    "category": "Home & Clothing",
+    "english": "the coat",
+    "german": "Der Mantel"
+  },
+  {
+    "id": 1337,
+    "category": "Home & Clothing",
+    "english": "the raincoat",
+    "german": "Der Regenmantel"
+  },
+  {
+    "id": 1338,
+    "category": "Home & Clothing",
+    "english": "the sweater",
+    "german": "Der Pullover"
+  },
+  {
+    "id": 1339,
+    "category": "Home & Clothing",
+    "english": "the vest",
+    "german": "Die Weste"
+  },
+  {
+    "id": 1340,
+    "category": "Home & Clothing",
+    "english": "the skirt",
+    "german": "Der Rock"
+  },
+  {
+    "id": 1341,
+    "category": "Home & Clothing",
+    "english": "the shorts",
+    "german": "Die Shorts"
+  },
+  {
+    "id": 1342,
+    "category": "Home & Clothing",
+    "english": "the boots",
+    "german": "Die Stiefel"
+  },
+  {
+    "id": 1343,
+    "category": "Home & Clothing",
+    "english": "the sandals",
+    "german": "Die Sandalen"
+  },
+  {
+    "id": 1344,
+    "category": "Home & Clothing",
+    "english": "the sneakers",
+    "german": "Die Turnschuhe"
+  },
+  {
+    "id": 1345,
+    "category": "Home & Clothing",
+    "english": "the button",
+    "german": "Der Knopf"
+  },
+  {
+    "id": 1346,
+    "category": "Home & Clothing",
+    "english": "the zipper",
+    "german": "Der Reißverschluss"
+  },
+  {
+    "id": 1347,
+    "category": "Home & Clothing",
+    "english": "the pocket",
+    "german": "Die Tasche (Kleidung)"
+  },
+  {
+    "id": 1348,
+    "category": "Home & Clothing",
+    "english": "the fabric",
+    "german": "Der Stoff"
+  },
+  {
+    "id": 1349,
+    "category": "Home & Clothing",
+    "english": "the wool",
+    "german": "Die Wolle"
+  },
+  {
+    "id": 1350,
+    "category": "Home & Clothing",
+    "english": "the cotton",
+    "german": "Die Baumwolle"
+  },
+  {
+    "id": 1351,
+    "category": "Home & Clothing",
+    "english": "the leather",
+    "german": "Das Leder"
+  },
+  {
+    "id": 1352,
+    "category": "Home & Clothing",
+    "english": "the size (clothing)",
+    "german": "Die Größe"
+  },
+  {
+    "id": 1353,
+    "category": "Home & Clothing",
+    "english": "the jewelry",
+    "german": "Der Schmuck"
+  },
+  {
+    "id": 1354,
+    "category": "Home & Clothing",
+    "english": "the ring",
+    "german": "Der Ring"
+  },
+  {
+    "id": 1355,
+    "category": "Home & Clothing",
+    "english": "the necklace",
+    "german": "Die Halskette"
+  },
+  {
+    "id": 1356,
+    "category": "Home & Clothing",
+    "english": "the earring",
+    "german": "Der Ohrring"
+  },
+  {
+    "id": 1357,
+    "category": "Home & Clothing",
+    "english": "the bracelet",
+    "german": "Das Armband"
+  },
+  {
+    "id": 1358,
+    "category": "Home & Clothing",
+    "english": "the wallet",
+    "german": "Die Geldbörse"
+  },
+  {
+    "id": 1359,
+    "category": "Home & Clothing",
+    "english": "the umbrella",
+    "german": "Der Regenschirm"
+  },
+  {
+    "id": 1360,
+    "category": "Home & Clothing",
+    "english": "the backpack",
+    "german": "Der Rucksack"
+  },
+  {
+    "id": 1361,
+    "category": "Home & Clothing",
+    "english": "the suitcase",
+    "german": "Der Koffer"
+  },
+  {
+    "id": 1362,
+    "category": "Home & Clothing",
+    "english": "the address",
+    "german": "Die Adresse"
+  },
+  {
+    "id": 1363,
+    "category": "Home & Clothing",
+    "english": "the neighbor",
+    "german": "Der Nachbar"
+  },
+  {
+    "id": 1364,
+    "category": "Home & Clothing",
+    "english": "the landlord",
+    "german": "Der Vermieter"
+  },
+  {
+    "id": 1365,
+    "category": "Home & Clothing",
+    "english": "the tenant",
+    "german": "Der Mieter"
+  },
+  {
+    "id": 1366,
+    "category": "Home & Clothing",
+    "english": "the rent",
+    "german": "Die Miete"
+  },
+  {
+    "id": 1367,
+    "category": "Home & Clothing",
+    "english": "the furniture",
+    "german": "Die Möbel"
+  },
+  {
+    "id": 1368,
+    "category": "Home & Clothing",
+    "english": "the doormat",
+    "german": "Die Fußmatte"
+  },
+  {
+    "id": 1369,
+    "category": "Home & Clothing",
+    "english": "the windowsill",
+    "german": "Die Fensterbank"
+  },
+  {
+    "id": 1370,
+    "category": "Nature & Animals",
+    "english": "the squirrel",
+    "german": "Das Eichhörnchen"
+  },
+  {
+    "id": 1371,
+    "category": "Nature & Animals",
+    "english": "the hedgehog",
+    "german": "Der Igel"
+  },
+  {
+    "id": 1372,
+    "category": "Nature & Animals",
+    "english": "the fox",
+    "german": "Der Fuchs"
+  },
+  {
+    "id": 1373,
+    "category": "Nature & Animals",
+    "english": "the deer",
+    "german": "Der Hirsch"
+  },
+  {
+    "id": 1374,
+    "category": "Nature & Animals",
+    "english": "the wolf",
+    "german": "Der Wolf"
+  },
+  {
+    "id": 1375,
+    "category": "Nature & Animals",
+    "english": "the bear",
+    "german": "Der Bär"
+  },
+  {
+    "id": 1376,
+    "category": "Nature & Animals",
+    "english": "the rabbit",
+    "german": "Das Kaninchen"
+  },
+  {
+    "id": 1377,
+    "category": "Nature & Animals",
+    "english": "the mouse",
+    "german": "Die Maus"
+  },
+  {
+    "id": 1378,
+    "category": "Nature & Animals",
+    "english": "the rat",
+    "german": "Die Ratte"
+  },
+  {
+    "id": 1379,
+    "category": "Nature & Animals",
+    "english": "the bat",
+    "german": "Die Fledermaus"
+  },
+  {
+    "id": 1380,
+    "category": "Nature & Animals",
+    "english": "the frog",
+    "german": "Der Frosch"
+  },
+  {
+    "id": 1381,
+    "category": "Nature & Animals",
+    "english": "the toad",
+    "german": "Die Kröte"
+  },
+  {
+    "id": 1382,
+    "category": "Nature & Animals",
+    "english": "the snail",
+    "german": "Die Schnecke"
+  },
+  {
+    "id": 1383,
+    "category": "Nature & Animals",
+    "english": "the snake",
+    "german": "Die Schlange"
+  },
+  {
+    "id": 1384,
+    "category": "Nature & Animals",
+    "english": "the lizard",
+    "german": "Die Eidechse"
+  },
+  {
+    "id": 1385,
+    "category": "Nature & Animals",
+    "english": "the turtle",
+    "german": "Die Schildkröte"
+  },
+  {
+    "id": 1386,
+    "category": "Nature & Animals",
+    "english": "the spider",
+    "german": "Die Spinne"
+  },
+  {
+    "id": 1387,
+    "category": "Nature & Animals",
+    "english": "the ant",
+    "german": "Die Ameise"
+  },
+  {
+    "id": 1388,
+    "category": "Nature & Animals",
+    "english": "the bee",
+    "german": "Die Biene"
+  },
+  {
+    "id": 1389,
+    "category": "Nature & Animals",
+    "english": "the wasp",
+    "german": "Die Wespe"
+  },
+  {
+    "id": 1390,
+    "category": "Nature & Animals",
+    "english": "the butterfly",
+    "german": "Der Schmetterling"
+  },
+  {
+    "id": 1391,
+    "category": "Nature & Animals",
+    "english": "the fly",
+    "german": "Die Fliege"
+  },
+  {
+    "id": 1392,
+    "category": "Nature & Animals",
+    "english": "the mosquito",
+    "german": "Die Mücke"
+  },
+  {
+    "id": 1393,
+    "category": "Nature & Animals",
+    "english": "the beetle",
+    "german": "Der Käfer"
+  },
+  {
+    "id": 1394,
+    "category": "Nature & Animals",
+    "english": "the worm",
+    "german": "Der Wurm"
+  },
+  {
+    "id": 1395,
+    "category": "Nature & Animals",
+    "english": "the owl",
+    "german": "Die Eule"
+  },
+  {
+    "id": 1396,
+    "category": "Nature & Animals",
+    "english": "the eagle",
+    "german": "Der Adler"
+  },
+  {
+    "id": 1397,
+    "category": "Nature & Animals",
+    "english": "the sparrow",
+    "german": "Der Spatz"
+  },
+  {
+    "id": 1398,
+    "category": "Nature & Animals",
+    "english": "the swan",
+    "german": "Der Schwan"
+  },
+  {
+    "id": 1399,
+    "category": "Nature & Animals",
+    "english": "the stork",
+    "german": "Der Storch"
+  },
+  {
+    "id": 1400,
+    "category": "Nature & Animals",
+    "english": "the crow",
+    "german": "Die Krähe"
+  },
+  {
+    "id": 1401,
+    "category": "Nature & Animals",
+    "english": "the pigeon",
+    "german": "Die Taube"
+  },
+  {
+    "id": 1402,
+    "category": "Nature & Animals",
+    "english": "the parrot",
+    "german": "Der Papagei"
+  },
+  {
+    "id": 1403,
+    "category": "Nature & Animals",
+    "english": "the peacock",
+    "german": "Der Pfau"
+  },
+  {
+    "id": 1404,
+    "category": "Nature & Animals",
+    "english": "the goose",
+    "german": "Die Gans"
+  },
+  {
+    "id": 1405,
+    "category": "Nature & Animals",
+    "english": "the duckling",
+    "german": "Das Entlein"
+  },
+  {
+    "id": 1406,
+    "category": "Nature & Animals",
+    "english": "the whale",
+    "german": "Der Wal"
+  },
+  {
+    "id": 1407,
+    "category": "Nature & Animals",
+    "english": "the dolphin",
+    "german": "Der Delfin"
+  },
+  {
+    "id": 1408,
+    "category": "Nature & Animals",
+    "english": "the shark",
+    "german": "Der Hai"
+  },
+  {
+    "id": 1409,
+    "category": "Nature & Animals",
+    "english": "the jellyfish",
+    "german": "Die Qualle"
+  },
+  {
+    "id": 1410,
+    "category": "Nature & Animals",
+    "english": "the octopus",
+    "german": "Der Oktopus"
+  },
+  {
+    "id": 1411,
+    "category": "Nature & Animals",
+    "english": "the crab",
+    "german": "Die Krabbe"
+  },
+  {
+    "id": 1412,
+    "category": "Nature & Animals",
+    "english": "the lobster",
+    "german": "Der Hummer"
+  },
+  {
+    "id": 1413,
+    "category": "Nature & Animals",
+    "english": "the seal",
+    "german": "Die Robbe"
+  },
+  {
+    "id": 1414,
+    "category": "Nature & Animals",
+    "english": "the lion",
+    "german": "Der Löwe"
+  },
+  {
+    "id": 1415,
+    "category": "Nature & Animals",
+    "english": "the tiger",
+    "german": "Der Tiger"
+  },
+  {
+    "id": 1416,
+    "category": "Nature & Animals",
+    "english": "the elephant",
+    "german": "Der Elefant"
+  },
+  {
+    "id": 1417,
+    "category": "Nature & Animals",
+    "english": "the giraffe",
+    "german": "Die Giraffe"
+  },
+  {
+    "id": 1418,
+    "category": "Nature & Animals",
+    "english": "the zebra",
+    "german": "Das Zebra"
+  },
+  {
+    "id": 1419,
+    "category": "Nature & Animals",
+    "english": "the monkey",
+    "german": "Der Affe"
+  },
+  {
+    "id": 1420,
+    "category": "Nature & Animals",
+    "english": "the kangaroo",
+    "german": "Das Känguru"
+  },
+  {
+    "id": 1421,
+    "category": "Nature & Animals",
+    "english": "the camel",
+    "german": "Das Kamel"
+  },
+  {
+    "id": 1422,
+    "category": "Nature & Animals",
+    "english": "the rhinoceros",
+    "german": "Das Nashorn"
+  },
+  {
+    "id": 1423,
+    "category": "Nature & Animals",
+    "english": "the crocodile",
+    "german": "Das Krokodil"
+  },
+  {
+    "id": 1424,
+    "category": "Nature & Animals",
+    "english": "the forest",
+    "german": "Der Wald"
+  },
+  {
+    "id": 1425,
+    "category": "Nature & Animals",
+    "english": "the meadow",
+    "german": "Die Wiese"
+  },
+  {
+    "id": 1426,
+    "category": "Nature & Animals",
+    "english": "the field",
+    "german": "Das Feld"
+  },
+  {
+    "id": 1427,
+    "category": "Nature & Animals",
+    "english": "the hill",
+    "german": "Der Hügel"
+  },
+  {
+    "id": 1428,
+    "category": "Nature & Animals",
+    "english": "the valley",
+    "german": "Das Tal"
+  },
+  {
+    "id": 1429,
+    "category": "Nature & Animals",
+    "english": "the cliff",
+    "german": "Die Klippe"
+  },
+  {
+    "id": 1430,
+    "category": "Nature & Animals",
+    "english": "the cave",
+    "german": "Die Höhle"
+  },
+  {
+    "id": 1431,
+    "category": "Nature & Animals",
+    "english": "the desert",
+    "german": "Die Wüste"
+  },
+  {
+    "id": 1432,
+    "category": "Nature & Animals",
+    "english": "the island",
+    "german": "Die Insel"
+  },
+  {
+    "id": 1433,
+    "category": "Nature & Animals",
+    "english": "the volcano",
+    "german": "Der Vulkan"
+  },
+  {
+    "id": 1434,
+    "category": "Nature & Animals",
+    "english": "the glacier",
+    "german": "Der Gletscher"
+  },
+  {
+    "id": 1435,
+    "category": "Nature & Animals",
+    "english": "the waterfall",
+    "german": "Der Wasserfall"
+  },
+  {
+    "id": 1436,
+    "category": "Nature & Animals",
+    "english": "the stream",
+    "german": "Der Bach"
+  },
+  {
+    "id": 1437,
+    "category": "Nature & Animals",
+    "english": "the pond",
+    "german": "Der Teich"
+  },
+  {
+    "id": 1438,
+    "category": "Nature & Animals",
+    "english": "the swamp",
+    "german": "Der Sumpf"
+  },
+  {
+    "id": 1439,
+    "category": "Nature & Animals",
+    "english": "the coast",
+    "german": "Die Küste"
+  },
+  {
+    "id": 1440,
+    "category": "Nature & Animals",
+    "english": "the branch",
+    "german": "Der Zweig"
+  },
+  {
+    "id": 1441,
+    "category": "Nature & Animals",
+    "english": "the root",
+    "german": "Die Wurzel"
+  },
+  {
+    "id": 1442,
+    "category": "Nature & Animals",
+    "english": "the trunk (tree)",
+    "german": "Der Stamm"
+  },
+  {
+    "id": 1443,
+    "category": "Nature & Animals",
+    "english": "the seed",
+    "german": "Der Samen"
+  },
+  {
+    "id": 1444,
+    "category": "Nature & Animals",
+    "english": "the bush",
+    "german": "Der Busch"
+  },
+  {
+    "id": 1445,
+    "category": "Nature & Animals",
+    "english": "the moss",
+    "german": "Das Moos"
+  },
+  {
+    "id": 1446,
+    "category": "Nature & Animals",
+    "english": "the fern",
+    "german": "Der Farn"
+  },
+  {
+    "id": 1447,
+    "category": "Nature & Animals",
+    "english": "the weed",
+    "german": "Das Unkraut"
+  },
+  {
+    "id": 1448,
+    "category": "Nature & Animals",
+    "english": "the thunder",
+    "german": "Der Donner"
+  },
+  {
+    "id": 1449,
+    "category": "Nature & Animals",
+    "english": "the lightning",
+    "german": "Der Blitz"
+  },
+  {
+    "id": 1450,
+    "category": "Nature & Animals",
+    "english": "the fog",
+    "german": "Der Nebel"
+  },
+  {
+    "id": 1451,
+    "category": "Nature & Animals",
+    "english": "the frost",
+    "german": "Der Frost"
+  },
+  {
+    "id": 1452,
+    "category": "Nature & Animals",
+    "english": "the drought",
+    "german": "Die Dürre"
+  },
+  {
+    "id": 1453,
+    "category": "Nature & Animals",
+    "english": "the flood",
+    "german": "Die Überschwemmung"
+  },
+  {
+    "id": 1454,
+    "category": "Nature & Animals",
+    "english": "the earthquake",
+    "german": "Das Erdbeben"
+  },
+  {
+    "id": 1455,
+    "category": "Nature & Animals",
+    "english": "the ecosystem",
+    "german": "Das Ökosystem"
+  },
+  {
+    "id": 1456,
+    "category": "Nature & Animals",
+    "english": "the environment",
+    "german": "Die Umwelt"
+  },
+  {
+    "id": 1457,
+    "category": "Nature & Animals",
+    "english": "the climate",
+    "german": "Das Klima"
+  },
+  {
+    "id": 1458,
+    "category": "Nature & Animals",
+    "english": "the atmosphere",
+    "german": "Die Atmosphäre"
+  },
+  {
+    "id": 1459,
+    "category": "Nature & Animals",
+    "english": "the horizon",
+    "german": "Der Horizont"
+  },
+  {
+    "id": 1460,
+    "category": "Nature & Animals",
+    "english": "the galaxy",
+    "german": "Die Galaxie"
+  },
+  {
+    "id": 1461,
+    "category": "Nature & Animals",
+    "english": "the planet",
+    "german": "Der Planet"
+  },
+  {
+    "id": 1462,
+    "category": "Nature & Animals",
+    "english": "the comet",
+    "german": "Der Komet"
+  },
+  {
+    "id": 1463,
+    "category": "Nature & Animals",
+    "english": "the meteor",
+    "german": "Der Meteor"
+  },
+  {
+    "id": 1464,
+    "category": "Nature & Animals",
+    "english": "the universe",
+    "german": "Das Universum"
+  },
+  {
+    "id": 1465,
+    "category": "Nature & Animals",
+    "english": "the gravity",
+    "german": "Die Schwerkraft"
+  },
+  {
+    "id": 1466,
+    "category": "Nature & Animals",
+    "english": "the pebble",
+    "german": "Der Kiesel"
+  },
+  {
+    "id": 1467,
+    "category": "Nature & Animals",
+    "english": "the boulder",
+    "german": "Der Felsbrocken"
+  },
+  {
+    "id": 1468,
+    "category": "Nature & Animals",
+    "english": "the sand dune",
+    "german": "Die Sanddüne"
+  },
+  {
+    "id": 1469,
+    "category": "Nature & Animals",
+    "english": "the coral reef",
+    "german": "Das Korallenriff"
+  },
+  {
+    "id": 1470,
+    "category": "Nature & Animals",
+    "english": "the habitat",
+    "german": "Der Lebensraum"
+  },
+  {
+    "id": 1471,
+    "category": "Nature & Animals",
+    "english": "the species",
+    "german": "Die Spezies"
+  },
+  {
+    "id": 1472,
+    "category": "Nature & Animals",
+    "english": "the nest",
+    "german": "Das Nest"
+  },
+  {
+    "id": 1473,
+    "category": "Nature & Animals",
+    "english": "the den",
+    "german": "Der Bau"
+  },
+  {
+    "id": 1474,
+    "category": "Nature & Animals",
+    "english": "the herd",
+    "german": "Die Herde"
+  },
+  {
+    "id": 1475,
+    "category": "Nature & Animals",
+    "english": "the flock",
+    "german": "Der Schwarm"
+  },
+  {
+    "id": 1476,
+    "category": "Nature & Animals",
+    "english": "the puddle",
+    "german": "Die Pfütze"
+  },
+  {
+    "id": 1477,
+    "category": "Nature & Animals",
+    "english": "the canyon",
+    "german": "Die Schlucht"
+  },
+  {
+    "id": 1478,
+    "category": "Nature & Animals",
+    "english": "the reservoir",
+    "german": "Das Reservoir"
+  },
+  {
+    "id": 1479,
+    "category": "Nature & Animals",
+    "english": "the wildlife",
+    "german": "Die Tierwelt"
+  },
+  {
+    "id": 1480,
+    "category": "Numbers & Time",
+    "english": "twenty-one",
+    "german": "Einundzwanzig"
+  },
+  {
+    "id": 1481,
+    "category": "Numbers & Time",
+    "english": "two hundred",
+    "german": "Zweihundert"
+  },
+  {
+    "id": 1482,
+    "category": "Numbers & Time",
+    "english": "five hundred",
+    "german": "Fünfhundert"
+  },
+  {
+    "id": 1483,
+    "category": "Numbers & Time",
+    "english": "two thousand",
+    "german": "Zweitausend"
+  },
+  {
+    "id": 1484,
+    "category": "Numbers & Time",
+    "english": "billion",
+    "german": "Milliarde"
+  },
+  {
+    "id": 1485,
+    "category": "Numbers & Time",
+    "english": "fourth",
+    "german": "Vierte"
+  },
+  {
+    "id": 1486,
+    "category": "Numbers & Time",
+    "english": "fifth",
+    "german": "Fünfte"
+  },
+  {
+    "id": 1487,
+    "category": "Numbers & Time",
+    "english": "tenth",
+    "german": "Zehnte"
+  },
+  {
+    "id": 1488,
+    "category": "Numbers & Time",
+    "english": "half",
+    "german": "Hälfte"
+  },
+  {
+    "id": 1489,
+    "category": "Numbers & Time",
+    "english": "quarter",
+    "german": "Viertel"
+  },
+  {
+    "id": 1490,
+    "category": "Numbers & Time",
+    "english": "double",
+    "german": "Doppelt"
+  },
+  {
+    "id": 1491,
+    "category": "Numbers & Time",
+    "english": "triple",
+    "german": "Dreifach"
+  },
+  {
+    "id": 1492,
+    "category": "Numbers & Time",
+    "english": "dozen",
+    "german": "Dutzend"
+  },
+  {
+    "id": 1493,
+    "category": "Numbers & Time",
+    "english": "pair",
+    "german": "Paar"
+  },
+  {
+    "id": 1494,
+    "category": "Numbers & Time",
+    "english": "the second (time)",
+    "german": "Die Sekunde"
+  },
+  {
+    "id": 1495,
+    "category": "Numbers & Time",
+    "english": "the minute",
+    "german": "Die Minute"
+  },
+  {
+    "id": 1496,
+    "category": "Numbers & Time",
+    "english": "the hour",
+    "german": "Die Stunde"
+  },
+  {
+    "id": 1497,
+    "category": "Numbers & Time",
+    "english": "the day",
+    "german": "Der Tag"
+  },
+  {
+    "id": 1498,
+    "category": "Numbers & Time",
+    "english": "the week",
+    "german": "Die Woche"
+  },
+  {
+    "id": 1499,
+    "category": "Numbers & Time",
+    "english": "the month",
+    "german": "Der Monat"
+  },
+  {
+    "id": 1500,
+    "category": "Numbers & Time",
+    "english": "the year",
+    "german": "Das Jahr"
+  },
+  {
+    "id": 1501,
+    "category": "Numbers & Time",
+    "english": "the decade",
+    "german": "Das Jahrzehnt"
+  },
+  {
+    "id": 1502,
+    "category": "Numbers & Time",
+    "english": "the century",
+    "german": "Das Jahrhundert"
+  },
+  {
+    "id": 1503,
+    "category": "Numbers & Time",
+    "english": "the weekend",
+    "german": "Das Wochenende"
+  },
+  {
+    "id": 1504,
+    "category": "Numbers & Time",
+    "english": "the holiday",
+    "german": "Der Feiertag"
+  },
+  {
+    "id": 1505,
+    "category": "Numbers & Time",
+    "english": "the deadline",
+    "german": "Die Frist"
+  },
+  {
+    "id": 1506,
+    "category": "Numbers & Time",
+    "english": "the schedule",
+    "german": "Der Zeitplan"
+  },
+  {
+    "id": 1507,
+    "category": "Numbers & Time",
+    "english": "the calendar",
+    "german": "Der Kalender"
+  },
+  {
+    "id": 1508,
+    "category": "Numbers & Time",
+    "english": "the appointment (time)",
+    "german": "Der Termin (Zeit)"
+  },
+  {
+    "id": 1509,
+    "category": "Numbers & Time",
+    "english": "soon",
+    "german": "Bald"
+  },
+  {
+    "id": 1510,
+    "category": "Numbers & Time",
+    "english": "recently",
+    "german": "Kürzlich"
+  },
+  {
+    "id": 1511,
+    "category": "Numbers & Time",
+    "english": "previously",
+    "german": "Zuvor"
+  },
+  {
+    "id": 1512,
+    "category": "Numbers & Time",
+    "english": "meanwhile",
+    "german": "Inzwischen"
+  },
+  {
+    "id": 1513,
+    "category": "Numbers & Time",
+    "english": "eventually",
+    "german": "Schließlich"
+  },
+  {
+    "id": 1514,
+    "category": "Numbers & Time",
+    "english": "immediately",
+    "german": "Sofort"
+  },
+  {
+    "id": 1515,
+    "category": "Numbers & Time",
+    "english": "gradually",
+    "german": "Allmählich"
+  },
+  {
+    "id": 1516,
+    "category": "Numbers & Time",
+    "english": "frequently",
+    "german": "Häufig"
+  },
+  {
+    "id": 1517,
+    "category": "Numbers & Time",
+    "english": "rarely",
+    "german": "Selten"
+  },
+  {
+    "id": 1518,
+    "category": "Numbers & Time",
+    "english": "annually",
+    "german": "Jährlich"
+  },
+  {
+    "id": 1519,
+    "category": "Numbers & Time",
+    "english": "weekly",
+    "german": "Wöchentlich"
+  },
+  {
+    "id": 1520,
+    "category": "Numbers & Time",
+    "english": "daily",
+    "german": "Täglich"
+  },
+  {
+    "id": 1521,
+    "category": "Numbers & Time",
+    "english": "hourly",
+    "german": "Stündlich"
+  },
+  {
+    "id": 1522,
+    "category": "Numbers & Time",
+    "english": "the moment",
+    "german": "Der Moment"
+  },
+  {
+    "id": 1523,
+    "category": "Numbers & Time",
+    "english": "the period",
+    "german": "Die Periode"
+  },
+  {
+    "id": 1524,
+    "category": "Numbers & Time",
+    "english": "the era",
+    "german": "Die Ära"
+  },
+  {
+    "id": 1525,
+    "category": "Numbers & Time",
+    "english": "the duration",
+    "german": "Die Dauer"
+  },
+  {
+    "id": 1526,
+    "category": "Numbers & Time",
+    "english": "the past",
+    "german": "Die Vergangenheit"
+  },
+  {
+    "id": 1527,
+    "category": "Numbers & Time",
+    "english": "the present (time)",
+    "german": "Die Gegenwart"
+  },
+  {
+    "id": 1528,
+    "category": "Numbers & Time",
+    "english": "the future",
+    "german": "Die Zukunft"
+  },
+  {
+    "id": 1529,
+    "category": "Numbers & Time",
+    "english": "twenty-two",
+    "german": "Zweiundzwanzig"
+  },
+  {
+    "id": 1530,
+    "category": "Numbers & Time",
+    "english": "twenty-three",
+    "german": "Dreiundzwanzig"
+  },
+  {
+    "id": 1531,
+    "category": "Numbers & Time",
+    "english": "twenty-four",
+    "german": "Vierundzwanzig"
+  },
+  {
+    "id": 1532,
+    "category": "Numbers & Time",
+    "english": "twenty-five",
+    "german": "Fünfundzwanzig"
+  },
+  {
+    "id": 1533,
+    "category": "Numbers & Time",
+    "english": "thirty-one",
+    "german": "Einunddreißig"
+  },
+  {
+    "id": 1534,
+    "category": "Numbers & Time",
+    "english": "forty-two",
+    "german": "Zweiundvierzig"
+  },
+  {
+    "id": 1535,
+    "category": "Numbers & Time",
+    "english": "fifty-five",
+    "german": "Fünfundfünfzig"
+  },
+  {
+    "id": 1536,
+    "category": "Numbers & Time",
+    "english": "sixty-six",
+    "german": "Sechsundsechzig"
+  },
+  {
+    "id": 1537,
+    "category": "Numbers & Time",
+    "english": "seventy-seven",
+    "german": "Siebenundsiebzig"
+  },
+  {
+    "id": 1538,
+    "category": "Numbers & Time",
+    "english": "eighty-eight",
+    "german": "Achtundachtzig"
+  },
+  {
+    "id": 1539,
+    "category": "Numbers & Time",
+    "english": "ninety-nine",
+    "german": "Neunundneunzig"
+  },
+  {
+    "id": 1540,
+    "category": "Numbers & Time",
+    "english": "one hundred one",
+    "german": "Einhunderteins"
+  },
+  {
+    "id": 1541,
+    "category": "Numbers & Time",
+    "english": "three hundred",
+    "german": "Dreihundert"
+  },
+  {
+    "id": 1542,
+    "category": "Numbers & Time",
+    "english": "four hundred",
+    "german": "Vierhundert"
+  },
+  {
+    "id": 1543,
+    "category": "Numbers & Time",
+    "english": "six hundred",
+    "german": "Sechshundert"
+  },
+  {
+    "id": 1544,
+    "category": "Numbers & Time",
+    "english": "seven hundred",
+    "german": "Siebenhundert"
+  },
+  {
+    "id": 1545,
+    "category": "Numbers & Time",
+    "english": "eight hundred",
+    "german": "Achthundert"
+  },
+  {
+    "id": 1546,
+    "category": "Numbers & Time",
+    "english": "nine hundred",
+    "german": "Neunhundert"
+  },
+  {
+    "id": 1547,
+    "category": "Numbers & Time",
+    "english": "ten thousand",
+    "german": "Zehntausend"
+  },
+  {
+    "id": 1548,
+    "category": "Numbers & Time",
+    "english": "hundred thousand",
+    "german": "Hunderttausend"
+  },
+  {
+    "id": 1549,
+    "category": "Numbers & Time",
+    "english": "sixth",
+    "german": "Sechste"
+  },
+  {
+    "id": 1550,
+    "category": "Numbers & Time",
+    "english": "seventh",
+    "german": "Siebte"
+  },
+  {
+    "id": 1551,
+    "category": "Numbers & Time",
+    "english": "eighth",
+    "german": "Achte"
+  },
+  {
+    "id": 1552,
+    "category": "Numbers & Time",
+    "english": "ninth",
+    "german": "Neunte"
+  },
+  {
+    "id": 1553,
+    "category": "Numbers & Time",
+    "english": "eleventh",
+    "german": "Elfte"
+  },
+  {
+    "id": 1554,
+    "category": "Numbers & Time",
+    "english": "twelfth",
+    "german": "Zwölfte"
+  },
+  {
+    "id": 1555,
+    "category": "Numbers & Time",
+    "english": "twentieth",
+    "german": "Zwanzigste"
+  },
+  {
+    "id": 1556,
+    "category": "Numbers & Time",
+    "english": "last (final)",
+    "german": "Letzte"
+  },
+  {
+    "id": 1557,
+    "category": "Numbers & Time",
+    "english": "next (order)",
+    "german": "Nächste"
+  },
+  {
+    "id": 1558,
+    "category": "Numbers & Time",
+    "english": "even (number)",
+    "german": "Gerade"
+  },
+  {
+    "id": 1559,
+    "category": "Numbers & Time",
+    "english": "odd (number)",
+    "german": "Ungerade"
+  },
+  {
+    "id": 1560,
+    "category": "Numbers & Time",
+    "english": "the fraction",
+    "german": "Der Bruch"
+  },
+  {
+    "id": 1561,
+    "category": "Numbers & Time",
+    "english": "the percentage",
+    "german": "Der Prozentsatz"
+  },
+  {
+    "id": 1562,
+    "category": "Numbers & Time",
+    "english": "the total",
+    "german": "Die Summe"
+  },
+  {
+    "id": 1563,
+    "category": "Numbers & Time",
+    "english": "the average",
+    "german": "Der Durchschnitt"
+  },
+  {
+    "id": 1564,
+    "category": "Numbers & Time",
+    "english": "the leap year",
+    "german": "Das Schaltjahr"
+  },
+  {
+    "id": 1565,
+    "category": "Numbers & Time",
+    "english": "the fiscal year",
+    "german": "Das Geschäftsjahr"
+  },
+  {
+    "id": 1566,
+    "category": "Numbers & Time",
+    "english": "the anniversary",
+    "german": "Der Jahrestag"
+  },
+  {
+    "id": 1567,
+    "category": "People & Feelings",
+    "english": "the stranger",
+    "german": "Der Fremde"
+  },
+  {
+    "id": 1568,
+    "category": "People & Feelings",
+    "english": "the neighbor (person)",
+    "german": "Der Nachbar"
+  },
+  {
+    "id": 1569,
+    "category": "People & Feelings",
+    "english": "the colleague",
+    "german": "Der Kollege"
+  },
+  {
+    "id": 1570,
+    "category": "People & Feelings",
+    "english": "the boss",
+    "german": "Der Chef"
+  },
+  {
+    "id": 1571,
+    "category": "People & Feelings",
+    "english": "the employee",
+    "german": "Der Angestellte"
+  },
+  {
+    "id": 1572,
+    "category": "People & Feelings",
+    "english": "the customer",
+    "german": "Der Kunde"
+  },
+  {
+    "id": 1573,
+    "category": "People & Feelings",
+    "english": "the guest",
+    "german": "Der Gast"
+  },
+  {
+    "id": 1574,
+    "category": "People & Feelings",
+    "english": "the host",
+    "german": "Der Gastgeber"
+  },
+  {
+    "id": 1575,
+    "category": "People & Feelings",
+    "english": "the teenager",
+    "german": "Der Teenager"
+  },
+  {
+    "id": 1576,
+    "category": "People & Feelings",
+    "english": "the toddler",
+    "german": "Das Kleinkind"
+  },
+  {
+    "id": 1577,
+    "category": "People & Feelings",
+    "english": "the elderly person",
+    "german": "Der Senior"
+  },
+  {
+    "id": 1578,
+    "category": "People & Feelings",
+    "english": "the twin",
+    "german": "Der Zwilling"
+  },
+  {
+    "id": 1579,
+    "category": "People & Feelings",
+    "english": "the widow",
+    "german": "Die Witwe"
+  },
+  {
+    "id": 1580,
+    "category": "People & Feelings",
+    "english": "the fiancé",
+    "german": "Der Verlobte"
+  },
+  {
+    "id": 1581,
+    "category": "People & Feelings",
+    "english": "the grandparent",
+    "german": "Der Großelternteil"
+  },
+  {
+    "id": 1582,
+    "category": "People & Feelings",
+    "english": "the great-grandfather",
+    "german": "Der Urgroßvater"
+  },
+  {
+    "id": 1583,
+    "category": "People & Feelings",
+    "english": "the niece",
+    "german": "Die Nichte"
+  },
+  {
+    "id": 1584,
+    "category": "People & Feelings",
+    "english": "the nephew",
+    "german": "Der Neffe"
+  },
+  {
+    "id": 1585,
+    "category": "People & Feelings",
+    "english": "the godmother",
+    "german": "Die Patin"
+  },
+  {
+    "id": 1586,
+    "category": "People & Feelings",
+    "english": "the in-laws",
+    "german": "Die Schwiegereltern"
+  },
+  {
+    "id": 1587,
+    "category": "People & Feelings",
+    "english": "the ancestor",
+    "german": "Der Vorfahr"
+  },
+  {
+    "id": 1588,
+    "category": "People & Feelings",
+    "english": "the personality",
+    "german": "Die Persönlichkeit"
+  },
+  {
+    "id": 1589,
+    "category": "People & Feelings",
+    "english": "the character",
+    "german": "Der Charakter"
+  },
+  {
+    "id": 1590,
+    "category": "People & Feelings",
+    "english": "the habit",
+    "german": "Die Gewohnheit"
+  },
+  {
+    "id": 1591,
+    "category": "People & Feelings",
+    "english": "the mood",
+    "german": "Die Stimmung"
+  },
+  {
+    "id": 1592,
+    "category": "People & Feelings",
+    "english": "the emotion",
+    "german": "Die Emotion"
+  },
+  {
+    "id": 1593,
+    "category": "People & Feelings",
+    "english": "joyful",
+    "german": "Freudig"
+  },
+  {
+    "id": 1594,
+    "category": "People & Feelings",
+    "english": "ashamed",
+    "german": "Beschämt"
+  },
+  {
+    "id": 1595,
+    "category": "People & Feelings",
+    "english": "stressed",
+    "german": "Gestresst"
+  },
+  {
+    "id": 1596,
+    "category": "People & Feelings",
+    "english": "stingy",
+    "german": "Geizig"
+  },
+  {
+    "id": 1597,
+    "category": "People & Feelings",
+    "english": "dishonest",
+    "german": "Unehrlich"
+  },
+  {
+    "id": 1598,
+    "category": "People & Feelings",
+    "english": "loyal",
+    "german": "Treu"
+  },
+  {
+    "id": 1599,
+    "category": "People & Feelings",
+    "english": "rude",
+    "german": "Unhöflich"
+  },
+  {
+    "id": 1600,
+    "category": "People & Feelings",
+    "english": "impatient",
+    "german": "Ungeduldig"
+  },
+  {
+    "id": 1601,
+    "category": "People & Feelings",
+    "english": "cowardly",
+    "german": "Feige"
+  },
+  {
+    "id": 1602,
+    "category": "People & Feelings",
+    "english": "cheerful",
+    "german": "Fröhlich"
+  },
+  {
+    "id": 1603,
+    "category": "People & Feelings",
+    "english": "gloomy",
+    "german": "Trübsinnig"
+  },
+  {
+    "id": 1604,
+    "category": "People & Feelings",
+    "english": "furious",
+    "german": "Wütend"
+  },
+  {
+    "id": 1605,
+    "category": "People & Feelings",
+    "english": "hopeful",
+    "german": "Hoffnungsvoll"
+  },
+  {
+    "id": 1606,
+    "category": "People & Feelings",
+    "english": "relieved",
+    "german": "Erleichtert"
+  },
+  {
+    "id": 1607,
+    "category": "People & Feelings",
+    "english": "in love",
+    "german": "Verliebt"
+  },
+  {
+    "id": 1608,
+    "category": "People & Feelings",
+    "english": "the friendship",
+    "german": "Die Freundschaft"
+  },
+  {
+    "id": 1609,
+    "category": "People & Feelings",
+    "english": "the trust",
+    "german": "Das Vertrauen"
+  },
+  {
+    "id": 1610,
+    "category": "People & Feelings",
+    "english": "the respect",
+    "german": "Der Respekt"
+  },
+  {
+    "id": 1611,
+    "category": "People & Feelings",
+    "english": "the argument (fight)",
+    "german": "Der Streit"
+  },
+  {
+    "id": 1612,
+    "category": "People & Feelings",
+    "english": "the apology",
+    "german": "Die Entschuldigung"
+  },
+  {
+    "id": 1613,
+    "category": "People & Feelings",
+    "english": "the forgiveness",
+    "german": "Die Vergebung"
+  },
+  {
+    "id": 1614,
+    "category": "People & Feelings",
+    "english": "the compliment",
+    "german": "Das Kompliment"
+  },
+  {
+    "id": 1615,
+    "category": "People & Feelings",
+    "english": "the insult",
+    "german": "Die Beleidigung"
+  },
+  {
+    "id": 1616,
+    "category": "People & Feelings",
+    "english": "the secret",
+    "german": "Das Geheimnis"
+  },
+  {
+    "id": 1617,
+    "category": "People & Feelings",
+    "english": "the rumor",
+    "german": "Das Gerücht"
+  },
+  {
+    "id": 1618,
+    "category": "People & Feelings",
+    "english": "the opinion",
+    "german": "Die Meinung"
+  },
+  {
+    "id": 1619,
+    "category": "People & Feelings",
+    "english": "the advice",
+    "german": "Der Rat"
+  },
+  {
+    "id": 1620,
+    "category": "People & Feelings",
+    "english": "the promise",
+    "german": "Das Versprechen"
+  },
+  {
+    "id": 1621,
+    "category": "People & Feelings",
+    "english": "the memory (recollection)",
+    "german": "Die Erinnerung"
+  },
+  {
+    "id": 1622,
+    "category": "People & Feelings",
+    "english": "the dream (aspiration)",
+    "german": "Der Traum"
+  },
+  {
+    "id": 1623,
+    "category": "People & Feelings",
+    "english": "the goal",
+    "german": "Das Ziel"
+  },
+  {
+    "id": 1624,
+    "category": "People & Feelings",
+    "english": "the wish",
+    "german": "Der Wunsch"
+  },
+  {
+    "id": 1625,
+    "category": "People & Feelings",
+    "english": "the sibling",
+    "german": "Das Geschwisterkind"
+  },
+  {
+    "id": 1626,
+    "category": "People & Feelings",
+    "english": "the acquaintance",
+    "german": "Der Bekannte"
+  },
+  {
+    "id": 1627,
+    "category": "People & Feelings",
+    "english": "the roommate",
+    "german": "Der Mitbewohner"
+  },
+  {
+    "id": 1628,
+    "category": "People & Feelings",
+    "english": "delighted",
+    "german": "Erfreut"
+  },
+  {
+    "id": 1629,
+    "category": "People & Feelings",
+    "english": "astonished",
+    "german": "Erstaunt"
+  },
+  {
+    "id": 1630,
+    "category": "People & Feelings",
+    "english": "terrified",
+    "german": "Verängstigt"
+  },
+  {
+    "id": 1631,
+    "category": "People & Feelings",
+    "english": "annoyed",
+    "german": "Verärgert"
+  },
+  {
+    "id": 1632,
+    "category": "People & Feelings",
+    "english": "frustrated",
+    "german": "Frustriert"
+  },
+  {
+    "id": 1633,
+    "category": "People & Feelings",
+    "english": "content (satisfied)",
+    "german": "Zufrieden"
+  },
+  {
+    "id": 1634,
+    "category": "People & Feelings",
+    "english": "miserable",
+    "german": "Elend"
+  },
+  {
+    "id": 1635,
+    "category": "People & Feelings",
+    "english": "thoughtful",
+    "german": "Nachdenklich"
+  },
+  {
+    "id": 1636,
+    "category": "People & Feelings",
+    "english": "caring",
+    "german": "Fürsorglich"
+  },
+  {
+    "id": 1637,
+    "category": "People & Feelings",
+    "english": "selfless",
+    "german": "Selbstlos"
+  },
+  {
+    "id": 1638,
+    "category": "People & Feelings",
+    "english": "witty",
+    "german": "Witzig"
+  },
+  {
+    "id": 1639,
+    "category": "People & Feelings",
+    "english": "charming",
+    "german": "Charmant"
+  },
+  {
+    "id": 1640,
+    "category": "People & Feelings",
+    "english": "clumsy",
+    "german": "Tollpatschig"
+  },
+  {
+    "id": 1641,
+    "category": "People & Feelings",
+    "english": "unreliable",
+    "german": "Unzuverlässig"
+  },
+  {
+    "id": 1642,
+    "category": "People & Feelings",
+    "english": "sociable",
+    "german": "Gesellig"
+  },
+  {
+    "id": 1643,
+    "category": "People & Feelings",
+    "english": "introverted",
+    "german": "Introvertiert"
+  },
+  {
+    "id": 1644,
+    "category": "People & Feelings",
+    "english": "extroverted",
+    "german": "Extrovertiert"
+  },
+  {
+    "id": 1645,
+    "category": "People & Feelings",
+    "english": "sensitive",
+    "german": "Sensibel"
+  },
+  {
+    "id": 1646,
+    "category": "People & Feelings",
+    "english": "tolerant",
+    "german": "Tolerant"
+  },
+  {
+    "id": 1647,
+    "category": "People & Feelings",
+    "english": "the sympathy",
+    "german": "Das Mitgefühl"
+  },
+  {
+    "id": 1648,
+    "category": "People & Feelings",
+    "english": "the empathy",
+    "german": "Die Empathie"
+  },
+  {
+    "id": 1649,
+    "category": "People & Feelings",
+    "english": "the pride",
+    "german": "Der Stolz"
+  },
+  {
+    "id": 1650,
+    "category": "People & Feelings",
+    "english": "the shame",
+    "german": "Die Scham"
+  },
+  {
+    "id": 1651,
+    "category": "People & Feelings",
+    "english": "the guilt",
+    "german": "Die Schuld (Gefühl)"
+  },
+  {
+    "id": 1652,
+    "category": "Places & Travel",
+    "english": "the capital city",
+    "german": "Die Hauptstadt"
+  },
+  {
+    "id": 1653,
+    "category": "Places & Travel",
+    "english": "the village",
+    "german": "Das Dorf"
+  },
+  {
+    "id": 1654,
+    "category": "Places & Travel",
+    "english": "the suburb",
+    "german": "Der Vorort"
+  },
+  {
+    "id": 1655,
+    "category": "Places & Travel",
+    "english": "the downtown",
+    "german": "Die Innenstadt"
+  },
+  {
+    "id": 1656,
+    "category": "Places & Travel",
+    "english": "the neighborhood",
+    "german": "Die Nachbarschaft"
+  },
+  {
+    "id": 1657,
+    "category": "Places & Travel",
+    "english": "the district",
+    "german": "Der Bezirk"
+  },
+  {
+    "id": 1658,
+    "category": "Places & Travel",
+    "english": "the border",
+    "german": "Die Grenze"
+  },
+  {
+    "id": 1659,
+    "category": "Places & Travel",
+    "english": "the embassy",
+    "german": "Die Botschaft"
+  },
+  {
+    "id": 1660,
+    "category": "Places & Travel",
+    "english": "the passport",
+    "german": "Der Reisepass"
+  },
+  {
+    "id": 1661,
+    "category": "Places & Travel",
+    "english": "the visa",
+    "german": "Das Visum"
+  },
+  {
+    "id": 1662,
+    "category": "Places & Travel",
+    "english": "the customs",
+    "german": "Der Zoll"
+  },
+  {
+    "id": 1663,
+    "category": "Places & Travel",
+    "english": "the luggage",
+    "german": "Das Gepäck"
+  },
+  {
+    "id": 1664,
+    "category": "Places & Travel",
+    "english": "the boarding pass",
+    "german": "Die Bordkarte"
+  },
+  {
+    "id": 1665,
+    "category": "Places & Travel",
+    "english": "the departure",
+    "german": "Die Abreise"
+  },
+  {
+    "id": 1666,
+    "category": "Places & Travel",
+    "english": "the arrival",
+    "german": "Die Ankunft"
+  },
+  {
+    "id": 1667,
+    "category": "Places & Travel",
+    "english": "the layover",
+    "german": "Der Zwischenstopp"
+  },
+  {
+    "id": 1668,
+    "category": "Places & Travel",
+    "english": "the terminal",
+    "german": "Das Terminal"
+  },
+  {
+    "id": 1669,
+    "category": "Places & Travel",
+    "english": "the runway",
+    "german": "Die Startbahn"
+  },
+  {
+    "id": 1670,
+    "category": "Places & Travel",
+    "english": "the ferry",
+    "german": "Die Fähre"
+  },
+  {
+    "id": 1671,
+    "category": "Places & Travel",
+    "english": "the harbor",
+    "german": "Der Hafen"
+  },
+  {
+    "id": 1672,
+    "category": "Places & Travel",
+    "english": "the platform",
+    "german": "Der Bahnsteig"
+  },
+  {
+    "id": 1673,
+    "category": "Places & Travel",
+    "english": "the subway",
+    "german": "Die U-Bahn"
+  },
+  {
+    "id": 1674,
+    "category": "Places & Travel",
+    "english": "the tram",
+    "german": "Die Straßenbahn"
+  },
+  {
+    "id": 1675,
+    "category": "Places & Travel",
+    "english": "the taxi",
+    "german": "Das Taxi"
+  },
+  {
+    "id": 1676,
+    "category": "Places & Travel",
+    "english": "the highway",
+    "german": "Die Autobahn"
+  },
+  {
+    "id": 1677,
+    "category": "Places & Travel",
+    "english": "the intersection",
+    "german": "Die Kreuzung"
+  },
+  {
+    "id": 1678,
+    "category": "Places & Travel",
+    "english": "the roundabout",
+    "german": "Der Kreisverkehr"
+  },
+  {
+    "id": 1679,
+    "category": "Places & Travel",
+    "english": "the traffic jam",
+    "german": "Der Stau"
+  },
+  {
+    "id": 1680,
+    "category": "Places & Travel",
+    "english": "the parking lot",
+    "german": "Der Parkplatz"
+  },
+  {
+    "id": 1681,
+    "category": "Places & Travel",
+    "english": "the toll",
+    "german": "Die Maut"
+  },
+  {
+    "id": 1682,
+    "category": "Places & Travel",
+    "english": "the tunnel",
+    "german": "Der Tunnel"
+  },
+  {
+    "id": 1683,
+    "category": "Places & Travel",
+    "english": "the bridge",
+    "german": "Die Brücke"
+  },
+  {
+    "id": 1684,
+    "category": "Places & Travel",
+    "english": "the sidewalk",
+    "german": "Der Bürgersteig"
+  },
+  {
+    "id": 1685,
+    "category": "Places & Travel",
+    "english": "the tourist",
+    "german": "Der Tourist"
+  },
+  {
+    "id": 1686,
+    "category": "Places & Travel",
+    "english": "the guide (person)",
+    "german": "Der Reiseführer"
+  },
+  {
+    "id": 1687,
+    "category": "Places & Travel",
+    "english": "the itinerary",
+    "german": "Die Reiseroute"
+  },
+  {
+    "id": 1688,
+    "category": "Places & Travel",
+    "english": "the reservation",
+    "german": "Die Reservierung"
+  },
+  {
+    "id": 1689,
+    "category": "Places & Travel",
+    "english": "the accommodation",
+    "german": "Die Unterkunft"
+  },
+  {
+    "id": 1690,
+    "category": "Places & Travel",
+    "english": "the hostel",
+    "german": "Die Jugendherberge"
+  },
+  {
+    "id": 1691,
+    "category": "Places & Travel",
+    "english": "the campsite",
+    "german": "Der Campingplatz"
+  },
+  {
+    "id": 1692,
+    "category": "Places & Travel",
+    "english": "the resort",
+    "german": "Das Ferienresort"
+  },
+  {
+    "id": 1693,
+    "category": "Places & Travel",
+    "english": "the landmark",
+    "german": "Das Wahrzeichen"
+  },
+  {
+    "id": 1694,
+    "category": "Places & Travel",
+    "english": "the monument",
+    "german": "Das Denkmal"
+  },
+  {
+    "id": 1695,
+    "category": "Places & Travel",
+    "english": "the castle",
+    "german": "Das Schloss"
+  },
+  {
+    "id": 1696,
+    "category": "Places & Travel",
+    "english": "the palace",
+    "german": "Der Palast"
+  },
+  {
+    "id": 1697,
+    "category": "Places & Travel",
+    "english": "the cathedral",
+    "german": "Die Kathedrale"
+  },
+  {
+    "id": 1698,
+    "category": "Places & Travel",
+    "english": "the temple",
+    "german": "Der Tempel"
+  },
+  {
+    "id": 1699,
+    "category": "Places & Travel",
+    "english": "the museum exhibit",
+    "german": "Die Ausstellung"
+  },
+  {
+    "id": 1700,
+    "category": "Places & Travel",
+    "english": "the fountain",
+    "german": "Der Brunnen"
+  },
+  {
+    "id": 1701,
+    "category": "Places & Travel",
+    "english": "the plaza",
+    "german": "Der Platz"
+  },
+  {
+    "id": 1702,
+    "category": "Places & Travel",
+    "english": "the marketplace",
+    "german": "Der Marktplatz"
+  },
+  {
+    "id": 1703,
+    "category": "Places & Travel",
+    "english": "the pedestrian zone",
+    "german": "Die Fußgängerzone"
+  },
+  {
+    "id": 1704,
+    "category": "Places & Travel",
+    "english": "the embassy district",
+    "german": "Das Botschaftsviertel"
+  },
+  {
+    "id": 1705,
+    "category": "Places & Travel",
+    "english": "the countryside",
+    "german": "Das Land"
+  },
+  {
+    "id": 1706,
+    "category": "Places & Travel",
+    "english": "the mountain range",
+    "german": "Das Gebirge"
+  },
+  {
+    "id": 1707,
+    "category": "Places & Travel",
+    "english": "the peak",
+    "german": "Der Gipfel"
+  },
+  {
+    "id": 1708,
+    "category": "Places & Travel",
+    "english": "the trail",
+    "german": "Der Wanderweg"
+  },
+  {
+    "id": 1709,
+    "category": "Places & Travel",
+    "english": "the campfire",
+    "german": "Das Lagerfeuer"
+  },
+  {
+    "id": 1710,
+    "category": "Places & Travel",
+    "english": "the tent",
+    "german": "Das Zelt"
+  },
+  {
+    "id": 1711,
+    "category": "Places & Travel",
+    "english": "the compass",
+    "german": "Der Kompass"
+  },
+  {
+    "id": 1712,
+    "category": "Places & Travel",
+    "english": "the map (chart)",
+    "german": "Die Landkarte"
+  },
+  {
+    "id": 1713,
+    "category": "Places & Travel",
+    "english": "the souvenir",
+    "german": "Das Souvenir"
+  },
+  {
+    "id": 1714,
+    "category": "Places & Travel",
+    "english": "the currency exchange",
+    "german": "Der Geldwechsel"
+  },
+  {
+    "id": 1715,
+    "category": "Places & Travel",
+    "english": "the local",
+    "german": "Der Einheimische"
+  },
+  {
+    "id": 1716,
+    "category": "Places & Travel",
+    "english": "the abroad",
+    "german": "Das Ausland"
+  },
+  {
+    "id": 1717,
+    "category": "Places & Travel",
+    "english": "the journey",
+    "german": "Die Reise"
+  },
+  {
+    "id": 1718,
+    "category": "Places & Travel",
+    "english": "the destination",
+    "german": "Das Reiseziel"
+  },
+  {
+    "id": 1719,
+    "category": "Places & Travel",
+    "english": "the excursion",
+    "german": "Der Ausflug"
+  },
+  {
+    "id": 1720,
+    "category": "Places & Travel",
+    "english": "the cruise",
+    "german": "Die Kreuzfahrt"
+  },
+  {
+    "id": 1721,
+    "category": "Places & Travel",
+    "english": "the expedition",
+    "german": "Die Expedition"
+  },
+  {
+    "id": 1722,
+    "category": "Places & Travel",
+    "english": "the pilgrimage",
+    "german": "Die Pilgerreise"
+  },
+  {
+    "id": 1723,
+    "category": "School, Work & Money",
+    "english": "the kindergarten",
+    "german": "Der Kindergarten"
+  },
+  {
+    "id": 1724,
+    "category": "School, Work & Money",
+    "english": "the elementary school",
+    "german": "Die Grundschule"
+  },
+  {
+    "id": 1725,
+    "category": "School, Work & Money",
+    "english": "the high school",
+    "german": "Die Oberschule"
+  },
+  {
+    "id": 1726,
+    "category": "School, Work & Money",
+    "english": "the graduate",
+    "german": "Der Absolvent"
+  },
+  {
+    "id": 1727,
+    "category": "School, Work & Money",
+    "english": "the degree",
+    "german": "Der Abschluss"
+  },
+  {
+    "id": 1728,
+    "category": "School, Work & Money",
+    "english": "the diploma",
+    "german": "Das Diplom"
+  },
+  {
+    "id": 1729,
+    "category": "School, Work & Money",
+    "english": "the scholarship",
+    "german": "Das Stipendium"
+  },
+  {
+    "id": 1730,
+    "category": "School, Work & Money",
+    "english": "the tuition",
+    "german": "Die Studiengebühren"
+  },
+  {
+    "id": 1731,
+    "category": "School, Work & Money",
+    "english": "the semester",
+    "german": "Das Semester"
+  },
+  {
+    "id": 1732,
+    "category": "School, Work & Money",
+    "english": "the lecture",
+    "german": "Die Vorlesung"
+  },
+  {
+    "id": 1733,
+    "category": "School, Work & Money",
+    "english": "the seminar",
+    "german": "Das Seminar"
+  },
+  {
+    "id": 1734,
+    "category": "School, Work & Money",
+    "english": "the assignment",
+    "german": "Die Aufgabe"
+  },
+  {
+    "id": 1735,
+    "category": "School, Work & Money",
+    "english": "the essay",
+    "german": "Der Aufsatz"
+  },
+  {
+    "id": 1736,
+    "category": "School, Work & Money",
+    "english": "the thesis",
+    "german": "Die Abschlussarbeit"
+  },
+  {
+    "id": 1737,
+    "category": "School, Work & Money",
+    "english": "the curriculum",
+    "german": "Der Lehrplan"
+  },
+  {
+    "id": 1738,
+    "category": "School, Work & Money",
+    "english": "the subject (school)",
+    "german": "Das Fach"
+  },
+  {
+    "id": 1739,
+    "category": "School, Work & Money",
+    "english": "the grade (mark)",
+    "german": "Die Note"
+  },
+  {
+    "id": 1740,
+    "category": "School, Work & Money",
+    "english": "the report card",
+    "german": "Das Zeugnis"
+  },
+  {
+    "id": 1741,
+    "category": "School, Work & Money",
+    "english": "the principal",
+    "german": "Der Schulleiter"
+  },
+  {
+    "id": 1742,
+    "category": "School, Work & Money",
+    "english": "the professor",
+    "german": "Der Professor"
+  },
+  {
+    "id": 1743,
+    "category": "School, Work & Money",
+    "english": "the tutor",
+    "german": "Der Nachhilfelehrer"
+  },
+  {
+    "id": 1744,
+    "category": "School, Work & Money",
+    "english": "the classmate",
+    "german": "Der Klassenkamerad"
+  },
+  {
+    "id": 1745,
+    "category": "School, Work & Money",
+    "english": "the lecture hall",
+    "german": "Der Hörsaal"
+  },
+  {
+    "id": 1746,
+    "category": "School, Work & Money",
+    "english": "the laboratory",
+    "german": "Das Labor"
+  },
+  {
+    "id": 1747,
+    "category": "School, Work & Money",
+    "english": "the library card",
+    "german": "Der Bibliotheksausweis"
+  },
+  {
+    "id": 1748,
+    "category": "School, Work & Money",
+    "english": "the dictionary",
+    "german": "Das Wörterbuch"
+  },
+  {
+    "id": 1749,
+    "category": "School, Work & Money",
+    "english": "the calculator",
+    "german": "Der Taschenrechner"
+  },
+  {
+    "id": 1750,
+    "category": "School, Work & Money",
+    "english": "the eraser",
+    "german": "Der Radiergummi"
+  },
+  {
+    "id": 1751,
+    "category": "School, Work & Money",
+    "english": "the ruler",
+    "german": "Das Lineal"
+  },
+  {
+    "id": 1752,
+    "category": "School, Work & Money",
+    "english": "the stapler",
+    "german": "Der Hefter"
+  },
+  {
+    "id": 1753,
+    "category": "School, Work & Money",
+    "english": "the highlighter",
+    "german": "Der Textmarker"
+  },
+  {
+    "id": 1754,
+    "category": "School, Work & Money",
+    "english": "the whiteboard",
+    "german": "Das Whiteboard"
+  },
+  {
+    "id": 1755,
+    "category": "School, Work & Money",
+    "english": "the projector",
+    "german": "Der Projektor"
+  },
+  {
+    "id": 1756,
+    "category": "School, Work & Money",
+    "english": "the internship",
+    "german": "Das Praktikum"
+  },
+  {
+    "id": 1757,
+    "category": "School, Work & Money",
+    "english": "the résumé",
+    "german": "Der Lebenslauf"
+  },
+  {
+    "id": 1758,
+    "category": "School, Work & Money",
+    "english": "the interview (job)",
+    "german": "Das Vorstellungsgespräch"
+  },
+  {
+    "id": 1759,
+    "category": "School, Work & Money",
+    "english": "the application",
+    "german": "Die Bewerbung"
+  },
+  {
+    "id": 1760,
+    "category": "School, Work & Money",
+    "english": "the contract",
+    "german": "Der Vertrag"
+  },
+  {
+    "id": 1761,
+    "category": "School, Work & Money",
+    "english": "the salary",
+    "german": "Das Gehalt"
+  },
+  {
+    "id": 1762,
+    "category": "School, Work & Money",
+    "english": "the wage",
+    "german": "Der Lohn"
+  },
+  {
+    "id": 1763,
+    "category": "School, Work & Money",
+    "english": "the bonus",
+    "german": "Die Prämie"
+  },
+  {
+    "id": 1764,
+    "category": "School, Work & Money",
+    "english": "the promotion",
+    "german": "Die Beförderung"
+  },
+  {
+    "id": 1765,
+    "category": "School, Work & Money",
+    "english": "the resignation",
+    "german": "Die Kündigung"
+  },
+  {
+    "id": 1766,
+    "category": "School, Work & Money",
+    "english": "the retirement",
+    "german": "Der Ruhestand"
+  },
+  {
+    "id": 1767,
+    "category": "School, Work & Money",
+    "english": "the pension",
+    "german": "Die Rente"
+  },
+  {
+    "id": 1768,
+    "category": "School, Work & Money",
+    "english": "the coworker",
+    "german": "Der Mitarbeiter"
+  },
+  {
+    "id": 1769,
+    "category": "School, Work & Money",
+    "english": "the manager",
+    "german": "Der Manager"
+  },
+  {
+    "id": 1770,
+    "category": "School, Work & Money",
+    "english": "the supervisor",
+    "german": "Der Vorgesetzte"
+  },
+  {
+    "id": 1771,
+    "category": "School, Work & Money",
+    "english": "the department",
+    "german": "Die Abteilung"
+  },
+  {
+    "id": 1772,
+    "category": "School, Work & Money",
+    "english": "the meeting",
+    "german": "Die Besprechung"
+  },
+  {
+    "id": 1773,
+    "category": "School, Work & Money",
+    "english": "the deadline (work)",
+    "german": "Die Frist (Arbeit)"
+  },
+  {
+    "id": 1774,
+    "category": "School, Work & Money",
+    "english": "the project",
+    "german": "Das Projekt"
+  },
+  {
+    "id": 1775,
+    "category": "School, Work & Money",
+    "english": "the report",
+    "german": "Der Bericht"
+  },
+  {
+    "id": 1776,
+    "category": "School, Work & Money",
+    "english": "the presentation",
+    "german": "Die Präsentation"
+  },
+  {
+    "id": 1777,
+    "category": "School, Work & Money",
+    "english": "the negotiation",
+    "german": "Die Verhandlung"
+  },
+  {
+    "id": 1778,
+    "category": "School, Work & Money",
+    "english": "the client",
+    "german": "Der Klient"
+  },
+  {
+    "id": 1779,
+    "category": "School, Work & Money",
+    "english": "the invoice",
+    "german": "Die Rechnung"
+  },
+  {
+    "id": 1780,
+    "category": "School, Work & Money",
+    "english": "the budget",
+    "german": "Das Budget"
+  },
+  {
+    "id": 1781,
+    "category": "School, Work & Money",
+    "english": "the profit",
+    "german": "Der Gewinn"
+  },
+  {
+    "id": 1782,
+    "category": "School, Work & Money",
+    "english": "the loss",
+    "german": "Der Verlust"
+  },
+  {
+    "id": 1783,
+    "category": "School, Work & Money",
+    "english": "the investment",
+    "german": "Die Investition"
+  },
+  {
+    "id": 1784,
+    "category": "School, Work & Money",
+    "english": "the shareholder",
+    "german": "Der Aktionär"
+  },
+  {
+    "id": 1785,
+    "category": "School, Work & Money",
+    "english": "the stock market",
+    "german": "Die Börse"
+  },
+  {
+    "id": 1786,
+    "category": "School, Work & Money",
+    "english": "the interest rate",
+    "german": "Der Zinssatz"
+  },
+  {
+    "id": 1787,
+    "category": "School, Work & Money",
+    "english": "the loan",
+    "german": "Der Kredit"
+  },
+  {
+    "id": 1788,
+    "category": "School, Work & Money",
+    "english": "the mortgage",
+    "german": "Die Hypothek"
+  },
+  {
+    "id": 1789,
+    "category": "School, Work & Money",
+    "english": "the debt",
+    "german": "Die Schuld"
+  },
+  {
+    "id": 1790,
+    "category": "School, Work & Money",
+    "english": "the savings",
+    "german": "Die Ersparnisse"
+  },
+  {
+    "id": 1791,
+    "category": "School, Work & Money",
+    "english": "the deposit",
+    "german": "Die Einzahlung"
+  },
+  {
+    "id": 1792,
+    "category": "School, Work & Money",
+    "english": "the withdrawal",
+    "german": "Die Abhebung"
+  },
+  {
+    "id": 1793,
+    "category": "School, Work & Money",
+    "english": "the transaction",
+    "german": "Die Transaktion"
+  },
+  {
+    "id": 1794,
+    "category": "School, Work & Money",
+    "english": "the receipt",
+    "german": "Die Quittung"
+  },
+  {
+    "id": 1795,
+    "category": "School, Work & Money",
+    "english": "the discount",
+    "german": "Der Rabatt"
+  },
+  {
+    "id": 1796,
+    "category": "School, Work & Money",
+    "english": "the tax",
+    "german": "Die Steuer"
+  },
+  {
+    "id": 1797,
+    "category": "School, Work & Money",
+    "english": "the insurance",
+    "german": "Die Versicherung"
+  },
+  {
+    "id": 1798,
+    "category": "School, Work & Money",
+    "english": "the premium (insurance)",
+    "german": "Die Prämie (Versicherung)"
+  },
+  {
+    "id": 1799,
+    "category": "School, Work & Money",
+    "english": "the currency",
+    "german": "Die Währung"
+  },
+  {
+    "id": 1800,
+    "category": "School, Work & Money",
+    "english": "the coin",
+    "german": "Die Münze"
+  },
+  {
+    "id": 1801,
+    "category": "School, Work & Money",
+    "english": "the banknote",
+    "german": "Die Banknote"
+  },
+  {
+    "id": 1802,
+    "category": "School, Work & Money",
+    "english": "the wallet (money)",
+    "german": "Der Geldbeutel"
+  },
+  {
+    "id": 1803,
+    "category": "School, Work & Money",
+    "english": "the credit card",
+    "german": "Die Kreditkarte"
+  },
+  {
+    "id": 1804,
+    "category": "School, Work & Money",
+    "english": "the debit card",
+    "german": "Die Debitkarte"
+  },
+  {
+    "id": 1805,
+    "category": "School, Work & Money",
+    "english": "the cash",
+    "german": "Das Bargeld"
+  },
+  {
+    "id": 1806,
+    "category": "School, Work & Money",
+    "english": "the ATM",
+    "german": "Der Geldautomat"
+  },
+  {
+    "id": 1807,
+    "category": "School, Work & Money",
+    "english": "the bank account",
+    "german": "Das Bankkonto"
+  },
+  {
+    "id": 1808,
+    "category": "School, Work & Money",
+    "english": "the branch (bank)",
+    "german": "Die Filiale"
+  },
+  {
+    "id": 1809,
+    "category": "School, Work & Money",
+    "english": "the entrepreneur",
+    "german": "Der Unternehmer"
+  },
+  {
+    "id": 1810,
+    "category": "School, Work & Money",
+    "english": "the startup",
+    "german": "Das Start-up"
+  },
+  {
+    "id": 1811,
+    "category": "School, Work & Money",
+    "english": "the shareholder meeting",
+    "german": "Die Aktionärsversammlung"
+  },
+  {
+    "id": 1812,
+    "category": "School, Work & Money",
+    "english": "the office building",
+    "german": "Das Bürogebäude"
+  },
+  {
+    "id": 1813,
+    "category": "School, Work & Money",
+    "english": "the factory worker",
+    "german": "Der Fabrikarbeiter"
+  },
+  {
+    "id": 1814,
+    "category": "School, Work & Money",
+    "english": "the trade union",
+    "german": "Die Gewerkschaft"
+  },
+  {
+    "id": 1815,
+    "category": "School, Work & Money",
+    "english": "the strike",
+    "german": "Der Streik"
+  },
+  {
+    "id": 1816,
+    "category": "School, Work & Money",
+    "english": "the vacation days",
+    "german": "Die Urlaubstage"
+  },
+  {
+    "id": 1817,
+    "category": "School, Work & Money",
+    "english": "the sick leave",
+    "german": "Der Krankenurlaub"
+  },
+  {
+    "id": 1818,
+    "category": "School, Work & Money",
+    "english": "the overtime",
+    "german": "Die Überstunden"
+  },
+  {
+    "id": 1819,
+    "category": "School, Work & Money",
+    "english": "the shift",
+    "german": "Die Schicht"
+  },
+  {
+    "id": 1820,
+    "category": "School, Work & Money",
+    "english": "the freelancer",
+    "german": "Der Freiberufler"
+  },
+  {
+    "id": 1821,
+    "category": "School, Work & Money",
+    "english": "the apprenticeship",
+    "german": "Die Ausbildung"
+  },
+  {
+    "id": 1822,
+    "category": "School, Work & Money",
+    "english": "the qualification",
+    "german": "Die Qualifikation"
+  },
+  {
+    "id": 1823,
+    "category": "School, Work & Money",
+    "english": "the certificate",
+    "german": "Das Zertifikat"
+  },
+  {
+    "id": 1824,
+    "category": "School, Work & Money",
+    "english": "the exam room",
+    "german": "Der Prüfungsraum"
+  },
+  {
+    "id": 1825,
+    "category": "School, Work & Money",
+    "english": "the grading",
+    "german": "Die Benotung"
+  },
+  {
+    "id": 1826,
+    "category": "School, Work & Money",
+    "english": "the homework",
+    "german": "Die Hausaufgaben"
+  },
+  {
+    "id": 1827,
+    "category": "School, Work & Money",
+    "english": "the timetable (school)",
+    "german": "Der Stundenplan"
+  },
+  {
+    "id": 1828,
+    "category": "School, Work & Money",
+    "english": "the recess",
+    "german": "Die Pause"
+  },
+  {
+    "id": 1829,
+    "category": "School, Work & Money",
+    "english": "the field trip",
+    "german": "Der Ausflug (Schule)"
+  },
+  {
+    "id": 1830,
+    "category": "School, Work & Money",
+    "english": "the principal's office",
+    "german": "Das Rektorat"
+  },
+  {
+    "id": 1831,
+    "category": "School, Work & Money",
+    "english": "the counselor",
+    "german": "Der Berater"
+  },
+  {
+    "id": 1832,
+    "category": "School, Work & Money",
+    "english": "the mentor",
+    "german": "Der Mentor"
+  },
+  {
+    "id": 1833,
+    "category": "School, Work & Money",
+    "english": "the workshop",
+    "german": "Der Workshop"
+  },
+  {
+    "id": 1834,
+    "category": "School, Work & Money",
+    "english": "the conference",
+    "german": "Die Konferenz"
+  },
+  {
+    "id": 1835,
+    "category": "School, Work & Money",
+    "english": "the trade fair",
+    "german": "Die Messe"
+  },
+  {
+    "id": 1836,
+    "category": "School, Work & Money",
+    "english": "the headquarters",
+    "german": "Die Zentrale"
+  },
+  {
+    "id": 1837,
+    "category": "School, Work & Money",
+    "english": "the accountant",
+    "german": "Der Buchhalter"
+  },
+  {
+    "id": 1838,
+    "category": "School, Work & Money",
+    "english": "the auditor",
+    "german": "Der Wirtschaftsprüfer"
+  },
+  {
+    "id": 1839,
+    "category": "School, Work & Money",
+    "english": "the shareholder value",
+    "german": "Der Aktionärswert"
+  },
+  {
+    "id": 1840,
+    "category": "School, Work & Money",
+    "english": "the payroll",
+    "german": "Die Gehaltsabrechnung"
+  },
+  {
+    "id": 1841,
+    "category": "School, Work & Money",
+    "english": "the office supplies",
+    "german": "Die Büromaterialien"
+  },
+  {
+    "id": 1842,
+    "category": "School, Work & Money",
+    "english": "the whiteboard marker",
+    "german": "Der Whiteboard-Stift"
+  },
+  {
+    "id": 1843,
+    "category": "School, Work & Money",
+    "english": "the filing cabinet",
+    "german": "Der Aktenschrank"
+  },
+  {
+    "id": 1844,
+    "category": "School, Work & Money",
+    "english": "the printer",
+    "german": "Der Drucker"
+  },
+  {
+    "id": 1845,
+    "category": "School, Work & Money",
+    "english": "the scanner",
+    "german": "Der Scanner"
+  },
+  {
+    "id": 1846,
+    "category": "School, Work & Money",
+    "english": "the spreadsheet",
+    "german": "Die Tabelle"
+  },
+  {
+    "id": 1847,
+    "category": "School, Work & Money",
+    "english": "the database",
+    "german": "Die Datenbank"
+  },
+  {
+    "id": 1848,
+    "category": "School, Work & Money",
+    "english": "the software",
+    "german": "Die Software"
+  },
+  {
+    "id": 1849,
+    "category": "School, Work & Money",
+    "english": "the network (IT)",
+    "german": "Das Netzwerk"
+  },
+  {
+    "id": 1850,
+    "category": "School, Work & Money",
+    "english": "the password",
+    "german": "Das Passwort"
+  },
+  {
+    "id": 1851,
+    "category": "School, Work & Money",
+    "english": "the deadline extension",
+    "german": "Die Fristverlängerung"
+  },
+  {
+    "id": 1852,
+    "category": "School, Work & Money",
+    "english": "the job offer",
+    "german": "Das Stellenangebot"
+  },
+  {
+    "id": 1853,
+    "category": "School, Work & Money",
+    "english": "the probation period",
+    "german": "Die Probezeit"
+  },
+  {
+    "id": 1854,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to climb",
+    "german": "Klettern"
+  },
+  {
+    "id": 1855,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to fall",
+    "german": "Fallen"
+  },
+  {
+    "id": 1856,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to sit",
+    "german": "Sitzen"
+  },
+  {
+    "id": 1857,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to stand",
+    "german": "Stehen"
+  },
+  {
+    "id": 1858,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lie down",
+    "german": "Liegen"
+  },
+  {
+    "id": 1859,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to cook (verb)",
+    "german": "Kochen (Verb)"
+  },
+  {
+    "id": 1860,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to clean",
+    "german": "Putzen"
+  },
+  {
+    "id": 1861,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to wash",
+    "german": "Waschen"
+  },
+  {
+    "id": 1862,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to build",
+    "german": "Bauen"
+  },
+  {
+    "id": 1863,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to break",
+    "german": "Zerbrechen"
+  },
+  {
+    "id": 1864,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to fix",
+    "german": "Reparieren"
+  },
+  {
+    "id": 1865,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to push",
+    "german": "Drücken"
+  },
+  {
+    "id": 1866,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to pull",
+    "german": "Ziehen"
+  },
+  {
+    "id": 1867,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to throw",
+    "german": "Werfen"
+  },
+  {
+    "id": 1868,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to catch",
+    "german": "Fangen"
+  },
+  {
+    "id": 1869,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to hold",
+    "german": "Halten"
+  },
+  {
+    "id": 1870,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to carry",
+    "german": "Tragen"
+  },
+  {
+    "id": 1871,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lift",
+    "german": "Heben"
+  },
+  {
+    "id": 1872,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to drop",
+    "german": "Fallen lassen"
+  },
+  {
+    "id": 1873,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lose (something)",
+    "german": "Verlieren"
+  },
+  {
+    "id": 1874,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lose (game)",
+    "german": "Verlieren (Spiel)"
+  },
+  {
+    "id": 1875,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to sing",
+    "german": "Singen"
+  },
+  {
+    "id": 1876,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to dance",
+    "german": "Tanzen"
+  },
+  {
+    "id": 1877,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to draw",
+    "german": "Zeichnen"
+  },
+  {
+    "id": 1878,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to paint",
+    "german": "Malen"
+  },
+  {
+    "id": 1879,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to whisper",
+    "german": "Flüstern"
+  },
+  {
+    "id": 1880,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to shout",
+    "german": "Schreien"
+  },
+  {
+    "id": 1881,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to laugh",
+    "german": "Lachen"
+  },
+  {
+    "id": 1882,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to cry",
+    "german": "Weinen"
+  },
+  {
+    "id": 1883,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to smile",
+    "german": "Lächeln"
+  },
+  {
+    "id": 1884,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to know",
+    "german": "Wissen"
+  },
+  {
+    "id": 1885,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to remember",
+    "german": "Sich erinnern"
+  },
+  {
+    "id": 1886,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to forget",
+    "german": "Vergessen"
+  },
+  {
+    "id": 1887,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to learn",
+    "german": "Lernen"
+  },
+  {
+    "id": 1888,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to teach",
+    "german": "Lehren"
+  },
+  {
+    "id": 1889,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to explain",
+    "german": "Erklären"
+  },
+  {
+    "id": 1890,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to decide",
+    "german": "Entscheiden"
+  },
+  {
+    "id": 1891,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to choose",
+    "german": "Wählen"
+  },
+  {
+    "id": 1892,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to plan",
+    "german": "Planen"
+  },
+  {
+    "id": 1893,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to prepare",
+    "german": "Vorbereiten"
+  },
+  {
+    "id": 1894,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to start",
+    "german": "Beginnen"
+  },
+  {
+    "id": 1895,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to continue",
+    "german": "Fortsetzen"
+  },
+  {
+    "id": 1896,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to stop (verb)",
+    "german": "Anhalten"
+  },
+  {
+    "id": 1897,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to hurry",
+    "german": "Sich beeilen"
+  },
+  {
+    "id": 1898,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to arrive",
+    "german": "Ankommen"
+  },
+  {
+    "id": 1899,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to leave",
+    "german": "Verlassen"
+  },
+  {
+    "id": 1900,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to return",
+    "german": "Zurückkehren"
+  },
+  {
+    "id": 1901,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to travel",
+    "german": "Reisen"
+  },
+  {
+    "id": 1902,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to visit",
+    "german": "Besuchen"
+  },
+  {
+    "id": 1903,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to invite",
+    "german": "Einladen"
+  },
+  {
+    "id": 1904,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to meet",
+    "german": "Treffen"
+  },
+  {
+    "id": 1905,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to greet",
+    "german": "Begrüßen"
+  },
+  {
+    "id": 1906,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to introduce",
+    "german": "Vorstellen"
+  },
+  {
+    "id": 1907,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to help",
+    "german": "Helfen"
+  },
+  {
+    "id": 1908,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to buy",
+    "german": "Kaufen"
+  },
+  {
+    "id": 1909,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to sell",
+    "german": "Verkaufen"
+  },
+  {
+    "id": 1910,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to pay",
+    "german": "Bezahlen"
+  },
+  {
+    "id": 1911,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to spend (money)",
+    "german": "Ausgeben"
+  },
+  {
+    "id": 1912,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to save (money)",
+    "german": "Sparen"
+  },
+  {
+    "id": 1913,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to borrow",
+    "german": "Leihen"
+  },
+  {
+    "id": 1914,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lend",
+    "german": "Verleihen"
+  },
+  {
+    "id": 1915,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to grow",
+    "german": "Wachsen"
+  },
+  {
+    "id": 1916,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to shrink",
+    "german": "Schrumpfen"
+  },
+  {
+    "id": 1917,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to change",
+    "german": "Ändern"
+  },
+  {
+    "id": 1918,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to improve",
+    "german": "Verbessern"
+  },
+  {
+    "id": 1919,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to worsen",
+    "german": "Verschlechtern"
+  },
+  {
+    "id": 1920,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to try",
+    "german": "Versuchen"
+  },
+  {
+    "id": 1921,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to succeed",
+    "german": "Gelingen"
+  },
+  {
+    "id": 1922,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to fail",
+    "german": "Scheitern"
+  },
+  {
+    "id": 1923,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to create",
+    "german": "Erschaffen"
+  },
+  {
+    "id": 1924,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to destroy",
+    "german": "Zerstören"
+  },
+  {
+    "id": 1925,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to protect",
+    "german": "Schützen"
+  },
+  {
+    "id": 1926,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to attack",
+    "german": "Angreifen"
+  },
+  {
+    "id": 1927,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to defend",
+    "german": "Verteidigen"
+  },
+  {
+    "id": 1928,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to hide",
+    "german": "Verstecken"
+  },
+  {
+    "id": 1929,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to reveal",
+    "german": "Enthüllen"
+  },
+  {
+    "id": 1930,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to follow",
+    "german": "Folgen"
+  },
+  {
+    "id": 1931,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lead",
+    "german": "Führen"
+  },
+  {
+    "id": 1932,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to guide",
+    "german": "Leiten"
+  },
+  {
+    "id": 1933,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to control",
+    "german": "Kontrollieren"
+  },
+  {
+    "id": 1934,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to allow",
+    "german": "Erlauben"
+  },
+  {
+    "id": 1935,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to forbid",
+    "german": "Verbieten"
+  },
+  {
+    "id": 1936,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to promise",
+    "german": "Versprechen"
+  },
+  {
+    "id": 1937,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to warn",
+    "german": "Warnen"
+  },
+  {
+    "id": 1938,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to suggest",
+    "german": "Vorschlagen"
+  },
+  {
+    "id": 1939,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to agree",
+    "german": "Zustimmen"
+  },
+  {
+    "id": 1940,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to refuse",
+    "german": "Ablehnen"
+  },
+  {
+    "id": 1941,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to complain",
+    "german": "Sich beschweren"
+  },
+  {
+    "id": 1942,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to apologize",
+    "german": "Sich entschuldigen"
+  },
+  {
+    "id": 1943,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to celebrate",
+    "german": "Feiern"
+  },
+  {
+    "id": 1944,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to relax",
+    "german": "Entspannen"
+  },
+  {
+    "id": 1945,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to exercise",
+    "german": "Trainieren"
+  },
+  {
+    "id": 1946,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to jog",
+    "german": "Joggen"
+  },
+  {
+    "id": 1947,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to hike",
+    "german": "Wandern"
+  },
+  {
+    "id": 1948,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to fish",
+    "german": "Angeln"
+  },
+  {
+    "id": 1949,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to hunt",
+    "german": "Jagen"
+  },
+  {
+    "id": 1950,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to garden",
+    "german": "Gärtnern"
+  },
+  {
+    "id": 1951,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to knit",
+    "german": "Stricken"
+  },
+  {
+    "id": 1952,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to sew",
+    "german": "Nähen"
+  },
+  {
+    "id": 1953,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to collect",
+    "german": "Sammeln"
+  },
+  {
+    "id": 1954,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to photograph",
+    "german": "Fotografieren"
+  },
+  {
+    "id": 1955,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to compose (music)",
+    "german": "Komponieren"
+  },
+  {
+    "id": 1956,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the hobby",
+    "german": "Das Hobby"
+  },
+  {
+    "id": 1957,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the painting (activity)",
+    "german": "Das Malen"
+  },
+  {
+    "id": 1958,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the photography",
+    "german": "Die Fotografie"
+  },
+  {
+    "id": 1959,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the chess",
+    "german": "Das Schach"
+  },
+  {
+    "id": 1960,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the puzzle",
+    "german": "Das Puzzle"
+  },
+  {
+    "id": 1961,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the board game",
+    "german": "Das Brettspiel"
+  },
+  {
+    "id": 1962,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "the card game",
+    "german": "Das Kartenspiel"
+  },
+  {
+    "id": 1963,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "exciting",
+    "german": "Aufregend"
+  },
+  {
+    "id": 1964,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "dangerous",
+    "german": "Gefährlich"
+  },
+  {
+    "id": 1965,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "safe",
+    "german": "Sicher"
+  },
+  {
+    "id": 1966,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to whistle",
+    "german": "Pfeifen"
+  },
+  {
+    "id": 1967,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to yawn",
+    "german": "Gähnen"
+  },
+  {
+    "id": 1968,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to blink",
+    "german": "Blinzeln"
+  },
+  {
+    "id": 1969,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to nod",
+    "german": "Nicken"
+  },
+  {
+    "id": 1970,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to wave",
+    "german": "Winken"
+  },
+  {
+    "id": 1971,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to point",
+    "german": "Zeigen"
+  },
+  {
+    "id": 1972,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to shrug",
+    "german": "Mit den Schultern zucken"
+  },
+  {
+    "id": 1973,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to stretch",
+    "german": "Sich strecken"
+  },
+  {
+    "id": 1974,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to bend",
+    "german": "Sich bücken"
+  },
+  {
+    "id": 1975,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to kneel",
+    "german": "Knien"
+  },
+  {
+    "id": 1976,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to crawl",
+    "german": "Krabbeln"
+  },
+  {
+    "id": 1977,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to slip",
+    "german": "Ausrutschen"
+  },
+  {
+    "id": 1978,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to trip",
+    "german": "Stolpern"
+  },
+  {
+    "id": 1979,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to bounce",
+    "german": "Springen (Ball)"
+  },
+  {
+    "id": 1980,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to spin",
+    "german": "Drehen"
+  },
+  {
+    "id": 1981,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to shake",
+    "german": "Schütteln"
+  },
+  {
+    "id": 1982,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to squeeze",
+    "german": "Quetschen"
+  },
+  {
+    "id": 1983,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to scratch",
+    "german": "Kratzen"
+  },
+  {
+    "id": 1984,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to tickle",
+    "german": "Kitzeln"
+  },
+  {
+    "id": 1985,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to bite",
+    "german": "Beißen"
+  },
+  {
+    "id": 1986,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to chew",
+    "german": "Kauen"
+  },
+  {
+    "id": 1987,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to swallow",
+    "german": "Schlucken"
+  },
+  {
+    "id": 1988,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to spit",
+    "german": "Spucken"
+  },
+  {
+    "id": 1989,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to lick",
+    "german": "Lecken"
+  },
+  {
+    "id": 1990,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to sniff",
+    "german": "Schnüffeln"
+  },
+  {
+    "id": 1991,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to stare",
+    "german": "Starren"
+  },
+  {
+    "id": 1992,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to peek",
+    "german": "Spähen"
+  },
+  {
+    "id": 1993,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to glance",
+    "german": "Blicken"
+  },
+  {
+    "id": 1994,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to nod off",
+    "german": "Einnicken"
+  },
+  {
+    "id": 1995,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to doze",
+    "german": "Dösen"
+  },
+  {
+    "id": 1996,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to snore",
+    "german": "Schnarchen"
+  },
+  {
+    "id": 1997,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to dream (sleep)",
+    "german": "Träumen"
+  },
+  {
+    "id": 1998,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to daydream",
+    "german": "Tagträumen"
+  },
+  {
+    "id": 1999,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to imagine",
+    "german": "Sich vorstellen"
+  },
+  {
+    "id": 2000,
+    "category": "Verbs, Adjectives & Hobbies",
+    "english": "to guess",
+    "german": "Raten"
   }
 ]

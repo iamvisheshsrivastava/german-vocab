@@ -4,6 +4,9 @@
 .idea/
 .vscode/
 
+# Claude Code worktrees (secondary checkouts, not part of the project)
+.claude/worktrees/
+
 # Dependencies
 node_modules/
 /node_modules
