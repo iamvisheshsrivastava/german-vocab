@@ -56,19 +56,28 @@ export function LearnScreen() {
 
   const translateX = useRef(new Animated.Value(0)).current;
 
+  // Kept in sync every render so the PanResponder (created once, on the
+  // first render) always sees the current word list instead of closing
+  // over the initial one.
+  const filteredWordsRef = useRef(filteredWords);
+  filteredWordsRef.current = filteredWords;
+
   // Load persisted progress on mount.
   useEffect(() => {
     (async () => {
-      const ids = await loadReviewedIds();
-      setReviewedIds(new Set(ids));
-      setReviewedLoaded(true);
+      try {
+        const ids = await loadReviewedIds();
+        setReviewedIds(new Set(ids));
+      } finally {
+        setReviewedLoaded(true);
+      }
     })();
   }, []);
 
   // Persist reviewed IDs whenever they change (after initial load).
   useEffect(() => {
     if (!reviewedLoaded) return;
-    saveReviewedIds(Array.from(reviewedIds));
+    saveReviewedIds(Array.from(reviewedIds)).catch(() => {});
   }, [reviewedIds, reviewedLoaded]);
 
   // Stop any in-progress speech when the screen unmounts.
@@ -81,7 +90,7 @@ export function LearnScreen() {
   const currentWord: VocabWord | undefined = filteredWords[currentIndex];
 
   const goTo = (direction: "next" | "prev") => {
-    if (filteredWords.length === 0) return;
+    if (filteredWordsRef.current.length === 0) return;
     Speech.stop();
     const outX = direction === "next" ? -SCREEN_WIDTH : SCREEN_WIDTH;
     Animated.timing(translateX, {
@@ -91,7 +100,7 @@ export function LearnScreen() {
     }).start(() => {
       setRevealed(false);
       setCurrentIndex((idx) => {
-        const len = filteredWords.length;
+        const len = filteredWordsRef.current.length;
         return direction === "next" ? (idx + 1) % len : (idx - 1 + len) % len;
       });
       translateX.setValue(-outX);
@@ -207,13 +216,8 @@ export function LearnScreen() {
     setCurrentIndex(idx >= 0 ? idx : 0);
     setRevealed(true);
     translateX.setValue(0);
-    if (!reviewedIds.has(word.id)) {
-      setReviewedIds((prev) => {
-        const next = new Set(prev);
-        next.add(word.id);
-        return next;
-      });
-    }
+    // Looking a word up via search is not a "reviewed" signal — leave
+    // reviewed state untouched; only the card tap-to-reveal flow sets it.
   };
 
   // Progress reflects the selected category's words; "All" reflects every word.
@@ -288,7 +292,7 @@ export function LearnScreen() {
                   onPress={handleDismissSearch}
                 >
                   <Text style={styles.searchEmptyText}>
-                    Start typing to search all 1000 words.
+                    Start typing to search all {allWords.length} words.
                   </Text>
                 </Pressable>
               ) : searchResults.length === 0 ? (
