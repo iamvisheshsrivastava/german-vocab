@@ -12,8 +12,20 @@ export async function loadReviewedIds(): Promise<number[]> {
   return Array.isArray(ids) ? ids.filter((n): n is number => typeof n === "number") : [];
 }
 
-export async function saveReviewedIds(ids: number[]): Promise<void> {
-  await storage.setItem(REVIEWED_KEY, ids);
+// Concurrent saveReviewedIds calls (e.g. rapid flashcard reveals) race against
+// each other in AsyncStorage: two independent setItem calls for the same key
+// have no ordering guarantee, so a later call's write can resolve before an
+// earlier one's, leaving the earlier (smaller/stale) set as what's on disk.
+// Chain writes through a single queue so each one only starts once the
+// previous write for this key has actually finished.
+let reviewedWriteQueue: Promise<unknown> = Promise.resolve();
+
+export function saveReviewedIds(ids: number[]): Promise<void> {
+  const write = reviewedWriteQueue.then(() => storage.setItem(REVIEWED_KEY, ids));
+  // Swallow failures in the queue chain itself so one failed write doesn't
+  // permanently break the chain for subsequent calls.
+  reviewedWriteQueue = write.catch(() => {});
+  return write.then(() => undefined);
 }
 
 export async function resetReviewed(): Promise<void> {

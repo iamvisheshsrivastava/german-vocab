@@ -13,12 +13,24 @@ import {
 } from "react-native";
 
 import { ALL_CATEGORY } from "@/src/models/vocab";
+import {
+  loadLastQuizResult,
+  QuizResult,
+  saveQuizResult,
+} from "@/src/services/quiz-history-service";
 import { generateQuestions, QuizQuestion } from "@/src/services/quiz-service";
 import {
   getCategories,
   loadVocabulary,
 } from "@/src/services/vocabulary-service";
 import { ThemeColors, useThemeColors } from "@/src/theme/colors";
+
+function formatQuizDate(timestamp: number): string {
+  return new Date(timestamp).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+}
 
 const QUICK_COUNTS = [10, 20, 30, 100, 200];
 const DEFAULT_COUNT = 10;
@@ -51,6 +63,7 @@ export function TestScreen() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState({ correct: 0, answered: 0 });
+  const [lastResult, setLastResult] = useState<QuizResult | null>(null);
 
   const currentQuestion: QuizQuestion | undefined = questions[currentIndex];
 
@@ -59,6 +72,14 @@ export function TestScreen() {
     return () => {
       Speech.stop();
     };
+  }, []);
+
+  // Load the most recent persisted quiz result once on mount, so the setup
+  // screen can show it even before the user starts a new quiz.
+  useEffect(() => {
+    loadLastQuizResult()
+      .then(setLastResult)
+      .catch(() => {});
   }, []);
 
   const handleSpeakOption = (option: string) => {
@@ -112,6 +133,9 @@ export function TestScreen() {
       setAnswered(false);
     } else {
       setPhase("complete");
+      const result: QuizResult = { ...score, timestamp: Date.now() };
+      setLastResult(result);
+      saveQuizResult(result).catch(() => {});
     }
   };
 
@@ -130,6 +154,14 @@ export function TestScreen() {
   };
 
   if (phase === "setup") {
+    // Same fallback (DEFAULT_COUNT, not 1) used for both the hint text and
+    // the actual quiz start so what's displayed always matches what happens
+    // — a customText of "0" previously showed "1 question" but started a
+    // DEFAULT_COUNT-question quiz.
+    const effectiveCount = Math.max(
+      1,
+      Math.min(selectedCount || DEFAULT_COUNT, questionPool.length),
+    );
     return (
       <>
       <View style={styles.container} testID="test-setup-screen">
@@ -137,6 +169,13 @@ export function TestScreen() {
         <Text style={styles.setupSubtitle}>
           Multiple-choice quiz — pick the correct German translation.
         </Text>
+
+        {lastResult ? (
+          <Text style={styles.lastResultText} testID="quiz-last-result">
+            Last score: {lastResult.correct}/{lastResult.answered} (
+            {formatQuizDate(lastResult.timestamp)})
+          </Text>
+        ) : null}
 
         <Text style={styles.setupLabel}>Category</Text>
         <Pressable
@@ -164,6 +203,11 @@ export function TestScreen() {
                   styles.quickCountChipActive,
               ]}
               onPress={() => handleQuickCount(count)}
+              accessibilityRole="button"
+              accessibilityLabel={`${count} questions`}
+              accessibilityState={{
+                selected: selectedCount === count && customText === "",
+              }}
               testID={`quiz-count-${count}`}
             >
               <Text
@@ -192,12 +236,9 @@ export function TestScreen() {
         />
 
         <Text style={styles.setupHint}>
-          {Math.max(1, Math.min(selectedCount || 1, questionPool.length))}{" "}
-          question
-          {Math.max(1, Math.min(selectedCount || 1, questionPool.length)) === 1
-            ? ""
-            : "s"}{" "}
-          out of {questionPool.length} words available
+          {effectiveCount} question
+          {effectiveCount === 1 ? "" : "s"} out of {questionPool.length} words
+          available
           {category === ALL_CATEGORY ? "" : ` in ${category}`}.
         </Text>
 
@@ -206,7 +247,7 @@ export function TestScreen() {
             styles.startButton,
             questionPool.length === 0 && styles.startButtonDisabled,
           ]}
-          onPress={() => startQuiz(selectedCount || DEFAULT_COUNT)}
+          onPress={() => startQuiz(effectiveCount)}
           disabled={questionPool.length === 0}
           testID="quiz-start-button"
         >
@@ -348,6 +389,9 @@ export function TestScreen() {
                 ]}
                 onPress={() => handleSelectOption(option)}
                 disabled={answered}
+                accessibilityRole="button"
+                accessibilityLabel={option}
+                accessibilityState={{ selected: isSelected, disabled: answered }}
                 testID={`quiz-option-${option}`}
               >
                 <Text
@@ -419,6 +463,12 @@ const createStyles = (c: ThemeColors) =>
       fontSize: 14,
       color: c.textSecondary,
       marginBottom: 24,
+    },
+    lastResultText: {
+      fontSize: 13,
+      fontWeight: "600",
+      color: c.textMuted,
+      marginBottom: 20,
     },
     setupLabel: {
       fontSize: 13,

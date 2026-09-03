@@ -251,8 +251,27 @@ export function LearnScreen() {
     handleDismissSearch();
     Speech.stop();
     setCategory(ALL_CATEGORY);
-    const newList = selectWords(allWords, ALL_CATEGORY);
-    const idx = newList.findIndex((w) => w.id === word.id);
+    // Apply the same reviewed-exclusion filter rebuildDeck applies
+    // everywhere else, so the deck stays consistent with the active
+    // "To review"/"All" view mode instead of silently pulling in reviewed
+    // words while the segmented control still shows "To review".
+    let effectiveMode = viewMode;
+    let newList = selectWords(
+      allWords,
+      ALL_CATEGORY,
+      effectiveMode === "toReview" ? reviewedIds : undefined,
+    );
+    let idx = newList.findIndex((w) => w.id === word.id);
+    if (idx < 0 && effectiveMode === "toReview") {
+      // The searched word is already reviewed, so it can't appear under
+      // "To review" — fall back to "All" so the selection is actually
+      // visible, keeping viewMode and the deck in sync.
+      effectiveMode = "all";
+      setViewMode("all");
+      saveLearnViewMode("all").catch(() => {});
+      newList = selectWords(allWords, ALL_CATEGORY);
+      idx = newList.findIndex((w) => w.id === word.id);
+    }
     setFilteredWords(newList);
     setCurrentIndex(idx >= 0 ? idx : 0);
     setRevealed(true);

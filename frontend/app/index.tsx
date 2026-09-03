@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { useMemo, useState } from "react";
+import * as Speech from "expo-speech";
+import { useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -13,6 +14,14 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState<Tab>("learn");
   const colors = useThemeColors();
   const styles = useMemo(() => createStyles(colors), [colors]);
+
+  // Both LearnScreen and TestScreen stay permanently mounted (see below), so
+  // their own unmount-cleanup Speech.stop() calls never fire on a tab
+  // switch. Stop any in-progress speech explicitly whenever the active tab
+  // changes so audio from the tab being left behind doesn't keep playing.
+  useEffect(() => {
+    Speech.stop();
+  }, [activeTab]);
 
   return (
     <SafeAreaView style={styles.safe} edges={["top", "bottom"]}>
