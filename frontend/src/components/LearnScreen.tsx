@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 
+import { useSpeak } from "@/src/hooks/use-speak";
 import { ALL_CATEGORY, VocabWord } from "@/src/models/vocab";
 import {
   LearnViewMode,
@@ -42,6 +43,7 @@ export function LearnScreen() {
 
   const allWords = useMemo(() => loadVocabulary(), []);
   const categories = useMemo(() => getCategories(allWords), [allWords]);
+  const { speak, unavailable: speechUnavailable } = useSpeak();
 
   const [category, setCategory] = useState<string>(ALL_CATEGORY);
   const [filteredWords, setFilteredWords] = useState<VocabWord[]>(() =>
@@ -222,8 +224,7 @@ export function LearnScreen() {
 
   const handleSpeak = () => {
     if (!currentWord) return;
-    Speech.stop();
-    Speech.speak(currentWord.german, { language: "de-DE", pitch: 1, rate: 0.9 });
+    speak(currentWord.german);
   };
 
   // Matches against both English and German (searches the whole vocabulary,
@@ -519,6 +520,21 @@ export function LearnScreen() {
                     >
                       <Ionicons name="volume-high" size={20} color="#fff" />
                     </Pressable>
+                    {speechUnavailable ? (
+                      <View
+                        style={styles.speechWarning}
+                        testID="speech-unavailable-banner"
+                      >
+                        <Ionicons
+                          name="alert-circle"
+                          size={13}
+                          color={colors.warning}
+                        />
+                        <Text style={styles.speechWarningText}>
+                          No German voice installed — pronunciation may be off
+                        </Text>
+                      </View>
+                    ) : null}
                   </Pressable>
                 </Animated.View>
               ) : (
@@ -906,6 +922,25 @@ const createStyles = (c: ThemeColors) =>
       shadowOpacity: 0.15,
       shadowRadius: 6,
       elevation: 3,
+    },
+    speechWarning: {
+      position: "absolute",
+      bottom: 20,
+      left: 20,
+      right: 76,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 6,
+      backgroundColor: c.surfaceAlt,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 10,
+    },
+    speechWarningText: {
+      flexShrink: 1,
+      fontSize: 11,
+      color: c.textMuted,
+      fontWeight: "500",
     },
     emptyState: {
       padding: 40,

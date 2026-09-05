@@ -6,10 +6,10 @@ An offline-first mobile app for learning German vocabulary — swipeable flashca
 
 - **Flashcards (Learn tab)** — swipe through 2000 English↔German word pairs across 10 categories (Basics & Grammar, Numbers & Time, Food & Drink, Nature & Animals, and more). Tap a card to reveal the translation.
 - **View toggle** — switch between "To review" (hides words you've already marked as reviewed, so you always land on something new) and "All" (browse the full deck regardless of progress).
-- **Pronunciation** — tap the speaker button on a flashcard, or on any of the 4 answer options in the quiz, to hear the German word spoken aloud using the device's built-in text-to-speech (no API key, works offline).
+- **Pronunciation** — tap the speaker button on a flashcard, or on any of the 4 answer options in the quiz, to hear the German word spoken aloud using the device's built-in text-to-speech (no API key, works offline). If the device has no German voice installed, the app still speaks in whatever voice it falls back to and flags it with a small on-screen warning instead of pretending it worked.
 - **Progress tracking** — reviewed words are saved locally and persist between sessions. Progress shown is scoped to whichever category is selected ("All" shows overall progress).
 - **Reset Progress** — clears all reviewed marks and returns to the first card.
-- **Test tab** — a multiple-choice quiz, optionally scoped to a single category. Choose how many questions (10/20/30/100/200 or a custom number), answer English→German questions with 4 options (1 correct + 3 random wrong answers, re-shuffled every question), hear any option pronounced, see your live score, and restart anytime.
+- **Test tab** — a multiple-choice quiz, optionally scoped to a single category. Choose how many questions (10/20/30/100/200 or a custom number), answer English→German questions with 4 options (1 correct + 3 random wrong answers, re-shuffled every question), hear any option pronounced, see your live score, and restart anytime. Your last result is remembered across app restarts and shown on the setup screen.
 - **Dark mode** — follows the device's system light/dark setting automatically.
 
 ## Project structure

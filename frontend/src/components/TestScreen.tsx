@@ -12,6 +12,7 @@ import {
   View,
 } from "react-native";
 
+import { useSpeak } from "@/src/hooks/use-speak";
 import { ALL_CATEGORY } from "@/src/models/vocab";
 import {
   loadLastQuizResult,
@@ -43,6 +44,7 @@ export function TestScreen() {
 
   const allWords = useMemo(() => loadVocabulary(), []);
   const categories = useMemo(() => getCategories(allWords), [allWords]);
+  const { speak, unavailable: speechUnavailable } = useSpeak();
 
   const [phase, setPhase] = useState<Phase>("setup");
   const [selectedCount, setSelectedCount] = useState(DEFAULT_COUNT);
@@ -83,8 +85,7 @@ export function TestScreen() {
   }, []);
 
   const handleSpeakOption = (option: string) => {
-    Speech.stop();
-    Speech.speak(option, { language: "de-DE", pitch: 1, rate: 0.9 });
+    speak(option);
   };
 
   const startQuiz = (count: number) => {
@@ -365,6 +366,15 @@ export function TestScreen() {
         </View>
       </View>
 
+      {speechUnavailable ? (
+        <View style={styles.speechWarning} testID="speech-unavailable-banner">
+          <Ionicons name="alert-circle" size={13} color={colors.warning} />
+          <Text style={styles.speechWarningText}>
+            No German voice installed — pronunciation may be off
+          </Text>
+        </View>
+      ) : null}
+
       <ScrollView contentContainerStyle={styles.quizBody}>
         <View style={styles.promptCard}>
           <Text style={styles.promptLabel}>Translate to German</Text>
@@ -616,6 +626,22 @@ const createStyles = (c: ThemeColors) =>
     },
     quizBody: {
       flexGrow: 1,
+    },
+    speechWarning: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 6,
+      backgroundColor: c.surfaceAlt,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 10,
+      marginBottom: 12,
+    },
+    speechWarningText: {
+      flexShrink: 1,
+      fontSize: 11,
+      color: c.textMuted,
+      fontWeight: "500",
     },
     promptCard: {
       backgroundColor: c.surface,
