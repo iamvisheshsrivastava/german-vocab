@@ -12,6 +12,15 @@ An offline-first mobile app for learning German vocabulary — swipeable flashca
 - **Test tab** — a multiple-choice quiz, optionally scoped to a single category. Choose how many questions (10/20/30/100/200 or a custom number), answer English→German questions with 4 options (1 correct + 3 random wrong answers, re-shuffled every question), hear any option pronounced, see your live score, and restart anytime. Your last result is remembered across app restarts and shown on the setup screen.
 - **Dark mode** — follows the device's system light/dark setting automatically.
 
+## Screenshots
+
+The app is built for iOS/Android, but these were captured from the **Expo web preview** (`yarn web`, headless Chromium at a phone-sized viewport) since that's the fastest way to see it render without a device — layout and behavior match the native app.
+
+| | |
+|---|---|
+| ![Learn tab: an unrevealed flashcard](docs/screenshots/learn-screen.png) **Learn tab** — flashcard before revealing the translation, category shown top-left. | ![Learn tab: revealed card with German translation](docs/screenshots/learn-revealed.png) **Revealed card** — tapping shows the German translation and marks the word "Reviewed". |
+| ![Test tab: a multiple-choice question with answer feedback](docs/screenshots/test-quiz-question.png) **Test tab** — multiple-choice quiz question, colored green/red once you answer. | ![Test tab: quiz complete results screen](docs/screenshots/test-results.png) **Quiz results** — final score and percentage once all questions are answered. |
+
 ## Project structure
 
 ```
