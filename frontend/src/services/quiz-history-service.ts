@@ -35,25 +35,44 @@ export async function loadQuizHistory(): Promise<QuizResult[]> {
   return results;
 }
 
+// Concurrent saveQuizResult calls (e.g. finishing a quiz, then immediately
+// starting and finishing a short one) race against each other: each call
+// reads the current history, appends its own result, and writes it back
+// across three independent keys. With no ordering guarantee between two
+// overlapping read-modify-write cycles, a later write can be based on stale
+// data and clobber the earlier run's entry — or worse, since the three keys
+// are written independently, one call's correct/answered/timestamp arrays
+// can interleave with another's, corrupting a history entry outright.
+// Chain writes through a single queue so each save only starts once the
+// previous one has actually finished (mirrors saveReviewedIds's queue in
+// progress-service.ts, which fixes the same class of race).
+let historyWriteQueue: Promise<unknown> = Promise.resolve();
+
 // Appends the most recently completed run, keeping only the last
 // MAX_HISTORY entries (most recent last).
-export async function saveQuizResult(result: QuizResult): Promise<void> {
-  const existing = await loadQuizHistory();
-  const next = [...existing, result].slice(-MAX_HISTORY);
-  await Promise.all([
-    storage.setItem(
-      CORRECT_KEY,
-      next.map((r) => r.correct),
-    ),
-    storage.setItem(
-      ANSWERED_KEY,
-      next.map((r) => r.answered),
-    ),
-    storage.setItem(
-      TIMESTAMP_KEY,
-      next.map((r) => r.timestamp),
-    ),
-  ]);
+export function saveQuizResult(result: QuizResult): Promise<void> {
+  const write = historyWriteQueue.then(async () => {
+    const existing = await loadQuizHistory();
+    const next = [...existing, result].slice(-MAX_HISTORY);
+    await Promise.all([
+      storage.setItem(
+        CORRECT_KEY,
+        next.map((r) => r.correct),
+      ),
+      storage.setItem(
+        ANSWERED_KEY,
+        next.map((r) => r.answered),
+      ),
+      storage.setItem(
+        TIMESTAMP_KEY,
+        next.map((r) => r.timestamp),
+      ),
+    ]);
+  });
+  // Swallow failures in the queue chain itself so one failed write doesn't
+  // permanently break the chain for subsequent calls.
+  historyWriteQueue = write.catch(() => {});
+  return write;
 }
 
 export async function loadLastQuizResult(): Promise<QuizResult | null> {
