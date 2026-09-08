@@ -1,71 +1,48 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as Speech from "expo-speech";
-import { useEffect, useMemo, useState } from "react";
-import {
-  FlatList,
-  Modal,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { useSpeak } from "@/src/hooks/use-speak";
-import { ALL_CATEGORY } from "@/src/models/vocab";
-import {
-  loadLastQuizResult,
-  QuizResult,
-  saveQuizResult,
-} from "@/src/services/quiz-history-service";
+import { saveQuizResult } from "@/src/services/quiz-history-service";
+import { recordMissedWords, recordTestCompleted } from "@/src/services/stats-service";
 import { generateQuestions, QuizQuestion } from "@/src/services/quiz-service";
-import {
-  getCategories,
-  loadVocabulary,
-} from "@/src/services/vocabulary-service";
+import { loadVocabulary } from "@/src/services/vocabulary-service";
 import { ThemeColors, useThemeColors } from "@/src/theme/colors";
 
-function formatQuizDate(timestamp: number): string {
-  return new Date(timestamp).toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-  });
-}
+// Once fewer than this many unanswered questions remain in the queue, a
+// fresh shuffled batch is appended — so the test can run for as long as the
+// user wants without ever "running out" of questions.
+const REFILL_THRESHOLD = 5;
 
-const QUICK_COUNTS = [10, 20, 30, 100, 200];
-const DEFAULT_COUNT = 10;
+type Phase = "active" | "complete";
 
-type Phase = "setup" | "active" | "complete";
+type WrongAnswer = {
+  question: QuizQuestion;
+  yourAnswer: string;
+};
 
 export function TestScreen() {
   const colors = useThemeColors();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const allWords = useMemo(() => loadVocabulary(), []);
-  const categories = useMemo(() => getCategories(allWords), [allWords]);
   const { speak, unavailable: speechUnavailable } = useSpeak();
 
-  const [phase, setPhase] = useState<Phase>("setup");
-  const [selectedCount, setSelectedCount] = useState(DEFAULT_COUNT);
-  const [customText, setCustomText] = useState("");
-  const [category, setCategory] = useState<string>(ALL_CATEGORY);
-  const [categoryPickerOpen, setCategoryPickerOpen] = useState(false);
-
-  const questionPool = useMemo(
-    () =>
-      category === ALL_CATEGORY
-        ? allWords
-        : allWords.filter((w) => w.category === category),
-    [allWords, category],
+  const [phase, setPhase] = useState<Phase>("active");
+  const [questions, setQuestions] = useState<QuizQuestion[]>(() =>
+    generateQuestions(allWords, allWords.length),
   );
-
-  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState({ correct: 0, answered: 0 });
-  const [lastResult, setLastResult] = useState<QuizResult | null>(null);
+  const wrongAnswersRef = useRef<WrongAnswer[]>([]);
+  const [completedSummary, setCompletedSummary] = useState<{
+    correct: number;
+    answered: number;
+    wrong: WrongAnswer[];
+  } | null>(null);
 
   const currentQuestion: QuizQuestion | undefined = questions[currentIndex];
 
@@ -76,260 +53,128 @@ export function TestScreen() {
     };
   }, []);
 
-  // Load the most recent persisted quiz result once on mount, so the setup
-  // screen can show it even before the user starts a new quiz.
+  // Keep the question queue topped up so answering never hits a dead end —
+  // the user decides when they're done via "End Test", not the pool size.
   useEffect(() => {
-    loadLastQuizResult()
-      .then(setLastResult)
-      .catch(() => {});
-  }, []);
+    if (allWords.length === 0) return;
+    if (questions.length - currentIndex <= REFILL_THRESHOLD) {
+      setQuestions((prev) => [...prev, ...generateQuestions(allWords, allWords.length)]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, allWords.length]);
 
   const handleSpeakOption = (option: string) => {
     speak(option);
   };
 
-  const startQuiz = (count: number) => {
-    const clamped = Math.max(1, Math.min(count, questionPool.length));
-    setQuestions(generateQuestions(questionPool, clamped));
+  const startNewTest = () => {
+    Speech.stop();
+    setQuestions(generateQuestions(allWords, allWords.length));
+    wrongAnswersRef.current = [];
     setCurrentIndex(0);
     setSelectedOption(null);
     setAnswered(false);
     setScore({ correct: 0, answered: 0 });
+    setCompletedSummary(null);
     setPhase("active");
-  };
-
-  const handleSelectCategory = (cat: string) => {
-    setCategory(cat);
-    setCategoryPickerOpen(false);
-  };
-
-  const handleQuickCount = (count: number) => {
-    setSelectedCount(count);
-    setCustomText("");
-  };
-
-  const handleCustomChange = (text: string) => {
-    const digitsOnly = text.replace(/[^0-9]/g, "");
-    setCustomText(digitsOnly);
-    if (digitsOnly.length > 0) {
-      setSelectedCount(parseInt(digitsOnly, 10));
-    }
   };
 
   const handleSelectOption = (option: string) => {
     if (answered || !currentQuestion) return;
+    const isCorrect = option === currentQuestion.correctAnswer;
     setSelectedOption(option);
     setAnswered(true);
     setScore((prev) => ({
-      correct: prev.correct + (option === currentQuestion.correctAnswer ? 1 : 0),
+      correct: prev.correct + (isCorrect ? 1 : 0),
       answered: prev.answered + 1,
     }));
+    if (!isCorrect) {
+      wrongAnswersRef.current = [
+        ...wrongAnswersRef.current,
+        { question: currentQuestion, yourAnswer: option },
+      ];
+    }
   };
 
   const handleNext = () => {
     Speech.stop();
-    if (currentIndex + 1 < questions.length) {
-      setCurrentIndex((i) => i + 1);
-      setSelectedOption(null);
-      setAnswered(false);
-    } else {
-      setPhase("complete");
-      const result: QuizResult = { ...score, timestamp: Date.now() };
-      setLastResult(result);
-      saveQuizResult(result).catch(() => {});
+    setCurrentIndex((i) => i + 1);
+    setSelectedOption(null);
+    setAnswered(false);
+  };
+
+  const finishTest = () => {
+    Speech.stop();
+    const wrong = wrongAnswersRef.current;
+    const summary = { correct: score.correct, answered: score.answered, wrong };
+    setCompletedSummary(summary);
+    setPhase("complete");
+    recordTestCompleted(summary.correct, summary.answered).catch(() => {});
+    recordMissedWords(wrong.map((w) => w.question.word.id)).catch(() => {});
+    if (summary.answered > 0) {
+      saveQuizResult({
+        correct: summary.correct,
+        answered: summary.answered,
+        timestamp: Date.now(),
+      }).catch(() => {});
     }
   };
 
-  const handleRestart = () => {
-    Speech.stop();
-    setPhase("setup");
-    setQuestions([]);
-    setCurrentIndex(0);
-    setSelectedOption(null);
-    setAnswered(false);
-    setScore({ correct: 0, answered: 0 });
-  };
-
-  const handlePlayAgain = () => {
-    startQuiz(questions.length || selectedCount);
-  };
-
-  if (phase === "setup") {
-    // Same fallback (DEFAULT_COUNT, not 1) used for both the hint text and
-    // the actual quiz start so what's displayed always matches what happens
-    // — a customText of "0" previously showed "1 question" but started a
-    // DEFAULT_COUNT-question quiz.
-    const effectiveCount = Math.max(
-      1,
-      Math.min(selectedCount || DEFAULT_COUNT, questionPool.length),
-    );
-    return (
-      <>
-      <View style={styles.container} testID="test-setup-screen">
-        <Text style={styles.setupTitle}>Test Yourself</Text>
-        <Text style={styles.setupSubtitle}>
-          Multiple-choice quiz — pick the correct German translation.
-        </Text>
-
-        {lastResult ? (
-          <Text style={styles.lastResultText} testID="quiz-last-result">
-            Last score: {lastResult.correct}/{lastResult.answered} (
-            {formatQuizDate(lastResult.timestamp)})
-          </Text>
-        ) : null}
-
-        <Text style={styles.setupLabel}>Category</Text>
-        <Pressable
-          style={styles.categoryDropdown}
-          onPress={() => setCategoryPickerOpen(true)}
-          accessibilityRole="button"
-          accessibilityLabel={`Category: ${category}. Tap to change.`}
-          testID="quiz-category-dropdown"
-        >
-          <Text style={styles.categoryDropdownValue} numberOfLines={1}>
-            {category}
-          </Text>
-          <Ionicons name="chevron-down" size={18} color={colors.textPrimary} />
-        </Pressable>
-
-        <Text style={styles.setupLabel}>How many questions?</Text>
-        <View style={styles.quickCountRow}>
-          {QUICK_COUNTS.map((count) => (
-            <Pressable
-              key={count}
-              style={[
-                styles.quickCountChip,
-                selectedCount === count &&
-                  customText === "" &&
-                  styles.quickCountChipActive,
-              ]}
-              onPress={() => handleQuickCount(count)}
-              accessibilityRole="button"
-              accessibilityLabel={`${count} questions`}
-              accessibilityState={{
-                selected: selectedCount === count && customText === "",
-              }}
-              testID={`quiz-count-${count}`}
-            >
-              <Text
-                style={[
-                  styles.quickCountText,
-                  selectedCount === count &&
-                    customText === "" &&
-                    styles.quickCountTextActive,
-                ]}
-              >
-                {count}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        <Text style={styles.setupLabel}>Or enter a custom number</Text>
-        <TextInput
-          style={styles.customInput}
-          value={customText}
-          onChangeText={handleCustomChange}
-          placeholder="e.g. 50"
-          placeholderTextColor={colors.textFaint}
-          keyboardType="number-pad"
-          testID="quiz-custom-count-input"
-        />
-
-        <Text style={styles.setupHint}>
-          {effectiveCount} question
-          {effectiveCount === 1 ? "" : "s"} out of {questionPool.length} words
-          available
-          {category === ALL_CATEGORY ? "" : ` in ${category}`}.
-        </Text>
-
-        <Pressable
-          style={[
-            styles.startButton,
-            questionPool.length === 0 && styles.startButtonDisabled,
-          ]}
-          onPress={() => startQuiz(effectiveCount)}
-          disabled={questionPool.length === 0}
-          testID="quiz-start-button"
-        >
-          <Text style={styles.startButtonText}>Start Test</Text>
-        </Pressable>
-      </View>
-
-      <Modal
-        visible={categoryPickerOpen}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setCategoryPickerOpen(false)}
-      >
-        <Pressable
-          style={styles.modalBackdrop}
-          onPress={() => setCategoryPickerOpen(false)}
-          testID="quiz-category-picker-backdrop"
-        >
-          <Pressable style={styles.pickerSheet} testID="quiz-category-picker-sheet">
-            <Text style={styles.pickerTitle}>Select Category</Text>
-            <FlatList
-              data={categories}
-              keyExtractor={(c) => c}
-              renderItem={({ item }) => (
-                <Pressable
-                  style={[
-                    styles.pickerItem,
-                    item === category && styles.pickerItemActive,
-                  ]}
-                  onPress={() => handleSelectCategory(item)}
-                  testID={`quiz-category-picker-item-${item}`}
-                >
-                  <Text
-                    style={[
-                      styles.pickerItemText,
-                      item === category && styles.pickerItemTextActive,
-                    ]}
-                  >
-                    {item}
-                  </Text>
-                  {item === category ? (
-                    <Ionicons name="checkmark" size={18} color={colors.textPrimary} />
-                  ) : null}
-                </Pressable>
-              )}
-            />
-          </Pressable>
-        </Pressable>
-      </Modal>
-      </>
-    );
-  }
-
-  if (phase === "complete") {
+  if (phase === "complete" && completedSummary) {
     const percent =
-      score.answered === 0
+      completedSummary.answered === 0
         ? 0
-        : Math.round((score.correct / score.answered) * 100);
+        : Math.round((completedSummary.correct / completedSummary.answered) * 100);
     return (
       <View style={styles.container} testID="test-complete-screen">
-        <View style={styles.completeCard}>
-          <Ionicons name="trophy" size={40} color={colors.warning} />
-          <Text style={styles.completeTitle}>Quiz Complete!</Text>
-          <Text style={styles.completeScore} testID="quiz-final-score">
-            {score.correct} / {score.answered} correct
-          </Text>
-          <Text style={styles.completePercent}>{percent}%</Text>
-        </View>
+        <ScrollView contentContainerStyle={styles.completeScroll}>
+          <View style={styles.completeCard}>
+            <Ionicons name="trophy" size={40} color={colors.warning} />
+            <Text style={styles.completeTitle}>Test Complete</Text>
+            <Text style={styles.completeScore} testID="quiz-final-score">
+              {completedSummary.correct} / {completedSummary.answered} correct
+            </Text>
+            <Text style={styles.completePercent}>{percent}%</Text>
+          </View>
+
+          {completedSummary.wrong.length > 0 ? (
+            <View style={styles.reviewSection}>
+              <Text style={styles.reviewTitle}>
+                Words to review ({completedSummary.wrong.length})
+              </Text>
+              {completedSummary.wrong.map((w, i) => (
+                <View
+                  key={`${w.question.word.id}-${i}`}
+                  style={styles.reviewRow}
+                  testID={`wrong-answer-${w.question.word.id}`}
+                >
+                  <View style={styles.reviewWordCol}>
+                    <Text style={styles.reviewEnglish}>{w.question.word.english}</Text>
+                    <Text style={styles.reviewGerman}>{w.question.word.german}</Text>
+                  </View>
+                  <View style={styles.reviewYourAnswerCol}>
+                    <Text style={styles.reviewYourAnswerLabel}>You answered</Text>
+                    <Text style={styles.reviewYourAnswer} numberOfLines={1}>
+                      {w.yourAnswer}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          ) : completedSummary.answered > 0 ? (
+            <View style={styles.perfectBox}>
+              <Ionicons name="sparkles" size={18} color={colors.success} />
+              <Text style={styles.perfectText}>Everything correct — great run.</Text>
+            </View>
+          ) : null}
+        </ScrollView>
+
         <Pressable
           style={styles.startButton}
-          onPress={handlePlayAgain}
+          onPress={startNewTest}
           testID="quiz-play-again-button"
         >
-          <Text style={styles.startButtonText}>Play Again</Text>
-        </Pressable>
-        <Pressable
-          style={styles.secondaryButton}
-          onPress={handleRestart}
-          testID="quiz-change-settings-button"
-        >
-          <Text style={styles.secondaryButtonText}>Change Question Count</Text>
+          <Text style={styles.startButtonText}>Start New Test</Text>
         </Pressable>
       </View>
     );
@@ -338,7 +183,7 @@ export function TestScreen() {
   if (!currentQuestion) {
     return (
       <View style={styles.container} testID="test-empty-screen">
-        <Text style={styles.setupSubtitle}>No words available for a quiz.</Text>
+        <Text style={styles.setupSubtitle}>No words available for a test.</Text>
       </View>
     );
   }
@@ -347,23 +192,11 @@ export function TestScreen() {
     <View style={styles.container} testID="test-active-screen">
       <View style={styles.quizHeader}>
         <Text style={styles.quizProgress} testID="quiz-progress">
-          Question {currentIndex + 1} / {questions.length}
+          Question {currentIndex + 1}
         </Text>
-        <View style={styles.quizHeaderRight}>
-          <Text style={styles.quizScore} testID="quiz-score">
-            {score.correct}/{score.answered} correct
-          </Text>
-          <Pressable
-            style={styles.restartIconButton}
-            onPress={handleRestart}
-            hitSlop={10}
-            accessibilityRole="button"
-            accessibilityLabel="Restart quiz"
-            testID="quiz-restart-button"
-          >
-            <Ionicons name="refresh" size={18} color={colors.textMuted} />
-          </Pressable>
-        </View>
+        <Text style={styles.quizScore} testID="quiz-score">
+          {score.correct}/{score.answered} correct
+        </Text>
       </View>
 
       {speechUnavailable ? (
@@ -440,17 +273,25 @@ export function TestScreen() {
         </View>
       </ScrollView>
 
-      {answered ? (
+      <View style={styles.footerButtons}>
+        {answered ? (
+          <Pressable
+            style={styles.startButton}
+            onPress={handleNext}
+            testID="quiz-next-button"
+          >
+            <Text style={styles.startButtonText}>Next Question</Text>
+          </Pressable>
+        ) : null}
         <Pressable
-          style={styles.startButton}
-          onPress={handleNext}
-          testID="quiz-next-button"
+          style={styles.endTestButton}
+          onPress={finishTest}
+          testID="quiz-end-button"
         >
-          <Text style={styles.startButtonText}>
-            {currentIndex + 1 < questions.length ? "Next Question" : "See Results"}
-          </Text>
+          <Ionicons name="flag" size={16} color={colors.danger} />
+          <Text style={styles.endTestButtonText}>End Test</Text>
         </Pressable>
-      ) : null}
+      </View>
     </View>
   );
 }
@@ -462,143 +303,9 @@ const createStyles = (c: ThemeColors) =>
       paddingHorizontal: 20,
       paddingTop: 16,
     },
-    setupTitle: {
-      fontSize: 24,
-      fontWeight: "700",
-      color: c.textPrimary,
-      letterSpacing: -0.5,
-      marginBottom: 6,
-    },
     setupSubtitle: {
       fontSize: 14,
       color: c.textSecondary,
-      marginBottom: 24,
-    },
-    lastResultText: {
-      fontSize: 13,
-      fontWeight: "600",
-      color: c.textMuted,
-      marginBottom: 20,
-    },
-    setupLabel: {
-      fontSize: 13,
-      fontWeight: "600",
-      color: c.textMuted,
-      textTransform: "uppercase",
-      letterSpacing: 0.5,
-      marginBottom: 10,
-    },
-    categoryDropdown: {
-      backgroundColor: c.surface,
-      borderRadius: 14,
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      borderWidth: 1,
-      borderColor: c.border,
-      marginBottom: 24,
-    },
-    categoryDropdownValue: {
-      fontSize: 15,
-      color: c.textPrimary,
-      fontWeight: "600",
-      flexShrink: 1,
-    },
-    quickCountRow: {
-      flexDirection: "row",
-      gap: 10,
-      marginBottom: 24,
-    },
-    quickCountChip: {
-      flex: 1,
-      paddingVertical: 14,
-      borderRadius: 14,
-      backgroundColor: c.surface,
-      borderWidth: 1,
-      borderColor: c.border,
-      alignItems: "center",
-    },
-    quickCountChipActive: {
-      backgroundColor: c.inverseSurface,
-      borderColor: c.inverseSurface,
-    },
-    quickCountText: {
-      fontSize: 16,
-      fontWeight: "700",
-      color: c.textPrimary,
-    },
-    quickCountTextActive: {
-      color: c.inverseText,
-    },
-    customInput: {
-      backgroundColor: c.surface,
-      borderRadius: 14,
-      borderWidth: 1,
-      borderColor: c.border,
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-      fontSize: 16,
-      color: c.textPrimary,
-      marginBottom: 12,
-    },
-    setupHint: {
-      fontSize: 13,
-      color: c.textMuted,
-      marginBottom: 28,
-    },
-    startButton: {
-      backgroundColor: c.inverseSurface,
-      borderRadius: 16,
-      paddingVertical: 16,
-      alignItems: "center",
-      marginBottom: 10,
-    },
-    startButtonDisabled: {
-      opacity: 0.4,
-    },
-    startButtonText: {
-      color: c.inverseText,
-      fontSize: 16,
-      fontWeight: "700",
-    },
-    secondaryButton: {
-      paddingVertical: 14,
-      alignItems: "center",
-    },
-    secondaryButtonText: {
-      color: c.textSecondary,
-      fontSize: 14,
-      fontWeight: "600",
-    },
-    completeCard: {
-      backgroundColor: c.surface,
-      borderRadius: 24,
-      paddingVertical: 40,
-      alignItems: "center",
-      marginBottom: 24,
-      marginTop: 40,
-      borderWidth: 1,
-      borderColor: c.border,
-    },
-    completeTitle: {
-      fontSize: 20,
-      fontWeight: "700",
-      color: c.textPrimary,
-      marginTop: 12,
-    },
-    completeScore: {
-      fontSize: 28,
-      fontWeight: "700",
-      color: c.textPrimary,
-      marginTop: 16,
-    },
-    completePercent: {
-      fontSize: 15,
-      color: c.textMuted,
-      marginTop: 4,
-      fontWeight: "600",
     },
     quizHeader: {
       flexDirection: "row",
@@ -611,18 +318,10 @@ const createStyles = (c: ThemeColors) =>
       color: c.textSecondary,
       fontWeight: "600",
     },
-    quizHeaderRight: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: 12,
-    },
     quizScore: {
       fontSize: 14,
       color: c.textPrimary,
       fontWeight: "700",
-    },
-    restartIconButton: {
-      padding: 4,
     },
     quizBody: {
       flexGrow: 1,
@@ -707,43 +406,132 @@ const createStyles = (c: ThemeColors) =>
     optionSpeakButton: {
       padding: 4,
     },
-    modalBackdrop: {
-      flex: 1,
-      backgroundColor: "rgba(0,0,0,0.35)",
-      justifyContent: "flex-end",
+    footerButtons: {
+      paddingTop: 10,
+      paddingBottom: 4,
+      gap: 8,
     },
-    pickerSheet: {
-      backgroundColor: c.surface,
-      borderTopLeftRadius: 24,
-      borderTopRightRadius: 24,
-      paddingHorizontal: 20,
-      paddingTop: 20,
-      paddingBottom: 32,
-      maxHeight: "60%",
+    startButton: {
+      backgroundColor: c.inverseSurface,
+      borderRadius: 16,
+      paddingVertical: 16,
+      alignItems: "center",
     },
-    pickerTitle: {
-      fontSize: 18,
+    startButtonText: {
+      color: c.inverseText,
+      fontSize: 16,
       fontWeight: "700",
-      color: c.textPrimary,
-      marginBottom: 12,
     },
-    pickerItem: {
-      paddingVertical: 14,
-      paddingHorizontal: 12,
-      borderRadius: 10,
+    endTestButton: {
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-between",
+      justifyContent: "center",
+      gap: 6,
+      paddingVertical: 12,
     },
-    pickerItemActive: {
-      backgroundColor: c.surfaceAlt,
+    endTestButtonText: {
+      color: c.danger,
+      fontSize: 14,
+      fontWeight: "600",
     },
-    pickerItemText: {
-      fontSize: 16,
-      color: c.textPrimary,
-      fontWeight: "500",
+    completeScroll: {
+      flexGrow: 1,
+      paddingBottom: 12,
     },
-    pickerItemTextActive: {
+    completeCard: {
+      backgroundColor: c.surface,
+      borderRadius: 24,
+      paddingVertical: 40,
+      alignItems: "center",
+      marginBottom: 24,
+      marginTop: 16,
+      borderWidth: 1,
+      borderColor: c.border,
+    },
+    completeTitle: {
+      fontSize: 20,
       fontWeight: "700",
+      color: c.textPrimary,
+      marginTop: 12,
+    },
+    completeScore: {
+      fontSize: 28,
+      fontWeight: "700",
+      color: c.textPrimary,
+      marginTop: 16,
+    },
+    completePercent: {
+      fontSize: 15,
+      color: c.textMuted,
+      marginTop: 4,
+      fontWeight: "600",
+    },
+    reviewSection: {
+      marginBottom: 16,
+    },
+    reviewTitle: {
+      fontSize: 13,
+      fontWeight: "700",
+      color: c.textMuted,
+      textTransform: "uppercase",
+      letterSpacing: 0.5,
+      marginBottom: 10,
+    },
+    reviewRow: {
+      backgroundColor: c.surface,
+      borderRadius: 14,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: c.border,
+      marginBottom: 8,
+      gap: 12,
+    },
+    reviewWordCol: {
+      flexShrink: 1,
+    },
+    reviewEnglish: {
+      fontSize: 13,
+      color: c.textMuted,
+    },
+    reviewGerman: {
+      fontSize: 16,
+      fontWeight: "700",
+      color: c.accent,
+      marginTop: 2,
+    },
+    reviewYourAnswerCol: {
+      alignItems: "flex-end",
+      flexShrink: 1,
+    },
+    reviewYourAnswerLabel: {
+      fontSize: 10,
+      color: c.textFaint,
+      textTransform: "uppercase",
+      letterSpacing: 0.5,
+    },
+    reviewYourAnswer: {
+      fontSize: 14,
+      fontWeight: "600",
+      color: c.danger,
+      marginTop: 2,
+    },
+    perfectBox: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      backgroundColor: c.successSurface,
+      borderRadius: 14,
+      paddingVertical: 16,
+      marginBottom: 16,
+    },
+    perfectText: {
+      color: c.success,
+      fontSize: 14,
+      fontWeight: "600",
     },
   });

@@ -3,7 +3,9 @@ import { storage } from "@/src/utils/storage";
 const REVIEWED_KEY = "gv.reviewed.ids.v1";
 const VIEW_MODE_KEY = "gv.learn.viewmode.v1";
 
-export type LearnViewMode = "toReview" | "all";
+// "toReview" is the storage/wire name for the "Not reviewed" filter (kept as
+// the original string so existing saved preferences still round-trip).
+export type LearnViewMode = "toReview" | "reviewed" | "all";
 
 // Reviewed IDs are stored as a number array via the storage util, which
 // handles JSON encoding itself — do not JSON.stringify/parse here.
@@ -34,7 +36,7 @@ export async function resetReviewed(): Promise<void> {
 
 export async function loadLearnViewMode(): Promise<LearnViewMode> {
   const mode = await storage.getItem<string>(VIEW_MODE_KEY, "toReview");
-  return mode === "all" ? "all" : "toReview";
+  return mode === "all" || mode === "reviewed" ? mode : "toReview";
 }
 
 export async function saveLearnViewMode(mode: LearnViewMode): Promise<void> {

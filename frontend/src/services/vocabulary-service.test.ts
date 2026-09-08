@@ -46,4 +46,14 @@ describe("selectWords", () => {
     const result = selectWords(words, "A", new Set());
     expect(result.map((w) => w.id).sort()).toEqual([1, 2]);
   });
+
+  it("keeps only ids present in onlyIds", () => {
+    const result = selectWords(words, "A", undefined, new Set([2]));
+    expect(result.map((w) => w.id)).toEqual([2]);
+  });
+
+  it("returns an empty list when onlyIds excludes everything in the category", () => {
+    const result = selectWords(words, "A", undefined, new Set());
+    expect(result).toEqual([]);
+  });
 });

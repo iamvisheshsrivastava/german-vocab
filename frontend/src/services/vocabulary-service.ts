@@ -25,21 +25,27 @@ export function shuffle<T>(input: T[]): T[] {
 // If "All" is selected -> shuffle all words together.
 // Otherwise filter by category (stable order by id).
 // `excludeIds`, when given, drops those words from the result (used to hide
-// already-reviewed cards from the Learn deck) — applied after category
-// filtering, before shuffling.
+// already-reviewed cards from the "Not reviewed" Learn deck).
+// `onlyIds`, when given, keeps only words present in it (used for the
+// "Reviewed" Learn deck). Both are applied after category filtering, before
+// shuffling; callers pass at most one of the two.
 export function selectWords(
   words: VocabWord[],
   category: string,
   excludeIds?: ReadonlySet<number>,
+  onlyIds?: ReadonlySet<number>,
 ): VocabWord[] {
   const byCategory =
     category === ALL_CATEGORY
       ? words
       : words.filter((w) => w.category === category);
-  const filtered =
+  let filtered =
     excludeIds && excludeIds.size > 0
       ? byCategory.filter((w) => !excludeIds.has(w.id))
       : byCategory;
+  if (onlyIds) {
+    filtered = filtered.filter((w) => onlyIds.has(w.id));
+  }
 
   if (category === ALL_CATEGORY) {
     return shuffle(filtered);

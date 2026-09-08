@@ -1,24 +1,82 @@
+import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import * as Speech from "expo-speech";
-import { useEffect, useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AppState, AppStateStatus, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { AskScreen } from "@/src/components/AskScreen";
 import { LearnScreen } from "@/src/components/LearnScreen";
+import { StatsScreen } from "@/src/components/StatsScreen";
 import { TestScreen } from "@/src/components/TestScreen";
+import { recordActiveSeconds } from "@/src/services/stats-service";
 import { ThemeColors, useThemeColors } from "@/src/theme/colors";
 
-type Tab = "learn" | "test";
+type Tab = "learn" | "test" | "ask" | "stats";
+
+const TABS: {
+  key: Tab;
+  label: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  iconActive: keyof typeof Ionicons.glyphMap;
+}[] = [
+  { key: "learn", label: "Learn", icon: "book-outline", iconActive: "book" },
+  { key: "test", label: "Test", icon: "checkmark-done-outline", iconActive: "checkmark-done" },
+  { key: "ask", label: "Ask", icon: "chatbubble-ellipses-outline", iconActive: "chatbubble-ellipses" },
+  { key: "stats", label: "Stats", icon: "stats-chart-outline", iconActive: "stats-chart" },
+];
+
+// Flushes accumulated foreground time to stats-service — periodically while
+// active (so a long session or an outright app kill doesn't lose it all)
+// and immediately on backgrounding.
+function useActiveTimeTracking() {
+  const activeSinceRef = useRef<number | null>(Date.now());
+
+  useEffect(() => {
+    const flush = () => {
+      if (activeSinceRef.current === null) return;
+      const elapsedSeconds = (Date.now() - activeSinceRef.current) / 1000;
+      activeSinceRef.current = null;
+      recordActiveSeconds(elapsedSeconds).catch(() => {});
+    };
+    const restart = () => {
+      activeSinceRef.current = Date.now();
+    };
+
+    const subscription = AppState.addEventListener("change", (state: AppStateStatus) => {
+      if (state === "active") {
+        restart();
+      } else {
+        flush();
+      }
+    });
+
+    const interval = setInterval(() => {
+      if (activeSinceRef.current !== null) {
+        flush();
+        restart();
+      }
+    }, 60_000);
+
+    return () => {
+      flush();
+      subscription.remove();
+      clearInterval(interval);
+    };
+  }, []);
+}
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState<Tab>("learn");
   const colors = useThemeColors();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  // Both LearnScreen and TestScreen stay permanently mounted (see below), so
-  // their own unmount-cleanup Speech.stop() calls never fire on a tab
-  // switch. Stop any in-progress speech explicitly whenever the active tab
-  // changes so audio from the tab being left behind doesn't keep playing.
+  useActiveTimeTracking();
+
+  // Every screen stays permanently mounted (see below), so their own
+  // unmount-cleanup Speech.stop() calls never fire on a tab switch. Stop any
+  // in-progress speech explicitly whenever the active tab changes so audio
+  // from the tab being left behind doesn't keep playing.
   useEffect(() => {
     Speech.stop();
   }, [activeTab]);
@@ -32,49 +90,44 @@ export default function Index() {
         </Text>
       </View>
 
-      <View style={styles.tabBar} testID="top-tab-bar">
-        <Pressable
-          style={[styles.tabButton, activeTab === "learn" && styles.tabButtonActive]}
-          onPress={() => setActiveTab("learn")}
-          accessibilityRole="tab"
-          accessibilityLabel="Learn tab"
-          accessibilityState={{ selected: activeTab === "learn" }}
-          testID="tab-learn"
-        >
-          <Text
-            style={[
-              styles.tabButtonText,
-              activeTab === "learn" && styles.tabButtonTextActive,
-            ]}
-          >
-            Learn
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[styles.tabButton, activeTab === "test" && styles.tabButtonActive]}
-          onPress={() => setActiveTab("test")}
-          accessibilityRole="tab"
-          accessibilityLabel="Test tab"
-          accessibilityState={{ selected: activeTab === "test" }}
-          testID="tab-test"
-        >
-          <Text
-            style={[
-              styles.tabButtonText,
-              activeTab === "test" && styles.tabButtonTextActive,
-            ]}
-          >
-            Test
-          </Text>
-        </Pressable>
-      </View>
-
-      {/* Both screens stay mounted so switching tabs preserves progress. */}
+      {/* Every screen stays mounted so switching tabs preserves progress. */}
       <View style={[styles.screen, activeTab !== "learn" && styles.hidden]}>
         <LearnScreen />
       </View>
       <View style={[styles.screen, activeTab !== "test" && styles.hidden]}>
         <TestScreen />
+      </View>
+      <View style={[styles.screen, activeTab !== "ask" && styles.hidden]}>
+        <AskScreen />
+      </View>
+      <View style={[styles.screen, activeTab !== "stats" && styles.hidden]}>
+        <StatsScreen active={activeTab === "stats"} />
+      </View>
+
+      <View style={styles.tabBar} testID="bottom-tab-bar">
+        {TABS.map(({ key, label, icon, iconActive }) => {
+          const selected = activeTab === key;
+          return (
+            <Pressable
+              key={key}
+              style={styles.tabButton}
+              onPress={() => setActiveTab(key)}
+              accessibilityRole="tab"
+              accessibilityLabel={`${label} tab`}
+              accessibilityState={{ selected }}
+              testID={`tab-${key}`}
+            >
+              <Ionicons
+                name={selected ? iconActive : icon}
+                size={22}
+                color={selected ? colors.accent : colors.textMuted}
+              />
+              <Text style={[styles.tabButtonText, selected && styles.tabButtonTextActive]}>
+                {label}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
     </SafeAreaView>
   );
@@ -89,6 +142,7 @@ const createStyles = (c: ThemeColors) =>
     headerRow: {
       paddingHorizontal: 20,
       paddingTop: 8,
+      paddingBottom: 4,
     },
     title: {
       fontSize: 26,
@@ -96,34 +150,32 @@ const createStyles = (c: ThemeColors) =>
       color: c.textPrimary,
       letterSpacing: -0.5,
     },
-    tabBar: {
-      flexDirection: "row",
-      paddingHorizontal: 20,
-      paddingTop: 14,
-      gap: 8,
-    },
-    tabButton: {
-      flex: 1,
-      paddingVertical: 10,
-      borderRadius: 12,
-      alignItems: "center",
-      backgroundColor: c.surfaceAlt,
-    },
-    tabButtonActive: {
-      backgroundColor: c.inverseSurface,
-    },
-    tabButtonText: {
-      fontSize: 14,
-      fontWeight: "700",
-      color: c.textSecondary,
-    },
-    tabButtonTextActive: {
-      color: c.inverseText,
-    },
     screen: {
       flex: 1,
     },
     hidden: {
       display: "none",
+    },
+    tabBar: {
+      flexDirection: "row",
+      borderTopWidth: 1,
+      borderTopColor: c.border,
+      backgroundColor: c.background,
+      paddingTop: 8,
+      paddingBottom: 6,
+    },
+    tabButton: {
+      flex: 1,
+      alignItems: "center",
+      gap: 3,
+      paddingVertical: 4,
+    },
+    tabButtonText: {
+      fontSize: 11,
+      fontWeight: "600",
+      color: c.textMuted,
+    },
+    tabButtonTextActive: {
+      color: c.accent,
     },
   });

@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Speech from "expo-speech";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Animated,
   Dimensions,
   FlatList,
@@ -15,16 +16,18 @@ import {
   View,
 } from "react-native";
 
+import { generateExample, WordExample } from "@/src/services/examples-service";
 import { useSpeak } from "@/src/hooks/use-speak";
+import { OpenRouterError } from "@/src/services/openrouter-service";
 import { ALL_CATEGORY, VocabWord } from "@/src/models/vocab";
 import {
   LearnViewMode,
   loadLearnViewMode,
   loadReviewedIds,
-  resetReviewed,
   saveLearnViewMode,
   saveReviewedIds,
 } from "@/src/services/progress-service";
+import { recordWordReviewed } from "@/src/services/stats-service";
 import {
   getCategories,
   loadVocabulary,
@@ -36,6 +39,20 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const SWIPE_THRESHOLD = 60;
 const SWIPE_OUT_DURATION = 180;
 const MAX_SEARCH_RESULTS = 30;
+
+const VIEW_MODES: { mode: LearnViewMode; label: string }[] = [
+  { mode: "all", label: "All" },
+  { mode: "toReview", label: "Not Reviewed" },
+  { mode: "reviewed", label: "Reviewed" },
+];
+
+// Computes the (exclude, only) pair selectWords() needs for a given filter.
+function deckFilterFor(mode: LearnViewMode, reviewedIds: Set<number>) {
+  return {
+    exclude: mode === "toReview" ? reviewedIds : undefined,
+    only: mode === "reviewed" ? reviewedIds : undefined,
+  };
+}
 
 export function LearnScreen() {
   const colors = useThemeColors();
@@ -55,7 +72,6 @@ export function LearnScreen() {
   const [reviewedLoaded, setReviewedLoaded] = useState(false);
   const [viewMode, setViewMode] = useState<LearnViewMode>("toReview");
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const searchInputRef = useRef<TextInput>(null);
@@ -63,6 +79,10 @@ export function LearnScreen() {
   // instead of squeezing it into the remaining space — that caused the card's
   // fixed aspect ratio to overflow and visually break on Android.
   const searchActive = searchFocused || searchQuery.trim().length > 0;
+
+  const [example, setExample] = useState<WordExample | null>(null);
+  const [exampleLoading, setExampleLoading] = useState(false);
+  const [exampleError, setExampleError] = useState<"no_key" | "error" | null>(null);
 
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -85,13 +105,8 @@ export function LearnScreen() {
         const idsSet = new Set(ids);
         setReviewedIds(idsSet);
         setViewMode(mode);
-        setFilteredWords(
-          selectWords(
-            allWords,
-            ALL_CATEGORY,
-            mode === "toReview" ? idsSet : undefined,
-          ),
-        );
+        const { exclude, only } = deckFilterFor(mode, idsSet);
+        setFilteredWords(selectWords(allWords, ALL_CATEGORY, exclude, only));
       } finally {
         setReviewedLoaded(true);
       }
@@ -113,6 +128,36 @@ export function LearnScreen() {
   }, []);
 
   const currentWord: VocabWord | undefined = filteredWords[currentIndex];
+
+  // Fetch (or load from cache) an example sentence whenever a card is
+  // revealed. Cancels cleanly if the user swipes away before it resolves.
+  useEffect(() => {
+    if (!revealed || !currentWord) {
+      setExample(null);
+      setExampleError(null);
+      setExampleLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setExample(null);
+    setExampleError(null);
+    setExampleLoading(true);
+    generateExample(currentWord)
+      .then((ex) => {
+        if (!cancelled) setExample(ex);
+      })
+      .catch((e) => {
+        if (cancelled) return;
+        setExampleError(e instanceof OpenRouterError && e.code === "no_key" ? "no_key" : "error");
+      })
+      .finally(() => {
+        if (!cancelled) setExampleLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [revealed, currentWord?.id]);
 
   const goTo = (direction: "next" | "prev") => {
     if (filteredWordsRef.current.length === 0) return;
@@ -176,6 +221,7 @@ export function LearnScreen() {
           next.add(currentWord.id);
           return next;
         });
+        recordWordReviewed().catch(() => {});
       }
     } else {
       setRevealed(false);
@@ -183,16 +229,15 @@ export function LearnScreen() {
   };
 
   // Rebuilds the deck for an explicit action (category change, view-mode
-  // toggle, reset) — deliberately not reactive to reviewedIds changes, so
-  // marking the current card reviewed mid-session doesn't yank it away.
+  // toggle) — deliberately not reactive to reviewedIds changes, so marking
+  // the current card reviewed mid-session doesn't yank it away.
   const rebuildDeck = (
     cat: string,
     mode: LearnViewMode,
-    excluded: Set<number>,
+    ids: Set<number>,
   ) => {
-    setFilteredWords(
-      selectWords(allWords, cat, mode === "toReview" ? excluded : undefined),
-    );
+    const { exclude, only } = deckFilterFor(mode, ids);
+    setFilteredWords(selectWords(allWords, cat, exclude, only));
     setCurrentIndex(0);
     setRevealed(false);
     translateX.setValue(0);
@@ -211,15 +256,6 @@ export function LearnScreen() {
     setViewMode(mode);
     saveLearnViewMode(mode).catch(() => {});
     rebuildDeck(category, mode, reviewedIds);
-  };
-
-  const handleReset = async () => {
-    await resetReviewed();
-    Speech.stop();
-    setReviewedIds(new Set());
-    setCategory(ALL_CATEGORY);
-    rebuildDeck(ALL_CATEGORY, viewMode, new Set());
-    setResetConfirmOpen(false);
   };
 
   const handleSpeak = () => {
@@ -252,27 +288,22 @@ export function LearnScreen() {
     handleDismissSearch();
     Speech.stop();
     setCategory(ALL_CATEGORY);
-    // Apply the same reviewed-exclusion filter rebuildDeck applies
-    // everywhere else, so the deck stays consistent with the active
-    // "To review"/"All" view mode instead of silently pulling in reviewed
-    // words while the segmented control still shows "To review".
+    // Apply the same reviewed filter rebuildDeck applies everywhere else —
+    // if the searched word can't appear under the current filter (e.g.
+    // it's unreviewed but the filter is "Reviewed"), fall back to "All" so
+    // the selection is actually visible, keeping viewMode and the deck in
+    // sync instead of silently pulling in a word the filter would hide.
+    const isReviewed = reviewedIds.has(word.id);
     let effectiveMode = viewMode;
-    let newList = selectWords(
-      allWords,
-      ALL_CATEGORY,
-      effectiveMode === "toReview" ? reviewedIds : undefined,
-    );
-    let idx = newList.findIndex((w) => w.id === word.id);
-    if (idx < 0 && effectiveMode === "toReview") {
-      // The searched word is already reviewed, so it can't appear under
-      // "To review" — fall back to "All" so the selection is actually
-      // visible, keeping viewMode and the deck in sync.
-      effectiveMode = "all";
-      setViewMode("all");
-      saveLearnViewMode("all").catch(() => {});
-      newList = selectWords(allWords, ALL_CATEGORY);
-      idx = newList.findIndex((w) => w.id === word.id);
+    if (viewMode === "toReview" && isReviewed) effectiveMode = "all";
+    else if (viewMode === "reviewed" && !isReviewed) effectiveMode = "all";
+    if (effectiveMode !== viewMode) {
+      setViewMode(effectiveMode);
+      saveLearnViewMode(effectiveMode).catch(() => {});
     }
+    const { exclude, only } = deckFilterFor(effectiveMode, reviewedIds);
+    const newList = selectWords(allWords, ALL_CATEGORY, exclude, only);
+    const idx = newList.findIndex((w) => w.id === word.id);
     setFilteredWords(newList);
     setCurrentIndex(idx >= 0 ? idx : 0);
     setRevealed(true);
@@ -295,10 +326,18 @@ export function LearnScreen() {
     0,
   );
   const percent = total === 0 ? 0 : Math.round((reviewedCount / total) * 100);
-  // Distinguishes "this category has no words at all" from "every word in
-  // it has already been reviewed and is hidden by the To review filter".
-  const allReviewedInCategory =
-    viewMode === "toReview" && total > 0 && filteredWords.length === 0;
+
+  type EmptyReason = "allCaughtUp" | "noneReviewedYet" | "noWordsInCategory";
+  const emptyReason: EmptyReason | null =
+    filteredWords.length > 0 || total === 0
+      ? filteredWords.length === 0 && total === 0
+        ? "noWordsInCategory"
+        : null
+      : viewMode === "toReview"
+        ? "allCaughtUp"
+        : viewMode === "reviewed"
+          ? "noneReviewedYet"
+          : "noWordsInCategory";
 
   return (
     <>
@@ -419,48 +458,33 @@ export function LearnScreen() {
               </View>
             </Pressable>
 
-            {/* Learn deck view mode */}
+            {/* Learn deck view mode: All / Not Reviewed / Reviewed */}
             <View style={styles.viewModeRow} testID="view-mode-toggle">
-              <Pressable
-                style={[
-                  styles.viewModeSegment,
-                  viewMode === "toReview" && styles.viewModeSegmentActive,
-                ]}
-                onPress={() => handleToggleViewMode("toReview")}
-                accessibilityRole="button"
-                accessibilityLabel="Show words to review"
-                accessibilityState={{ selected: viewMode === "toReview" }}
-                testID="view-mode-to-review"
-              >
-                <Text
+              {VIEW_MODES.map(({ mode, label }) => (
+                <Pressable
+                  key={mode}
                   style={[
-                    styles.viewModeText,
-                    viewMode === "toReview" && styles.viewModeTextActive,
+                    styles.viewModeSegment,
+                    viewMode === mode && styles.viewModeSegmentActive,
                   ]}
+                  onPress={() => handleToggleViewMode(mode)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Show ${label.toLowerCase()} words`}
+                  accessibilityState={{ selected: viewMode === mode }}
+                  testID={`view-mode-${mode}`}
                 >
-                  To review
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.viewModeSegment,
-                  viewMode === "all" && styles.viewModeSegmentActive,
-                ]}
-                onPress={() => handleToggleViewMode("all")}
-                accessibilityRole="button"
-                accessibilityLabel="Show all words"
-                accessibilityState={{ selected: viewMode === "all" }}
-                testID="view-mode-all"
-              >
-                <Text
-                  style={[
-                    styles.viewModeText,
-                    viewMode === "all" && styles.viewModeTextActive,
-                  ]}
-                >
-                  All
-                </Text>
-              </Pressable>
+                  <Text
+                    style={[
+                      styles.viewModeText,
+                      viewMode === mode && styles.viewModeTextActive,
+                    ]}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                  >
+                    {label}
+                  </Text>
+                </Pressable>
+              ))}
             </View>
 
             {/* Card area */}
@@ -488,14 +512,40 @@ export function LearnScreen() {
                       {currentWord.english}
                     </Text>
                     {revealed ? (
-                      <Text
-                        style={styles.cardGerman}
-                        testID="card-german"
-                        numberOfLines={2}
-                        adjustsFontSizeToFit
-                      >
-                        {currentWord.german}
-                      </Text>
+                      <>
+                        <Text
+                          style={styles.cardGerman}
+                          testID="card-german"
+                          numberOfLines={2}
+                          adjustsFontSizeToFit
+                        >
+                          {currentWord.german}
+                        </Text>
+                        <View style={styles.exampleBox} testID="card-example">
+                          {exampleLoading ? (
+                            <View style={styles.exampleLoadingRow}>
+                              <ActivityIndicator size="small" color={colors.textMuted} />
+                              <Text style={styles.exampleLoadingText}>
+                                Getting an example...
+                              </Text>
+                            </View>
+                          ) : example ? (
+                            <>
+                              <Text style={styles.exampleGerman} numberOfLines={3}>
+                                {example.sentence}
+                              </Text>
+                              <Text style={styles.exampleEnglish} numberOfLines={3}>
+                                {example.translation}
+                              </Text>
+                            </>
+                          ) : exampleError === "no_key" ? (
+                            <Text style={styles.exampleHint}>
+                              Add a free OpenRouter key in the Ask tab to see example
+                              sentences here.
+                            </Text>
+                          ) : null}
+                        </View>
+                      </>
                     ) : (
                       <Text style={styles.tapHint} testID="card-hint">
                         Tap to reveal
@@ -540,11 +590,13 @@ export function LearnScreen() {
               ) : (
                 <View style={styles.emptyState} testID="empty-state">
                   <Text style={styles.emptyText}>
-                    {allReviewedInCategory
+                    {emptyReason === "allCaughtUp"
                       ? "All caught up! You've reviewed every word here."
-                      : "No words in this category."}
+                      : emptyReason === "noneReviewedYet"
+                        ? "No reviewed words yet in this category."
+                        : "No words in this category."}
                   </Text>
-                  {allReviewedInCategory ? (
+                  {emptyReason === "allCaughtUp" ? (
                     <Pressable
                       style={styles.emptyStateAction}
                       onPress={() => handleToggleViewMode("all")}
@@ -552,6 +604,17 @@ export function LearnScreen() {
                     >
                       <Text style={styles.emptyStateActionText}>
                         View all words
+                      </Text>
+                    </Pressable>
+                  ) : null}
+                  {emptyReason === "noneReviewedYet" ? (
+                    <Pressable
+                      style={styles.emptyStateAction}
+                      onPress={() => handleToggleViewMode("toReview")}
+                      testID="empty-state-start-reviewing"
+                    >
+                      <Text style={styles.emptyStateActionText}>
+                        Start reviewing
                       </Text>
                     </Pressable>
                   ) : null}
@@ -572,16 +635,6 @@ export function LearnScreen() {
                 </Text>
               ) : null}
             </View>
-
-            {/* Reset */}
-            <Pressable
-              style={styles.resetButton}
-              onPress={() => setResetConfirmOpen(true)}
-              testID="reset-button"
-            >
-              <Ionicons name="refresh" size={16} color={colors.danger} />
-              <Text style={styles.resetText}>Reset Progress</Text>
-            </Pressable>
           </>
         )}
       </View>
@@ -628,39 +681,6 @@ export function LearnScreen() {
             />
           </Pressable>
         </Pressable>
-      </Modal>
-
-      {/* Reset confirmation modal */}
-      <Modal
-        visible={resetConfirmOpen}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setResetConfirmOpen(false)}
-      >
-        <View style={styles.modalBackdrop}>
-          <View style={styles.confirmSheet} testID="reset-confirm-sheet">
-            <Text style={styles.confirmTitle}>Reset Progress?</Text>
-            <Text style={styles.confirmBody}>
-              This will clear all reviewed words. This cannot be undone.
-            </Text>
-            <View style={styles.confirmButtons}>
-              <Pressable
-                style={[styles.confirmBtn, styles.confirmCancel]}
-                onPress={() => setResetConfirmOpen(false)}
-                testID="reset-cancel-button"
-              >
-                <Text style={styles.confirmCancelText}>Cancel</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.confirmBtn, styles.confirmDestructive]}
-                onPress={handleReset}
-                testID="reset-confirm-button"
-              >
-                <Text style={styles.confirmDestructiveText}>Reset</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
       </Modal>
     </>
   );
@@ -809,10 +829,12 @@ const createStyles = (c: ThemeColors) =>
       borderRadius: 12,
       padding: 3,
       marginBottom: 16,
+      gap: 2,
     },
     viewModeSegment: {
       flex: 1,
       paddingVertical: 8,
+      paddingHorizontal: 4,
       borderRadius: 9,
       alignItems: "center",
     },
@@ -825,7 +847,7 @@ const createStyles = (c: ThemeColors) =>
       elevation: 1,
     },
     viewModeText: {
-      fontSize: 13,
+      fontSize: 12,
       fontWeight: "600",
       color: c.textMuted,
     },
@@ -882,6 +904,40 @@ const createStyles = (c: ThemeColors) =>
       color: c.accent,
       textAlign: "center",
       letterSpacing: -0.5,
+    },
+    exampleBox: {
+      marginTop: 18,
+      minHeight: 20,
+      paddingHorizontal: 8,
+      alignItems: "center",
+    },
+    exampleLoadingRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 8,
+    },
+    exampleLoadingText: {
+      fontSize: 12,
+      color: c.textMuted,
+    },
+    exampleGerman: {
+      fontSize: 14,
+      fontWeight: "600",
+      color: c.textSecondary,
+      fontStyle: "italic",
+      textAlign: "center",
+    },
+    exampleEnglish: {
+      marginTop: 4,
+      fontSize: 12,
+      color: c.textMuted,
+      textAlign: "center",
+    },
+    exampleHint: {
+      fontSize: 11,
+      color: c.textFaint,
+      textAlign: "center",
+      lineHeight: 16,
     },
     tapHint: {
       marginTop: 24,
@@ -987,19 +1043,6 @@ const createStyles = (c: ThemeColors) =>
       fontSize: 13,
       fontWeight: "500",
     },
-    resetButton: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 6,
-      paddingVertical: 14,
-      marginBottom: 4,
-    },
-    resetText: {
-      color: c.danger,
-      fontSize: 14,
-      fontWeight: "600",
-    },
     modalBackdrop: {
       flex: 1,
       backgroundColor: "rgba(0,0,0,0.35)",
@@ -1037,52 +1080,6 @@ const createStyles = (c: ThemeColors) =>
       fontWeight: "500",
     },
     pickerItemTextActive: {
-      fontWeight: "700",
-    },
-    confirmSheet: {
-      backgroundColor: c.surface,
-      marginHorizontal: 32,
-      marginBottom: "auto",
-      marginTop: "auto",
-      borderRadius: 20,
-      padding: 24,
-    },
-    confirmTitle: {
-      fontSize: 18,
-      fontWeight: "700",
-      color: c.textPrimary,
-      marginBottom: 8,
-    },
-    confirmBody: {
-      fontSize: 14,
-      color: c.textSecondary,
-      lineHeight: 20,
-      marginBottom: 20,
-    },
-    confirmButtons: {
-      flexDirection: "row",
-      gap: 10,
-    },
-    confirmBtn: {
-      flex: 1,
-      paddingVertical: 12,
-      borderRadius: 12,
-      alignItems: "center",
-    },
-    confirmCancel: {
-      backgroundColor: c.surfaceAlt,
-    },
-    confirmCancelText: {
-      color: c.textPrimary,
-      fontSize: 14,
-      fontWeight: "600",
-    },
-    confirmDestructive: {
-      backgroundColor: c.danger,
-    },
-    confirmDestructiveText: {
-      color: "#fff",
-      fontSize: 14,
       fontWeight: "700",
     },
   });

@@ -35,6 +35,8 @@ describe("progress-service", () => {
   it("round-trips the view mode through save/load", async () => {
     await saveLearnViewMode("all");
     expect(await loadLearnViewMode()).toBe("all");
+    await saveLearnViewMode("reviewed");
+    expect(await loadLearnViewMode()).toBe("reviewed");
     await saveLearnViewMode("toReview");
     expect(await loadLearnViewMode()).toBe("toReview");
   });
