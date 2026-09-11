@@ -1,7 +1,15 @@
+import bundledExamples from "@/src/data/examples.json";
 import { VocabWord } from "@/src/models/vocab";
 import { storage } from "@/src/utils/storage";
 
 import { chatComplete } from "./openrouter-service";
+
+// Pre-generated offline via scripts/generate-examples.js (one-time batch
+// job against OpenRouter, run at dev time — see that script's header
+// comment). Covers effectively the whole vocabulary, so cards load
+// instantly with no network wait; live generation below only runs for
+// whatever this bundle is missing.
+const BUNDLED: Record<string, WordExample> = bundledExamples as Record<string, WordExample>;
 
 // Storage values are limited to primitives/arrays-of-primitives (see
 // storage-base.ts), so the cache is kept as three index-aligned arrays
@@ -67,12 +75,16 @@ function saveExample(wordId: number, example: WordExample): Promise<void> {
   return write;
 }
 
-// Returns the cached example if we already generated one for this word,
-// otherwise asks the model for exactly one and caches it forever — each
-// word only ever costs one API call across the whole app lifetime. Throws
-// OpenRouterError (via chatComplete) on failure; callers decide how to
-// surface that (e.g. a quiet "no key yet" hint vs. a real error).
+// Returns the bundled example if this word has one (instant, no network),
+// else the on-device cache if we've generated one before, else asks the
+// model for exactly one and caches it forever — each word not in the
+// bundle only ever costs one API call across the whole app lifetime.
+// Throws OpenRouterError (via chatComplete) on failure; callers decide how
+// to surface that (e.g. a quiet "no key yet" hint vs. a real error).
 export async function generateExample(word: VocabWord): Promise<WordExample> {
+  const bundled = BUNDLED[String(word.id)];
+  if (bundled) return bundled;
+
   const cached = await getCachedExample(word.id);
   if (cached) return cached;
 

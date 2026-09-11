@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import * as Clipboard from "expo-clipboard";
 import * as Speech from "expo-speech";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -87,6 +88,9 @@ export function LearnScreen() {
   // without needing to swipe away and back — a fresh attempt against a
   // momentarily-saturated free model often just works.
   const [exampleRetryToken, setExampleRetryToken] = useState(0);
+  // Brief "Copied" confirmation on whichever copy button was last tapped.
+  const [copiedFeedback, setCopiedFeedback] = useState<"word" | "example" | null>(null);
+  const copiedFeedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -128,6 +132,7 @@ export function LearnScreen() {
   useEffect(() => {
     return () => {
       Speech.stop();
+      if (copiedFeedbackTimer.current) clearTimeout(copiedFeedbackTimer.current);
     };
   }, []);
 
@@ -274,6 +279,28 @@ export function LearnScreen() {
 
   const handleRetryExample = () => {
     setExampleRetryToken((t) => t + 1);
+  };
+
+  // Text inside the flashcard's tap-to-reveal Pressable can't use the native
+  // long-press "Copy" menu — the Pressable's own gesture responder claims
+  // the touch before Android's TextView selection handler ever sees it.
+  // Explicit copy buttons sidestep that entirely instead of fighting it.
+  const flashCopiedFeedback = (which: "word" | "example") => {
+    setCopiedFeedback(which);
+    if (copiedFeedbackTimer.current) clearTimeout(copiedFeedbackTimer.current);
+    copiedFeedbackTimer.current = setTimeout(() => setCopiedFeedback(null), 1500);
+  };
+
+  const handleCopyWord = async () => {
+    if (!currentWord) return;
+    await Clipboard.setStringAsync(`${currentWord.german} — ${currentWord.english}`);
+    flashCopiedFeedback("word");
+  };
+
+  const handleCopyExample = async () => {
+    if (!example) return;
+    await Clipboard.setStringAsync(`${example.sentence}\n${example.translation}`);
+    flashCopiedFeedback("example");
   };
 
   // Matches against both English and German (searches the whole vocabulary,
@@ -529,15 +556,31 @@ export function LearnScreen() {
                     </Text>
                     {revealed ? (
                       <>
-                        <Text
-                          style={styles.cardGerman}
-                          testID="card-german"
-                          numberOfLines={2}
-                          adjustsFontSizeToFit
-                          selectable
-                        >
-                          {currentWord.german}
-                        </Text>
+                        <View style={styles.germanRow}>
+                          <Text
+                            style={styles.cardGerman}
+                            testID="card-german"
+                            numberOfLines={2}
+                            adjustsFontSizeToFit
+                            selectable
+                          >
+                            {currentWord.german}
+                          </Text>
+                          <Pressable
+                            style={styles.inlineCopyButton}
+                            onPress={handleCopyWord}
+                            hitSlop={10}
+                            accessibilityRole="button"
+                            accessibilityLabel="Copy word"
+                            testID="copy-word-button"
+                          >
+                            <Ionicons
+                              name={copiedFeedback === "word" ? "checkmark" : "copy-outline"}
+                              size={16}
+                              color={colors.textMuted}
+                            />
+                          </Pressable>
+                        </View>
                         <View style={styles.exampleBox} testID="card-example">
                           {exampleLoading ? (
                             <View style={styles.exampleLoadingRow}>
@@ -554,17 +597,36 @@ export function LearnScreen() {
                               <Text style={styles.exampleEnglish} numberOfLines={3} selectable>
                                 {example.translation}
                               </Text>
-                              <Pressable
-                                style={styles.exampleSpeakButton}
-                                onPress={handleSpeakExample}
-                                hitSlop={8}
-                                accessibilityRole="button"
-                                accessibilityLabel="Pronounce example sentence"
-                                testID="example-speak-button"
-                              >
-                                <Ionicons name="volume-medium" size={14} color={colors.textMuted} />
-                                <Text style={styles.exampleSpeakText}>Listen</Text>
-                              </Pressable>
+                              <View style={styles.exampleActionsRow}>
+                                <Pressable
+                                  style={styles.exampleActionButton}
+                                  onPress={handleSpeakExample}
+                                  hitSlop={8}
+                                  accessibilityRole="button"
+                                  accessibilityLabel="Pronounce example sentence"
+                                  testID="example-speak-button"
+                                >
+                                  <Ionicons name="volume-medium" size={14} color={colors.textMuted} />
+                                  <Text style={styles.exampleActionText}>Listen</Text>
+                                </Pressable>
+                                <Pressable
+                                  style={styles.exampleActionButton}
+                                  onPress={handleCopyExample}
+                                  hitSlop={8}
+                                  accessibilityRole="button"
+                                  accessibilityLabel="Copy example sentence"
+                                  testID="example-copy-button"
+                                >
+                                  <Ionicons
+                                    name={copiedFeedback === "example" ? "checkmark" : "copy-outline"}
+                                    size={14}
+                                    color={colors.textMuted}
+                                  />
+                                  <Text style={styles.exampleActionText}>
+                                    {copiedFeedback === "example" ? "Copied" : "Copy"}
+                                  </Text>
+                                </Pressable>
+                              </View>
                             </>
                           ) : exampleError === "no_key" ? (
                             <Text style={styles.exampleHint}>
@@ -934,13 +996,24 @@ const createStyles = (c: ThemeColors) =>
       textAlign: "center",
       letterSpacing: -1,
     },
-    cardGerman: {
+    germanRow: {
       marginTop: 24,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      maxWidth: "100%",
+    },
+    cardGerman: {
       fontSize: 30,
       fontWeight: "600",
       color: c.accent,
       textAlign: "center",
       letterSpacing: -0.5,
+      flexShrink: 1,
+    },
+    inlineCopyButton: {
+      padding: 4,
     },
     exampleBox: {
       marginTop: 18,
@@ -982,13 +1055,20 @@ const createStyles = (c: ThemeColors) =>
       textAlign: "center",
       textDecorationLine: "underline",
     },
-    exampleSpeakButton: {
+    exampleActionsRow: {
       marginTop: 8,
       flexDirection: "row",
       alignItems: "center",
-      gap: 4,
+      gap: 16,
     },
-    exampleSpeakText: {
+    exampleActionButton: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 4,
+      paddingVertical: 4,
+      paddingHorizontal: 4,
+    },
+    exampleActionText: {
       fontSize: 11,
       fontWeight: "600",
       color: c.textMuted,

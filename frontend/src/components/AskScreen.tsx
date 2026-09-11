@@ -1,10 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
+import * as Clipboard from "expo-clipboard";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -12,6 +11,7 @@ import {
   View,
 } from "react-native";
 
+import { useKeyboardHeight } from "@/src/hooks/use-keyboard-height";
 import {
   ChatMessage,
   chatComplete,
@@ -55,7 +55,15 @@ export function AskScreen() {
   const [messages, setMessages] = useState<DisplayMessage[]>([]);
   const [inputText, setInputText] = useState("");
   const [sending, setSending] = useState(false);
+  const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const listRef = useRef<FlatList<DisplayMessage>>(null);
+  const keyboardHeight = useKeyboardHeight();
+
+  const handleCopyMessage = async (message: DisplayMessage) => {
+    await Clipboard.setStringAsync(message.content);
+    setCopiedMessageId(message.id);
+    setTimeout(() => setCopiedMessageId((id) => (id === message.id ? null : id)), 1500);
+  };
 
   useEffect(() => {
     getApiKey()
@@ -135,9 +143,8 @@ export function AskScreen() {
 
   if (!hasKey) {
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <View
+        style={[styles.container, { paddingBottom: keyboardHeight }]}
         testID="ask-setup-screen"
       >
         <View style={styles.setupCard}>
@@ -176,15 +183,13 @@ export function AskScreen() {
             )}
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+    <View
+      style={[styles.container, { paddingBottom: keyboardHeight }]}
       testID="ask-chat-screen"
     >
       <View style={styles.chatHeader}>
@@ -234,29 +239,51 @@ export function AskScreen() {
               item.role === "user" ? styles.bubbleRowUser : styles.bubbleRowOther,
             ]}
           >
-            <View
-              style={[
-                styles.bubble,
-                item.role === "user"
-                  ? styles.bubbleUser
-                  : item.role === "error"
-                    ? styles.bubbleError
-                    : styles.bubbleAssistant,
-              ]}
-              testID={`chat-bubble-${item.role}`}
-            >
-              <Text
-                selectable
-                style={
+            <View style={styles.bubbleColumn}>
+              <View
+                style={[
+                  styles.bubble,
                   item.role === "user"
-                    ? styles.bubbleTextUser
+                    ? styles.bubbleUser
                     : item.role === "error"
-                      ? styles.bubbleTextError
-                      : styles.bubbleTextAssistant
-                }
+                      ? styles.bubbleError
+                      : styles.bubbleAssistant,
+                ]}
+                testID={`chat-bubble-${item.role}`}
               >
-                {renderMarkdownLite(item.content, styles.bubbleTextBold)}
-              </Text>
+                <Text
+                  selectable
+                  style={
+                    item.role === "user"
+                      ? styles.bubbleTextUser
+                      : item.role === "error"
+                        ? styles.bubbleTextError
+                        : styles.bubbleTextAssistant
+                  }
+                >
+                  {renderMarkdownLite(item.content, styles.bubbleTextBold)}
+                </Text>
+              </View>
+              <Pressable
+                style={[
+                  styles.bubbleCopyButton,
+                  item.role === "user" ? styles.bubbleCopyButtonEnd : styles.bubbleCopyButtonStart,
+                ]}
+                onPress={() => handleCopyMessage(item)}
+                hitSlop={8}
+                accessibilityRole="button"
+                accessibilityLabel="Copy message"
+                testID={`chat-copy-${item.id}`}
+              >
+                <Ionicons
+                  name={copiedMessageId === item.id ? "checkmark" : "copy-outline"}
+                  size={12}
+                  color={colors.textFaint}
+                />
+                <Text style={styles.bubbleCopyText}>
+                  {copiedMessageId === item.id ? "Copied" : "Copy"}
+                </Text>
+              </Pressable>
             </View>
           </View>
         )}
@@ -291,7 +318,7 @@ export function AskScreen() {
           <Ionicons name="arrow-up" size={20} color={colors.inverseText} />
         </Pressable>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -427,8 +454,10 @@ const createStyles = (c: ThemeColors) =>
     bubbleRowOther: {
       justifyContent: "flex-start",
     },
-    bubble: {
+    bubbleColumn: {
       maxWidth: "82%",
+    },
+    bubble: {
       borderRadius: 16,
       paddingHorizontal: 14,
       paddingVertical: 10,
@@ -466,6 +495,25 @@ const createStyles = (c: ThemeColors) =>
     },
     bubbleTextBold: {
       fontWeight: "700",
+    },
+    bubbleCopyButton: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 4,
+      marginTop: 4,
+      paddingHorizontal: 4,
+      paddingVertical: 2,
+    },
+    bubbleCopyButtonStart: {
+      alignSelf: "flex-start",
+    },
+    bubbleCopyButtonEnd: {
+      alignSelf: "flex-end",
+    },
+    bubbleCopyText: {
+      fontSize: 10,
+      fontWeight: "600",
+      color: c.textFaint,
     },
     typingRow: {
       flexDirection: "row",
