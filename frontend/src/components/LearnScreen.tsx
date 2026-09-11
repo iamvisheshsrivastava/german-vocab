@@ -83,6 +83,10 @@ export function LearnScreen() {
   const [example, setExample] = useState<WordExample | null>(null);
   const [exampleLoading, setExampleLoading] = useState(false);
   const [exampleError, setExampleError] = useState<"no_key" | "error" | null>(null);
+  // Bumped by the "tap to retry" affordance to re-run the fetch effect below
+  // without needing to swipe away and back — a fresh attempt against a
+  // momentarily-saturated free model often just works.
+  const [exampleRetryToken, setExampleRetryToken] = useState(0);
 
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -157,7 +161,7 @@ export function LearnScreen() {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [revealed, currentWord?.id]);
+  }, [revealed, currentWord?.id, exampleRetryToken]);
 
   const goTo = (direction: "next" | "prev") => {
     if (filteredWordsRef.current.length === 0) return;
@@ -261,6 +265,15 @@ export function LearnScreen() {
   const handleSpeak = () => {
     if (!currentWord) return;
     speak(currentWord.german);
+  };
+
+  const handleSpeakExample = () => {
+    if (!example) return;
+    speak(example.sentence);
+  };
+
+  const handleRetryExample = () => {
+    setExampleRetryToken((t) => t + 1);
   };
 
   // Matches against both English and German (searches the whole vocabulary,
@@ -418,12 +431,14 @@ export function LearnScreen() {
                       <Text
                         style={styles.searchResultGerman}
                         numberOfLines={1}
+                        selectable
                       >
                         {item.german}
                       </Text>
                       <Text
                         style={styles.searchResultEnglish}
                         numberOfLines={1}
+                        selectable
                       >
                         {item.english}
                       </Text>
@@ -508,6 +523,7 @@ export function LearnScreen() {
                       testID="card-english"
                       numberOfLines={2}
                       adjustsFontSizeToFit
+                      selectable
                     >
                       {currentWord.english}
                     </Text>
@@ -518,6 +534,7 @@ export function LearnScreen() {
                           testID="card-german"
                           numberOfLines={2}
                           adjustsFontSizeToFit
+                          selectable
                         >
                           {currentWord.german}
                         </Text>
@@ -531,18 +548,38 @@ export function LearnScreen() {
                             </View>
                           ) : example ? (
                             <>
-                              <Text style={styles.exampleGerman} numberOfLines={3}>
+                              <Text style={styles.exampleGerman} numberOfLines={3} selectable>
                                 {example.sentence}
                               </Text>
-                              <Text style={styles.exampleEnglish} numberOfLines={3}>
+                              <Text style={styles.exampleEnglish} numberOfLines={3} selectable>
                                 {example.translation}
                               </Text>
+                              <Pressable
+                                style={styles.exampleSpeakButton}
+                                onPress={handleSpeakExample}
+                                hitSlop={8}
+                                accessibilityRole="button"
+                                accessibilityLabel="Pronounce example sentence"
+                                testID="example-speak-button"
+                              >
+                                <Ionicons name="volume-medium" size={14} color={colors.textMuted} />
+                                <Text style={styles.exampleSpeakText}>Listen</Text>
+                              </Pressable>
                             </>
                           ) : exampleError === "no_key" ? (
                             <Text style={styles.exampleHint}>
                               Add a free OpenRouter key in the Ask tab to see example
                               sentences here.
                             </Text>
+                          ) : exampleError === "error" ? (
+                            <Pressable
+                              onPress={handleRetryExample}
+                              testID="example-retry-button"
+                            >
+                              <Text style={styles.exampleRetryText}>
+                                Couldn&apos;t load an example — tap to retry
+                              </Text>
+                            </Pressable>
                           ) : null}
                         </View>
                       </>
@@ -938,6 +975,23 @@ const createStyles = (c: ThemeColors) =>
       color: c.textFaint,
       textAlign: "center",
       lineHeight: 16,
+    },
+    exampleRetryText: {
+      fontSize: 12,
+      color: c.textMuted,
+      textAlign: "center",
+      textDecorationLine: "underline",
+    },
+    exampleSpeakButton: {
+      marginTop: 8,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 4,
+    },
+    exampleSpeakText: {
+      fontSize: 11,
+      fontWeight: "600",
+      color: c.textMuted,
     },
     tapHint: {
       marginTop: 24,

@@ -21,6 +21,7 @@ import {
   setApiKey,
 } from "@/src/services/openrouter-service";
 import { ThemeColors, useThemeColors } from "@/src/theme/colors";
+import { renderMarkdownLite } from "@/src/utils/markdown-lite";
 
 const SYSTEM_PROMPT: ChatMessage = {
   role: "system",
@@ -136,7 +137,7 @@ export function AskScreen() {
     return (
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         testID="ask-setup-screen"
       >
         <View style={styles.setupCard}>
@@ -182,7 +183,7 @@ export function AskScreen() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
       testID="ask-chat-screen"
     >
@@ -245,6 +246,7 @@ export function AskScreen() {
               testID={`chat-bubble-${item.role}`}
             >
               <Text
+                selectable
                 style={
                   item.role === "user"
                     ? styles.bubbleTextUser
@@ -253,7 +255,7 @@ export function AskScreen() {
                       : styles.bubbleTextAssistant
                 }
               >
-                {item.content}
+                {renderMarkdownLite(item.content, styles.bubbleTextBold)}
               </Text>
             </View>
           </View>
@@ -461,6 +463,9 @@ const createStyles = (c: ThemeColors) =>
       color: c.danger,
       fontSize: 13,
       lineHeight: 19,
+    },
+    bubbleTextBold: {
+      fontWeight: "700",
     },
     typingRow: {
       flexDirection: "row",

@@ -78,19 +78,31 @@ export async function clearApiKey(): Promise<boolean> {
   return storage.secureRemove(API_KEY_STORAGE_KEY);
 }
 
+// Free models occasionally hang instead of erroring under shared load — cap
+// each attempt so a stuck request doesn't leave the caller's loading state
+// spinning forever with no way to recover.
+const REQUEST_TIMEOUT_MS = 30_000;
+
 async function requestCompletion(key: string, model: string, messages: ChatMessage[]): Promise<Response> {
-  return fetch(API_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      messages,
-      temperature: 0.4,
-    }),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    return await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature: 0.4,
+      }),
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 // A model being deprecated (404) or upstream-saturated (429) is retried once

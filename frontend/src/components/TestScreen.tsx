@@ -149,12 +149,12 @@ export function TestScreen() {
                   testID={`wrong-answer-${w.question.word.id}`}
                 >
                   <View style={styles.reviewWordCol}>
-                    <Text style={styles.reviewEnglish}>{w.question.word.english}</Text>
-                    <Text style={styles.reviewGerman}>{w.question.word.german}</Text>
+                    <Text style={styles.reviewEnglish} selectable>{w.question.word.english}</Text>
+                    <Text style={styles.reviewGerman} selectable>{w.question.word.german}</Text>
                   </View>
                   <View style={styles.reviewYourAnswerCol}>
                     <Text style={styles.reviewYourAnswerLabel}>You answered</Text>
-                    <Text style={styles.reviewYourAnswer} numberOfLines={1}>
+                    <Text style={styles.reviewYourAnswer} numberOfLines={1} selectable>
                       {w.yourAnswer}
                     </Text>
                   </View>
@@ -211,7 +211,7 @@ export function TestScreen() {
       <ScrollView contentContainerStyle={styles.quizBody}>
         <View style={styles.promptCard}>
           <Text style={styles.promptLabel}>Translate to German</Text>
-          <Text style={styles.promptWord} testID="quiz-prompt-word">
+          <Text style={styles.promptWord} testID="quiz-prompt-word" selectable>
             {currentQuestion.word.english}
           </Text>
         </View>
