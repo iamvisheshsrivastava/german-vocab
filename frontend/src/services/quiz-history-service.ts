@@ -30,7 +30,16 @@ export async function loadQuizHistory(): Promise<QuizResult[]> {
   const len = Math.min(c.length, a.length, t.length);
   const results: QuizResult[] = [];
   for (let i = 0; i < len; i++) {
-    results.push({ correct: c[i], answered: a[i], timestamp: t[i] });
+    // Skip corrupted entries (non-numeric / NaN / impossible scores) so a bad
+    // stored value can't surface as NaN% in the UI.
+    const ok =
+      Number.isFinite(c[i]) &&
+      Number.isFinite(a[i]) &&
+      Number.isFinite(t[i]) &&
+      c[i] >= 0 &&
+      a[i] >= 0 &&
+      c[i] <= a[i];
+    if (ok) results.push({ correct: c[i], answered: a[i], timestamp: t[i] });
   }
   return results;
 }
