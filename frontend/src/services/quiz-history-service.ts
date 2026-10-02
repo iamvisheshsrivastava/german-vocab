@@ -84,6 +84,24 @@ export function saveQuizResult(result: QuizResult): Promise<void> {
   return write;
 }
 
+// Clears all saved quiz history. Also resets the write queue so any save
+// already in flight doesn't resurrect pre-clear entries by reading stale
+// history after this completes.
+export function clearQuizHistory(): Promise<void> {
+  const clear = historyWriteQueue
+    .catch(() => {})
+    .then(() =>
+      Promise.all([
+        storage.removeItem(CORRECT_KEY),
+        storage.removeItem(ANSWERED_KEY),
+        storage.removeItem(TIMESTAMP_KEY),
+      ]),
+    )
+    .then(() => undefined);
+  historyWriteQueue = clear.catch(() => {});
+  return clear;
+}
+
 export async function loadLastQuizResult(): Promise<QuizResult | null> {
   const history = await loadQuizHistory();
   return history.length > 0 ? history[history.length - 1] : null;

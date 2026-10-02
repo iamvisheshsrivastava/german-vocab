@@ -219,15 +219,22 @@ export async function loadWeakWords(limit = 10): Promise<{ id: number; misses: n
     .slice(0, limit);
 }
 
-export async function resetStats(): Promise<void> {
-  await Promise.all([
-    storage.removeItem(DATES_KEY),
-    storage.removeItem(WORDS_REVIEWED_KEY),
-    storage.removeItem(TESTS_GIVEN_KEY),
-    storage.removeItem(TESTS_CORRECT_KEY),
-    storage.removeItem(TESTS_ANSWERED_KEY),
-    storage.removeItem(ACTIVE_SECONDS_KEY),
-    storage.removeItem(WEAK_IDS_KEY),
-    storage.removeItem(WEAK_COUNTS_KEY),
-  ]);
+// Routed through statsWriteQueue like every other write here — otherwise a
+// bumpToday/recordMissedWords call already in flight (e.g. a test's
+// recordTestCompleted firing right as the user taps Reset) can finish its
+// read-modify-write after this clears storage, resurrecting pre-reset data
+// (the same race class #26 fixed for quiz history).
+export function resetStats(): Promise<void> {
+  return enqueue(() =>
+    Promise.all([
+      storage.removeItem(DATES_KEY),
+      storage.removeItem(WORDS_REVIEWED_KEY),
+      storage.removeItem(TESTS_GIVEN_KEY),
+      storage.removeItem(TESTS_CORRECT_KEY),
+      storage.removeItem(TESTS_ANSWERED_KEY),
+      storage.removeItem(ACTIVE_SECONDS_KEY),
+      storage.removeItem(WEAK_IDS_KEY),
+      storage.removeItem(WEAK_COUNTS_KEY),
+    ]).then(() => undefined),
+  );
 }

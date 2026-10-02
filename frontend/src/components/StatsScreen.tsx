@@ -4,6 +4,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 
 import { clearApiKey, getApiKey } from "@/src/services/openrouter-service";
 import { resetReviewed } from "@/src/services/progress-service";
+import { clearQuizHistory } from "@/src/services/quiz-history-service";
 import {
   computeStreak,
   DailyStat,
@@ -78,6 +79,7 @@ export function StatsScreen({ active }: { active: boolean }) {
   const handleResetProgress = async () => {
     await resetReviewed();
     await resetStats();
+    await clearQuizHistory();
     setResetConfirmOpen(false);
     refresh();
   };

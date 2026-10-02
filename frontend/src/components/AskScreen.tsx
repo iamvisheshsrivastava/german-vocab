@@ -41,6 +41,12 @@ function nextId(): string {
   return `m${messageCounter}`;
 }
 
+// Only the most recent messages are sent as conversation context — without a
+// cap, a long-running chat would resend its entire history (and consume
+// more tokens) on every single message (mirrors MAX_HISTORY in
+// quiz-history-service.ts).
+const MAX_HISTORY_MESSAGES = 20;
+
 export function AskScreen() {
   const colors = useThemeColors();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -110,6 +116,7 @@ export function AskScreen() {
       SYSTEM_PROMPT,
       ...nextMessages
         .filter((m) => m.role !== "error")
+        .slice(-MAX_HISTORY_MESSAGES)
         .map((m) => ({ role: m.role as "user" | "assistant", content: m.content })),
     ];
 

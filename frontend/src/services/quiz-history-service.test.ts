@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { loadQuizHistory, saveQuizResult } from "./quiz-history-service";
+import { clearQuizHistory, loadQuizHistory, saveQuizResult } from "./quiz-history-service";
 
 describe("quiz-history-service", () => {
   beforeEach(async () => {
@@ -17,5 +17,11 @@ describe("quiz-history-service", () => {
     await AsyncStorage.setItem("gv.quiz.history.answered.v1", JSON.stringify([2, 2, 3]));
     await AsyncStorage.setItem("gv.quiz.history.timestamp.v1", JSON.stringify([1, 2, 3]));
     expect(await loadQuizHistory()).toEqual([{ correct: 1, answered: 2, timestamp: 1 }]);
+  });
+
+  it("clears all saved history", async () => {
+    await saveQuizResult({ correct: 3, answered: 5, timestamp: 100 });
+    await clearQuizHistory();
+    expect(await loadQuizHistory()).toEqual([]);
   });
 });
