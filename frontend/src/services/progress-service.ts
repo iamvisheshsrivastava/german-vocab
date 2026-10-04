@@ -5,7 +5,10 @@ const VIEW_MODE_KEY = "gv.learn.viewmode.v1";
 
 // "toReview" is the storage/wire name for the "Not reviewed" filter (kept as
 // the original string so existing saved preferences still round-trip).
-export type LearnViewMode = "toReview" | "reviewed" | "all";
+// "due" filters to words the spaced-repetition scheduler considers due now
+// (see spaced-repetition-service.ts) — a word that's never been scheduled
+// counts as due, same as a brand-new "toReview" word.
+export type LearnViewMode = "toReview" | "reviewed" | "all" | "due";
 
 // Reviewed IDs are stored as a number array via the storage util, which
 // handles JSON encoding itself — do not JSON.stringify/parse here.
@@ -36,7 +39,7 @@ export async function resetReviewed(): Promise<void> {
 
 export async function loadLearnViewMode(): Promise<LearnViewMode> {
   const mode = await storage.getItem<string>(VIEW_MODE_KEY, "toReview");
-  return mode === "all" || mode === "reviewed" ? mode : "toReview";
+  return mode === "all" || mode === "reviewed" || mode === "due" ? mode : "toReview";
 }
 
 export async function saveLearnViewMode(mode: LearnViewMode): Promise<void> {

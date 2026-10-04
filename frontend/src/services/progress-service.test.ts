@@ -37,6 +37,8 @@ describe("progress-service", () => {
     expect(await loadLearnViewMode()).toBe("all");
     await saveLearnViewMode("reviewed");
     expect(await loadLearnViewMode()).toBe("reviewed");
+    await saveLearnViewMode("due");
+    expect(await loadLearnViewMode()).toBe("due");
     await saveLearnViewMode("toReview");
     expect(await loadLearnViewMode()).toBe("toReview");
   });

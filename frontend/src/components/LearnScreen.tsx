@@ -28,6 +28,11 @@ import {
   saveLearnViewMode,
   saveReviewedIds,
 } from "@/src/services/progress-service";
+import {
+  loadDueIds,
+  RecallRating,
+  rateRecall,
+} from "@/src/services/spaced-repetition-service";
 import { recordWordReviewed } from "@/src/services/stats-service";
 import {
   getCategories,
@@ -45,13 +50,40 @@ const VIEW_MODES: { mode: LearnViewMode; label: string }[] = [
   { mode: "all", label: "All" },
   { mode: "toReview", label: "Not Reviewed" },
   { mode: "reviewed", label: "Reviewed" },
+  { mode: "due", label: "Due" },
 ];
 
+const RATING_BUTTONS: { rating: RecallRating; label: string }[] = [
+  { rating: "again", label: "Again" },
+  { rating: "hard", label: "Hard" },
+  { rating: "good", label: "Good" },
+  { rating: "easy", label: "Easy" },
+];
+
+function ratingColor(rating: RecallRating, c: ThemeColors): string {
+  switch (rating) {
+    case "again":
+      return c.danger;
+    case "hard":
+      return c.warning;
+    case "good":
+      return c.accent;
+    case "easy":
+      return c.success;
+  }
+}
+
 // Computes the (exclude, only) pair selectWords() needs for a given filter.
-function deckFilterFor(mode: LearnViewMode, reviewedIds: Set<number>) {
+// "due" filters by the spaced-repetition schedule (dueIds) rather than the
+// binary reviewed/not-reviewed split the other filters use.
+function deckFilterFor(
+  mode: LearnViewMode,
+  reviewedIds: Set<number>,
+  dueIds: Set<number>,
+) {
   return {
     exclude: mode === "toReview" ? reviewedIds : undefined,
-    only: mode === "reviewed" ? reviewedIds : undefined,
+    only: mode === "reviewed" ? reviewedIds : mode === "due" ? dueIds : undefined,
   };
 }
 
@@ -71,6 +103,7 @@ export function LearnScreen() {
   const [revealed, setRevealed] = useState(false);
   const [reviewedIds, setReviewedIds] = useState<Set<number>>(new Set());
   const [reviewedLoaded, setReviewedLoaded] = useState(false);
+  const [dueIds, setDueIds] = useState<Set<number>>(new Set());
   const [viewMode, setViewMode] = useState<LearnViewMode>("toReview");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -106,14 +139,16 @@ export function LearnScreen() {
   useEffect(() => {
     (async () => {
       try {
-        const [ids, mode] = await Promise.all([
+        const [ids, mode, due] = await Promise.all([
           loadReviewedIds(),
           loadLearnViewMode(),
+          loadDueIds(allWords.map((w) => w.id)),
         ]);
         const idsSet = new Set(ids);
         setReviewedIds(idsSet);
+        setDueIds(due);
         setViewMode(mode);
-        const { exclude, only } = deckFilterFor(mode, idsSet);
+        const { exclude, only } = deckFilterFor(mode, idsSet, due);
         setFilteredWords(selectWords(allWords, ALL_CATEGORY, exclude, only));
       } finally {
         setReviewedLoaded(true);
@@ -238,14 +273,15 @@ export function LearnScreen() {
   };
 
   // Rebuilds the deck for an explicit action (category change, view-mode
-  // toggle) — deliberately not reactive to reviewedIds changes, so marking
-  // the current card reviewed mid-session doesn't yank it away.
+  // toggle) — deliberately not reactive to reviewedIds/dueIds changes, so
+  // marking the current card reviewed/rated mid-session doesn't yank it away.
   const rebuildDeck = (
     cat: string,
     mode: LearnViewMode,
     ids: Set<number>,
+    due: Set<number>,
   ) => {
-    const { exclude, only } = deckFilterFor(mode, ids);
+    const { exclude, only } = deckFilterFor(mode, ids, due);
     setFilteredWords(selectWords(allWords, cat, exclude, only));
     setCurrentIndex(0);
     setRevealed(false);
@@ -255,7 +291,7 @@ export function LearnScreen() {
   const handleSelectCategory = (cat: string) => {
     Speech.stop();
     setCategory(cat);
-    rebuildDeck(cat, viewMode, reviewedIds);
+    rebuildDeck(cat, viewMode, reviewedIds, dueIds);
     setPickerOpen(false);
   };
 
@@ -264,7 +300,37 @@ export function LearnScreen() {
     Speech.stop();
     setViewMode(mode);
     saveLearnViewMode(mode).catch(() => {});
-    rebuildDeck(category, mode, reviewedIds);
+    rebuildDeck(category, mode, reviewedIds, dueIds);
+  };
+
+  // Rates recall for the revealed card via the SM-2-style scheduler, marks
+  // it reviewed (any rating is a review signal, same as the old tap-to-
+  // reveal flow), then advances — mirrors goTo("next") but also refreshes
+  // dueIds so a rated word immediately drops out of the "Due" filter.
+  const handleRate = (rating: RecallRating) => {
+    if (!currentWord) return;
+    const wordId = currentWord.id;
+    // Every rating pushes the next due date at least a day out, so the word
+    // always drops out of today's "Due" filter regardless of which rating.
+    rateRecall(wordId, rating)
+      .then(() => {
+        setDueIds((prev) => {
+          if (!prev.has(wordId)) return prev;
+          const next = new Set(prev);
+          next.delete(wordId);
+          return next;
+        });
+      })
+      .catch(() => {});
+    if (!reviewedIds.has(wordId)) {
+      setReviewedIds((prev) => {
+        const next = new Set(prev);
+        next.add(wordId);
+        return next;
+      });
+      recordWordReviewed().catch(() => {});
+    }
+    goTo("next");
   };
 
   const handleSpeak = () => {
@@ -334,14 +400,16 @@ export function LearnScreen() {
     // the selection is actually visible, keeping viewMode and the deck in
     // sync instead of silently pulling in a word the filter would hide.
     const isReviewed = reviewedIds.has(word.id);
+    const isDue = dueIds.has(word.id);
     let effectiveMode = viewMode;
     if (viewMode === "toReview" && isReviewed) effectiveMode = "all";
     else if (viewMode === "reviewed" && !isReviewed) effectiveMode = "all";
+    else if (viewMode === "due" && !isDue) effectiveMode = "all";
     if (effectiveMode !== viewMode) {
       setViewMode(effectiveMode);
       saveLearnViewMode(effectiveMode).catch(() => {});
     }
-    const { exclude, only } = deckFilterFor(effectiveMode, reviewedIds);
+    const { exclude, only } = deckFilterFor(effectiveMode, reviewedIds, dueIds);
     const newList = selectWords(allWords, ALL_CATEGORY, exclude, only);
     const idx = newList.findIndex((w) => w.id === word.id);
     setFilteredWords(newList);
@@ -643,6 +711,23 @@ export function LearnScreen() {
                               </Text>
                             </Pressable>
                           ) : null}
+                        </View>
+                        <View style={styles.ratingRow} testID="rating-row">
+                          {RATING_BUTTONS.map(({ rating, label }) => (
+                            <Pressable
+                              key={rating}
+                              style={[
+                                styles.ratingButton,
+                                { backgroundColor: ratingColor(rating, colors) },
+                              ]}
+                              onPress={() => handleRate(rating)}
+                              accessibilityRole="button"
+                              accessibilityLabel={`Rate recall: ${label}`}
+                              testID={`rating-${rating}`}
+                            >
+                              <Text style={styles.ratingButtonText}>{label}</Text>
+                            </Pressable>
+                          ))}
                         </View>
                       </>
                     ) : (
@@ -1072,6 +1157,24 @@ const createStyles = (c: ThemeColors) =>
       fontSize: 11,
       fontWeight: "600",
       color: c.textMuted,
+    },
+    ratingRow: {
+      marginTop: 18,
+      flexDirection: "row",
+      gap: 8,
+      width: "100%",
+      paddingHorizontal: 4,
+    },
+    ratingButton: {
+      flex: 1,
+      paddingVertical: 10,
+      borderRadius: 10,
+      alignItems: "center",
+    },
+    ratingButtonText: {
+      color: "#fff",
+      fontSize: 13,
+      fontWeight: "700",
     },
     tapHint: {
       marginTop: 24,

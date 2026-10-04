@@ -132,6 +132,17 @@ export async function loadRecentStats(days = 7): Promise<DailyStat[]> {
   return rows.slice(-days);
 }
 
+// Full daily history (not capped by a day count) and a raw replace, used by
+// backup-service.ts to bundle/restore stats without going through
+// bumpToday's merge semantics.
+export async function loadAllStats(): Promise<DailyStat[]> {
+  return loadDaily();
+}
+
+export function replaceAllStats(rows: DailyStat[]): Promise<void> {
+  return enqueue(() => saveDaily(rows.slice(-MAX_DAYS)));
+}
+
 export async function loadTodayStats(): Promise<DailyStat> {
   const rows = await loadDaily();
   const key = dateKey();
@@ -217,6 +228,21 @@ export async function loadWeakWords(limit = 10): Promise<{ id: number; misses: n
     .map((id, i) => ({ id, misses: countArr[i] ?? 0 }))
     .sort((a, b) => b.misses - a.misses)
     .slice(0, limit);
+}
+
+// Unsorted, uncapped-by-limit list for backup-service.ts, plus a raw
+// replace used when restoring a backup.
+export function loadAllWeakWords(): Promise<{ id: number; misses: number }[]> {
+  return loadWeakWords(MAX_WEAK_WORDS);
+}
+
+export function replaceWeakWords(words: { id: number; misses: number }[]): Promise<void> {
+  return enqueue(() =>
+    Promise.all([
+      storage.setItem(WEAK_IDS_KEY, words.map((w) => w.id)),
+      storage.setItem(WEAK_COUNTS_KEY, words.map((w) => w.misses)),
+    ]).then(() => undefined),
+  );
 }
 
 // Routed through statsWriteQueue like every other write here — otherwise a
