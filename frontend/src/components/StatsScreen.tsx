@@ -1,10 +1,28 @@
 import { Ionicons } from "@expo/vector-icons";
+import * as Clipboard from "expo-clipboard";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
+import {
+  BackupBlob,
+  createBackup,
+  parseBackup,
+  restoreBackup,
+  serializeBackup,
+} from "@/src/services/backup-service";
 import { clearApiKey, getApiKey } from "@/src/services/openrouter-service";
 import { resetReviewed } from "@/src/services/progress-service";
 import { clearQuizHistory } from "@/src/services/quiz-history-service";
+import { resetSchedule } from "@/src/services/spaced-repetition-service";
 import {
   computeStreak,
   DailyStat,
@@ -53,6 +71,12 @@ export function StatsScreen({ active }: { active: boolean }) {
   const [weakWords, setWeakWords] = useState<{ id: number; misses: number }[]>([]);
   const [hasKey, setHasKey] = useState(false);
   const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
+  const [exportBusy, setExportBusy] = useState(false);
+  const [exportFeedback, setExportFeedback] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
+  const [importText, setImportText] = useState("");
+  const [importError, setImportError] = useState<string | null>(null);
+  const [pendingImport, setPendingImport] = useState<BackupBlob | null>(null);
 
   const refresh = useCallback(async () => {
     const [s, t, r, w, key] = await Promise.all([
@@ -80,6 +104,7 @@ export function StatsScreen({ active }: { active: boolean }) {
     await resetReviewed();
     await resetStats();
     await clearQuizHistory();
+    await resetSchedule();
     setResetConfirmOpen(false);
     refresh();
   };
@@ -87,6 +112,61 @@ export function StatsScreen({ active }: { active: boolean }) {
   const handleRemoveKey = async () => {
     await clearApiKey();
     setHasKey(false);
+  };
+
+  // Exporting copies the full backup JSON to the clipboard and opens the
+  // native share sheet (via RN's own Share API, which needs no extra native
+  // module) so the text can be saved to Drive/iCloud/Notes/email — the same
+  // destinations expo-sharing would reach, without an extra dependency.
+  const handleExport = async () => {
+    setExportBusy(true);
+    setExportFeedback(null);
+    try {
+      const blob = await createBackup();
+      const text = serializeBackup(blob);
+      await Clipboard.setStringAsync(text);
+      setExportFeedback("Copied to clipboard");
+      try {
+        await Share.share({
+          message: text,
+          title: `german-vocab-backup-${dateKey()}.json`,
+        });
+      } catch {
+        // Share sheet dismissed/unavailable — the clipboard copy above is
+        // already a complete export, so this isn't fatal.
+      }
+    } catch {
+      setExportFeedback("Export failed");
+    } finally {
+      setExportBusy(false);
+      setTimeout(() => setExportFeedback(null), 3000);
+    }
+  };
+
+  const handleOpenImport = () => {
+    setImportText("");
+    setImportError(null);
+    setPendingImport(null);
+    setImportOpen(true);
+  };
+
+  const handleValidateImport = () => {
+    const result = parseBackup(importText);
+    if (!result.ok) {
+      setImportError(result.error);
+      setPendingImport(null);
+      return;
+    }
+    setImportError(null);
+    setPendingImport(result.blob);
+  };
+
+  const handleConfirmImport = async () => {
+    if (!pendingImport) return;
+    await restoreBackup(pendingImport);
+    setImportOpen(false);
+    setPendingImport(null);
+    refresh();
   };
 
   const maxWordsReviewed = Math.max(1, ...recent.map((r) => r.wordsReviewed));
@@ -236,6 +316,38 @@ export function StatsScreen({ active }: { active: boolean }) {
           ) : null}
         </View>
 
+        {/* Backup */}
+        <Text style={styles.sectionTitle}>Backup</Text>
+        <View style={styles.backupRow}>
+          <Pressable
+            style={[styles.backupButton, styles.backupButtonPrimary]}
+            onPress={handleExport}
+            disabled={exportBusy}
+            testID="stats-export-button"
+          >
+            <Ionicons name="download-outline" size={16} color={colors.inverseText} />
+            <Text style={styles.backupButtonPrimaryText}>Export data</Text>
+          </Pressable>
+          <Pressable
+            style={styles.backupButton}
+            onPress={handleOpenImport}
+            testID="stats-import-button"
+          >
+            <Ionicons name="cloud-upload-outline" size={16} color={colors.textPrimary} />
+            <Text style={styles.backupButtonText}>Import data</Text>
+          </Pressable>
+        </View>
+        {exportFeedback ? (
+          <Text style={styles.backupFeedback} testID="export-feedback">
+            {exportFeedback}
+          </Text>
+        ) : (
+          <Text style={styles.emptyHint}>
+            Export saves a JSON backup of every word you&apos;ve reviewed, your stats,
+            and your spaced-repetition schedule — restore it on this or another device.
+          </Text>
+        )}
+
         {/* Danger zone */}
         <Text style={styles.sectionTitle}>Reset</Text>
         <Pressable
@@ -276,6 +388,79 @@ export function StatsScreen({ active }: { active: boolean }) {
               >
                 <Text style={styles.confirmDestructiveText}>Reset</Text>
               </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Import backup: paste the exported JSON, validate, then confirm —
+          this overwrites current progress, same destructive-action pattern
+          as the reset confirmation above. */}
+      <Modal
+        visible={importOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setImportOpen(false)}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.confirmSheet} testID="import-sheet">
+            <Text style={styles.confirmTitle}>Import backup</Text>
+            <Text style={styles.confirmBody}>
+              Paste a previously exported backup below. Importing overwrites your
+              current progress.
+            </Text>
+            <TextInput
+              style={styles.importInput}
+              value={importText}
+              onChangeText={(t) => {
+                setImportText(t);
+                setPendingImport(null);
+                setImportError(null);
+              }}
+              placeholder="Paste backup JSON here"
+              placeholderTextColor={colors.textFaint}
+              multiline
+              numberOfLines={6}
+              autoCorrect={false}
+              testID="import-input"
+            />
+            {importError ? (
+              <Text style={styles.importError} testID="import-error">
+                {importError}
+              </Text>
+            ) : pendingImport ? (
+              <Text style={styles.importValid} testID="import-valid">
+                Valid backup from{" "}
+                {new Date(pendingImport.exportedAt).toLocaleDateString()} — tap Restore
+                to continue.
+              </Text>
+            ) : null}
+            <View style={styles.confirmButtons}>
+              <Pressable
+                style={[styles.confirmBtn, styles.confirmCancel]}
+                onPress={() => setImportOpen(false)}
+                testID="import-cancel-button"
+              >
+                <Text style={styles.confirmCancelText}>Cancel</Text>
+              </Pressable>
+              {pendingImport ? (
+                <Pressable
+                  style={[styles.confirmBtn, styles.confirmDestructive]}
+                  onPress={handleConfirmImport}
+                  testID="import-confirm-button"
+                >
+                  <Text style={styles.confirmDestructiveText}>Restore</Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  style={[styles.confirmBtn, styles.confirmCancel]}
+                  onPress={handleValidateImport}
+                  disabled={importText.trim().length === 0}
+                  testID="import-validate-button"
+                >
+                  <Text style={styles.confirmCancelText}>Check</Text>
+                </Pressable>
+              )}
             </View>
           </View>
         </View>
@@ -498,6 +683,64 @@ const createStyles = (c: ThemeColors) =>
       fontSize: 13,
       fontWeight: "700",
       color: c.danger,
+    },
+    backupRow: {
+      flexDirection: "row",
+      gap: 10,
+      marginBottom: 8,
+    },
+    backupButton: {
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      backgroundColor: c.surface,
+      borderRadius: 14,
+      borderWidth: 1,
+      borderColor: c.border,
+      paddingVertical: 12,
+    },
+    backupButtonPrimary: {
+      backgroundColor: c.inverseSurface,
+      borderColor: c.inverseSurface,
+    },
+    backupButtonText: {
+      fontSize: 14,
+      fontWeight: "600",
+      color: c.textPrimary,
+    },
+    backupButtonPrimaryText: {
+      fontSize: 14,
+      fontWeight: "700",
+      color: c.inverseText,
+    },
+    backupFeedback: {
+      fontSize: 13,
+      color: c.success,
+      fontWeight: "600",
+      marginBottom: 24,
+    },
+    importInput: {
+      backgroundColor: c.surfaceAlt,
+      borderRadius: 12,
+      padding: 12,
+      fontSize: 13,
+      color: c.textPrimary,
+      minHeight: 120,
+      textAlignVertical: "top",
+      marginTop: 4,
+      marginBottom: 10,
+    },
+    importError: {
+      fontSize: 12,
+      color: c.danger,
+      marginBottom: 10,
+    },
+    importValid: {
+      fontSize: 12,
+      color: c.success,
+      marginBottom: 10,
     },
     resetButton: {
       flexDirection: "row",

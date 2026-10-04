@@ -84,6 +84,21 @@ export function saveQuizResult(result: QuizResult): Promise<void> {
   return write;
 }
 
+// Overwrites the full history outright (used by backup-service.ts when
+// restoring a backup) rather than appending like saveQuizResult does.
+export function replaceQuizHistory(results: QuizResult[]): Promise<void> {
+  const write = historyWriteQueue.then(async () => {
+    const next = results.slice(-MAX_HISTORY);
+    await Promise.all([
+      storage.setItem(CORRECT_KEY, next.map((r) => r.correct)),
+      storage.setItem(ANSWERED_KEY, next.map((r) => r.answered)),
+      storage.setItem(TIMESTAMP_KEY, next.map((r) => r.timestamp)),
+    ]);
+  });
+  historyWriteQueue = write.catch(() => {});
+  return write;
+}
+
 // Clears all saved quiz history. Also resets the write queue so any save
 // already in flight doesn't resurrect pre-clear entries by reading stale
 // history after this completes.
