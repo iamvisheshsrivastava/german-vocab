@@ -6,7 +6,14 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSpeak } from "@/src/hooks/use-speak";
 import { saveQuizResult } from "@/src/services/quiz-history-service";
 import { recordMissedWords, recordTestCompleted } from "@/src/services/stats-service";
-import { generateQuestions, QuizQuestion } from "@/src/services/quiz-service";
+import {
+  directionForMode,
+  generateQuestions,
+  loadQuizMode,
+  QuizMode,
+  QuizQuestion,
+  saveQuizMode,
+} from "@/src/services/quiz-service";
 import { loadVocabulary } from "@/src/services/vocabulary-service";
 import { ThemeColors, useThemeColors } from "@/src/theme/colors";
 
@@ -22,6 +29,12 @@ type WrongAnswer = {
   yourAnswer: string;
 };
 
+const MODES: { mode: QuizMode; label: string }[] = [
+  { mode: "standard", label: "EN → DE" },
+  { mode: "reverse", label: "DE → EN" },
+  { mode: "listening", label: "Listening" },
+];
+
 export function TestScreen() {
   const colors = useThemeColors();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -29,6 +42,8 @@ export function TestScreen() {
   const allWords = useMemo(() => loadVocabulary(), []);
   const { speak, unavailable: speechUnavailable } = useSpeak();
 
+  const [mode, setMode] = useState<QuizMode>("standard");
+  const [modeLoaded, setModeLoaded] = useState(false);
   const [phase, setPhase] = useState<Phase>("active");
   const [questions, setQuestions] = useState<QuizQuestion[]>(() =>
     generateQuestions(allWords, allWords.length),
@@ -46,6 +61,22 @@ export function TestScreen() {
 
   const currentQuestion: QuizQuestion | undefined = questions[currentIndex];
 
+  // Load the last-used mode on mount and regenerate the initial question
+  // queue for it — mirrors how the last quiz result is already remembered
+  // (quiz-history-service.ts).
+  useEffect(() => {
+    (async () => {
+      try {
+        const saved = await loadQuizMode();
+        setMode(saved);
+        setQuestions(generateQuestions(allWords, allWords.length, directionForMode(saved)));
+      } finally {
+        setModeLoaded(true);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Stop any in-progress speech when the screen unmounts.
   useEffect(() => {
     return () => {
@@ -53,23 +84,55 @@ export function TestScreen() {
     };
   }, []);
 
+  // In listening mode the German prompt word is spoken automatically
+  // instead of shown — reuses the same use-speak.ts TTS plumbing as the
+  // per-option pronounce buttons.
+  useEffect(() => {
+    if (mode !== "listening" || !currentQuestion || phase !== "active") return;
+    speak(currentQuestion.word.german);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, currentQuestion?.word.id, phase]);
+
   // Keep the question queue topped up so answering never hits a dead end —
   // the user decides when they're done via "End Test", not the pool size.
   useEffect(() => {
-    if (allWords.length === 0) return;
+    if (allWords.length === 0 || !modeLoaded) return;
     if (questions.length - currentIndex <= REFILL_THRESHOLD) {
-      setQuestions((prev) => [...prev, ...generateQuestions(allWords, allWords.length)]);
+      setQuestions((prev) => [
+        ...prev,
+        ...generateQuestions(allWords, allWords.length, directionForMode(mode)),
+      ]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex, allWords.length]);
+  }, [currentIndex, allWords.length, modeLoaded]);
 
   const handleSpeakOption = (option: string) => {
     speak(option);
   };
 
+  const handleReplay = () => {
+    if (!currentQuestion) return;
+    speak(currentQuestion.word.german);
+  };
+
+  const handleSelectMode = (next: QuizMode) => {
+    if (next === mode) return;
+    Speech.stop();
+    setMode(next);
+    saveQuizMode(next).catch(() => {});
+    setQuestions(generateQuestions(allWords, allWords.length, directionForMode(next)));
+    wrongAnswersRef.current = [];
+    setCurrentIndex(0);
+    setSelectedOption(null);
+    setAnswered(false);
+    setScore({ correct: 0, answered: 0 });
+    setCompletedSummary(null);
+    setPhase("active");
+  };
+
   const startNewTest = () => {
     Speech.stop();
-    setQuestions(generateQuestions(allWords, allWords.length));
+    setQuestions(generateQuestions(allWords, allWords.length, directionForMode(mode)));
     wrongAnswersRef.current = [];
     setCurrentIndex(0);
     setSelectedOption(null);
@@ -188,8 +251,39 @@ export function TestScreen() {
     );
   }
 
+  const isListening = mode === "listening";
+  const promptLabel =
+    mode === "standard"
+      ? "Translate to German"
+      : mode === "reverse"
+        ? "Translate to English"
+        : "Listen, then pick the English meaning";
+  const promptWord = currentQuestion.direction === "de-en" ? currentQuestion.word.german : currentQuestion.word.english;
+
   return (
     <View style={styles.container} testID="test-active-screen">
+      <View style={styles.modeRow} testID="quiz-mode-toggle">
+        {MODES.map(({ mode: m, label }) => (
+          <Pressable
+            key={m}
+            style={[styles.modeSegment, mode === m && styles.modeSegmentActive]}
+            onPress={() => handleSelectMode(m)}
+            accessibilityRole="button"
+            accessibilityLabel={`Switch to ${label} mode`}
+            accessibilityState={{ selected: mode === m }}
+            testID={`quiz-mode-${m}`}
+          >
+            <Text
+              style={[styles.modeText, mode === m && styles.modeTextActive]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+            >
+              {label}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
       <View style={styles.quizHeader}>
         <Text style={styles.quizProgress} testID="quiz-progress">
           Question {currentIndex + 1}
@@ -210,10 +304,23 @@ export function TestScreen() {
 
       <ScrollView contentContainerStyle={styles.quizBody}>
         <View style={styles.promptCard}>
-          <Text style={styles.promptLabel}>Translate to German</Text>
-          <Text style={styles.promptWord} testID="quiz-prompt-word" selectable>
-            {currentQuestion.word.english}
-          </Text>
+          <Text style={styles.promptLabel}>{promptLabel}</Text>
+          {isListening ? (
+            <Pressable
+              style={styles.replayButton}
+              onPress={handleReplay}
+              accessibilityRole="button"
+              accessibilityLabel="Replay audio"
+              testID="quiz-replay-button"
+            >
+              <Ionicons name="volume-high" size={32} color={colors.accent} />
+              <Text style={styles.replayButtonText}>Tap to replay</Text>
+            </Pressable>
+          ) : (
+            <Text style={styles.promptWord} testID="quiz-prompt-word" selectable>
+              {promptWord}
+            </Text>
+          )}
         </View>
 
         <View style={styles.optionsList}>
@@ -307,6 +414,37 @@ const createStyles = (c: ThemeColors) =>
       fontSize: 14,
       color: c.textSecondary,
     },
+    modeRow: {
+      flexDirection: "row",
+      backgroundColor: c.surfaceAlt,
+      borderRadius: 12,
+      padding: 3,
+      marginBottom: 16,
+      gap: 2,
+    },
+    modeSegment: {
+      flex: 1,
+      paddingVertical: 8,
+      paddingHorizontal: 4,
+      borderRadius: 9,
+      alignItems: "center",
+    },
+    modeSegmentActive: {
+      backgroundColor: c.surface,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.08,
+      shadowRadius: 3,
+      elevation: 1,
+    },
+    modeText: {
+      fontSize: 12,
+      fontWeight: "600",
+      color: c.textMuted,
+    },
+    modeTextActive: {
+      color: c.textPrimary,
+    },
     quizHeader: {
       flexDirection: "row",
       justifyContent: "space-between",
@@ -366,6 +504,16 @@ const createStyles = (c: ThemeColors) =>
       color: c.textPrimary,
       textAlign: "center",
       letterSpacing: -0.5,
+    },
+    replayButton: {
+      alignItems: "center",
+      gap: 8,
+      paddingVertical: 8,
+    },
+    replayButtonText: {
+      fontSize: 13,
+      fontWeight: "600",
+      color: c.textMuted,
     },
     optionsList: {
       gap: 12,
